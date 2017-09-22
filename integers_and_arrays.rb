@@ -1,16 +1,34 @@
+# NOTE: If you think of multiple approaches to solve the problem, implement the solution which minimizes space complexity. Explain the other approaches, and your decision in comments above the code. Share and explain the time and space complexity for each method.
+
 # Returns count of digits matching in the two input non-negative integers
+# time complexity - O(n) where n is the length of the longest integer. It iterates over each digit
+# space complexity - O(1) the space doesn't change with increasing integer size.
+# an additional way would be to mod each integer separately - this would add a couple more variables but the space complexity would still be constant. You could also iterate over the smaller length number which would decrease your time complexity.
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  raise ArgumentError if number_1 < 0 || number_2 < 0
+  diff = (number_1 - number_2).abs
+  count = 0
+  while diff > 0
+    digit = diff % 10
+    if digit == 0
+      count += 1
+    end
+    diff = diff / 10
+  end
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+# time complexity
+# space complexity
 def is_palindrome(number)
   puts "NOT IMPLEMENTED"
   return true
 end
 
 # Computes factorial of the input number and returns it
+# time complexity
+# space complexity
 def factorial(number)
   puts "NOT IMPLEMENTED"
   return number
@@ -22,12 +40,16 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+# time complexity
+# space complexity
 def fibonacci(n)
   puts "NOT IMPLEMENTED"
   return n
 end
 
 # Creates a new array to return the intersection of the two input arrays
+# time complexity
+# space complexity
 def intersection(array_1, array_2)
   puts "NOT IMPLEMENTED"
   return []
@@ -39,6 +61,8 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
+# time complexity
+# space complexity
 def matrix_convert_to_0(matrix)
   puts "NOT IMPLEMENTED"
 end
@@ -47,6 +71,8 @@ end
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
+# time complexity
+# space complexity
 def matrix_check_sum(matrix)
   puts "NOT IMPLEMENTED"
 end
