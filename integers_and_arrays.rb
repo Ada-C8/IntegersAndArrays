@@ -22,7 +22,16 @@ end
 # time complexity
 # space complexity
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  while number > 0
+    length = (Math.log10(number)).to_i
+    less_sig = number / (10**length)
+    most_sig = number % 10
+    if less_sig != most_sig
+      return false
+    end
+    number -= less_sig * (10**(length))
+    number /= 10
+  end
   return true
 end
 
