@@ -36,11 +36,18 @@ def is_palindrome(number)
 end
 
 # Computes factorial of the input number and returns it
-# time complexity
-# space complexity
+# time complexity - O(n) where n is the number, it loops through the number times
+# space complexity - O(1), space is constant because it is not using more memory just overrighting the variable
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0
+    return 1
+  end
+  product = 1;
+  while number > 0
+    product *= number
+    number -= 1
+  end
+  return product
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
