@@ -1,26 +1,26 @@
 # NOTE: If you think of multiple approaches to solve the problem, implement the solution which minimizes space complexity. Explain the other approaches, and your decision in comments above the code. Share and explain the time and space complexity for each method.
 
 # Returns count of digits matching in the two input non-negative integers
-# time complexity - O(n) where n is the length of the longest integer. It iterates over each digit
+# time complexity - O(n) where n is the length of the smallest integer. It iterates over each digit
 # space complexity - O(1) the space doesn't change with increasing integer size.
-# an additional way would be to mod each integer separately - this would add a couple more variables but the space complexity would still be constant. You could also iterate over the smaller length number which would decrease your time complexity.
 def digit_match(number_1, number_2)
   raise ArgumentError if number_1 < 0 || number_2 < 0
-  diff = (number_1 - number_2).abs
   count = 0
-  while diff > 0
-    digit = diff % 10
-    if digit == 0
+  while number_1 > 0 && number_2 > 0
+    digit1 = number_1 % 10
+    digit2 = number_2 % 10
+    if digit1 == digit2
       count += 1
     end
-    diff = diff / 10
+    number_1 /= 10
+    number_2 /= 10
   end
   return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
-# time complexity
-# space complexity
+# time complexity - the code loops through the integer based on nof_digits/2 therefore the overall would be O(n)
+# space complexity - O(1) only constant varaibles are used
 def is_palindrome(number)
   while number > 0
     length = (Math.log10(number)).to_i
