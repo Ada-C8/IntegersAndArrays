@@ -1,19 +1,55 @@
+require 'pry'
 # Returns count of digits matching in the two input non-negative integers
+
+def length(num)             # there is no #length method for Integers in Ruby so i made one
+  return 0 if num == 0
+  count = 0
+  until num == 0
+    num /= 10
+    count += 1
+  end
+  return count
+end
+
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  return length(number_1) if number_1 == number_2
+  number_1 %= 10 ** [length(number_1), length(number_2)].min
+  number_2 %= 10 ** length(number_1)
+  i = 10 ** length(number_1)
+  count = 0
+  until i == 1
+    if ((number_1 % i) / (i / 10)) == ((number_2 % i) / (i / 10))
+      count += 1
+    end
+    i /= 10
+  end
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  i = 1
+  until i > length(number)
+    # variables "first", "last", and "i2" are just to help human readability and could be eliminated to slightly reduce memory usage without affecting time complexity
+    i2 = length(number) - i
+    first = (number % (10 ** (i2 + 1))) / (10 ** (i2))
+    last = (number % (10 ** (i))) / (10 ** (i-1))
+    unless first == last
+      return false
+    end
+    i += 1
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  total = 1
+  until number == 0
+    total *= number
+    number -= 1
+  end
+  return total
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +59,22 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  i = 1
+  prev = 1
+  last = 0
+  num = 0
+  n.times do |i|
+    num = prev + last
+    prev = last
+    last = num
+  end
+  return num
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  result = []
+  
 end
 
 # Questions on 2D array or matrix
@@ -117,6 +161,10 @@ fib = fibonacci(1)
 if fib != 1
   puts "BUG!! the 1st fibonacci number is 0 and not #{fib}."
 end
+fib = fibonacci(0)
+if fib != 0
+  puts "BUG!! the 0th fibonacci number is 0 and not #{fib}."
+end
 fib = fibonacci(3)
 if fib != 2
   puts "BUG!! the 3rd fibonacci number is 2 and not #{fib}."
@@ -158,210 +206,210 @@ if common_elements != expected_intersection
   print common_elements
   puts
 end
-# Test 2
-array_1 = [70, 90, 34, 21, 78, 42]
-array_2 = [21, 67, 54, 29, 42, 30]
-expected_intersection = [21, 42]
-common_elements = intersection(array_1, array_2).sort
-if common_elements != expected_intersection
-  puts "BUG!! Intersection elements unexpected."
-  print "Array 1: "
-  print array_1
-  print " Array 2: "
-  print array_2
-  puts
-  print "Expected intersection: "
-  print expected_intersection
-  print "Intersection method returned: "
-  print common_elements
-  puts
-end
-# Test 3
-array_1 = [2, 5, 4, 1, 89]
-array_2 = [89, 5, 4, 1, 2]
-expected_intersection = [1, 2, 4, 5, 89]
-common_elements = intersection(array_1, array_2).sort
-if common_elements != expected_intersection
-  puts "BUG!! Intersection elements unexpected."
-  print "Array 1: "
-  print array_1
-  print " Array 2: "
-  print array_2
-  puts
-  print "Expected intersection: "
-  print expected_intersection
-  print "Intersection method returned: "
-  print common_elements
-  puts
-end
-# Test 4
-array_1 = [92, 2, 5, 4, 1, 89, 90]
-array_2 = [89, 5, 76, 4, 1, 2]
-expected_intersection = [1, 2, 4, 5, 89]
-common_elements = intersection(array_1, array_2).sort
-if common_elements != expected_intersection
-  puts "BUG!! Intersection elements unexpected."
-  print "Array 1: "
-  print array_1
-  print " Array 2: "
-  print array_2
-  puts
-  print "Expected intersection: "
-  print expected_intersection
-  print "Intersection method returned: "
-  print common_elements
-  puts
-end
-puts "End of intersection of two arrays tests.\n\n"
+# # Test 2
+# array_1 = [70, 90, 34, 21, 78, 42]
+# array_2 = [21, 67, 54, 29, 42, 30]
+# expected_intersection = [21, 42]
+# common_elements = intersection(array_1, array_2).sort
+# if common_elements != expected_intersection
+#   puts "BUG!! Intersection elements unexpected."
+#   print "Array 1: "
+#   print array_1
+#   print " Array 2: "
+#   print array_2
+#   puts
+#   print "Expected intersection: "
+#   print expected_intersection
+#   print "Intersection method returned: "
+#   print common_elements
+#   puts
+# end
+# # Test 3
+# array_1 = [2, 5, 4, 1, 89]
+# array_2 = [89, 5, 4, 1, 2]
+# expected_intersection = [1, 2, 4, 5, 89]
+# common_elements = intersection(array_1, array_2).sort
+# if common_elements != expected_intersection
+#   puts "BUG!! Intersection elements unexpected."
+#   print "Array 1: "
+#   print array_1
+#   print " Array 2: "
+#   print array_2
+#   puts
+#   print "Expected intersection: "
+#   print expected_intersection
+#   print "Intersection method returned: "
+#   print common_elements
+#   puts
+# end
+# # Test 4
+# array_1 = [92, 2, 5, 4, 1, 89, 90]
+# array_2 = [89, 5, 76, 4, 1, 2]
+# expected_intersection = [1, 2, 4, 5, 89]
+# common_elements = intersection(array_1, array_2).sort
+# if common_elements != expected_intersection
+#   puts "BUG!! Intersection elements unexpected."
+#   print "Array 1: "
+#   print array_1
+#   print " Array 2: "
+#   print array_2
+#   puts
+#   print "Expected intersection: "
+#   print expected_intersection
+#   print "Intersection method returned: "
+#   print common_elements
+#   puts
+# end
+# puts "End of intersection of two arrays tests.\n\n"
 
-puts "Tests for Matrix convert to zero"
-## helper method for creating and initializing a matrix with 1s
-def initialize_matrix(rows, columns)
-  # create the matrix using the rows and columns
-  matrix = Array.new(rows){Array.new(columns)}
-
-  # initialize the matrix
-  rows.times do |row|
-    columns.times do |column|
-      matrix[row][column] = 1
-    end
-  end
-  return matrix
-end
-# helper method for verifying updated matrix
-def verify_matrix(matrix, rows_array, columns_array)
-  rows = matrix.size
-  columns = matrix[0].size
-
-  rows.times do |row|
-    columns.times do |column|
-      if (rows_array.include?(row) || columns_array.include?(column))
-        if matrix[row][column] != 0
-          puts "BUG!!! matrix[#{row}][#{column}] should be 0"
-          return false
-        end
-      elsif matrix[row][column] != 1
-        puts "BUG!!! matrix[#{row}][#{column}] should be 1"
-        return false
-      end
-    end
-  end
-  return true
-end
-# Test 1
-rows = 3
-columns = 5
-matrix = initialize_matrix(rows, columns)
-matrix[1][3] = 0 # row 1, column 3
-matrix[2][4] = 0 # row 2, column 4
-rows_array = [1, 2]
-columns_array = [3, 4]
-puts "Original:"
-rows.times do |row|
-  print matrix[row]
-  puts
-end
-matrix_convert_to_0(matrix)
-puts "Converted:"
-rows.times do |row|
-  print matrix[row]
-  puts
-end
-verify_matrix(matrix, rows_array, columns_array)
-# Test 2
-rows = 5
-columns = 3
-matrix = initialize_matrix(rows, columns)
-matrix[0][1] = 0 # row 0, column 1
-matrix[1][1] = 0 # row 1, column 1
-matrix[2][1] = 0 # row 2, column 1
-matrix[3][1] = 0 # row 3, column 1
-matrix[4][1] = 0 # row 4, column 1
-rows_array = [0, 1, 2, 3, 4]
-columns_array = [1]
-puts "Original:"
-rows.times do |row|
-  print matrix[row]
-  puts
-end
-matrix_convert_to_0(matrix)
-puts "Converted:"
-rows.times do |row|
-  print matrix[row]
-  puts
-end
-verify_matrix(matrix, rows_array, columns_array)
-# Test 3
-rows = 4
-columns = 4
-matrix = initialize_matrix(rows, columns)
-rows_array = []
-columns_array = []
-puts "Original:"
-rows.times do |row|
-  print matrix[row]
-  puts
-end
-matrix_convert_to_0(matrix)
-puts "Converted:"
-rows.times do |row|
-  print matrix[row]
-  puts
-end
-verify_matrix(matrix, rows_array, columns_array)
-puts "End of matrix convert to zero tests.\n\n"
-
-puts "Tests for Matrix check sum of rows and columns"
-matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-          [9, 5, 3, 1], # sum of 1st row = 18
-          [0, 3, 5, 6], # sum of 2nd row = 14
-          [0, 8, 3, 6]] # sum of 3rd row = 17
-# sums = 10, 18, 14, 17 for columns 0 through 3
-if matrix_check_sum(matrix) == false
-  puts "BUG!! Sums of each row matches the corresponding column in this matrix."
-  rows = matrix.length
-  rows.times do |row|
-    print matrix[row]
-    puts
-  end
-end
-# test 2
-rows = 5
-columns = 5
-matrix = initialize_matrix(rows, columns) # initialize to all 0s
-matrix[0][2] = 4
-matrix[2][0] = 4
-if matrix_check_sum(matrix) == false
-  puts "BUG!! Sums of each row matches the corresponding column in this matrix."
-  rows = matrix.length
-  rows.times do |row|
-    print matrix[row]
-    puts
-  end
-end
-# test 3
-matrix = [[1, 2, 3],
-          [4, 5, 6],
-          [7, 8, 9],
-          [10, 11, 12]]
-if matrix_check_sum(matrix) == true
-  puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
-  rows = matrix.length
-  rows.times do |row|
-    print matrix[row]
-    puts
-  end
-end
-# test 3
-matrix = [[1, 10, 1],
-          [2, 3, 12],
-          [9, 4, 9]]
-if matrix_check_sum(matrix) == false
-  puts "BUG!! Sums of each row matches the corresponding column in this matrix."
-  rows = matrix.length
-  rows.times do |row|
-    print matrix[row]
-    puts
-  end
-end
-puts "End of matrix check sum of rows and columns.\n\n"
+# puts "Tests for Matrix convert to zero"
+# ## helper method for creating and initializing a matrix with 1s
+# def initialize_matrix(rows, columns)
+#   # create the matrix using the rows and columns
+#   matrix = Array.new(rows){Array.new(columns)}
+#
+#   # initialize the matrix
+#   rows.times do |row|
+#     columns.times do |column|
+#       matrix[row][column] = 1
+#     end
+#   end
+#   return matrix
+# end
+# # helper method for verifying updated matrix
+# def verify_matrix(matrix, rows_array, columns_array)
+#   rows = matrix.size
+#   columns = matrix[0].size
+#
+#   rows.times do |row|
+#     columns.times do |column|
+#       if (rows_array.include?(row) || columns_array.include?(column))
+#         if matrix[row][column] != 0
+#           puts "BUG!!! matrix[#{row}][#{column}] should be 0"
+#           return false
+#         end
+#       elsif matrix[row][column] != 1
+#         puts "BUG!!! matrix[#{row}][#{column}] should be 1"
+#         return false
+#       end
+#     end
+#   end
+#   return true
+# end
+# # Test 1
+# rows = 3
+# columns = 5
+# matrix = initialize_matrix(rows, columns)
+# matrix[1][3] = 0 # row 1, column 3
+# matrix[2][4] = 0 # row 2, column 4
+# rows_array = [1, 2]
+# columns_array = [3, 4]
+# puts "Original:"
+# rows.times do |row|
+#   print matrix[row]
+#   puts
+# end
+# matrix_convert_to_0(matrix)
+# puts "Converted:"
+# rows.times do |row|
+#   print matrix[row]
+#   puts
+# end
+# verify_matrix(matrix, rows_array, columns_array)
+# # Test 2
+# rows = 5
+# columns = 3
+# matrix = initialize_matrix(rows, columns)
+# matrix[0][1] = 0 # row 0, column 1
+# matrix[1][1] = 0 # row 1, column 1
+# matrix[2][1] = 0 # row 2, column 1
+# matrix[3][1] = 0 # row 3, column 1
+# matrix[4][1] = 0 # row 4, column 1
+# rows_array = [0, 1, 2, 3, 4]
+# columns_array = [1]
+# puts "Original:"
+# rows.times do |row|
+#   print matrix[row]
+#   puts
+# end
+# matrix_convert_to_0(matrix)
+# puts "Converted:"
+# rows.times do |row|
+#   print matrix[row]
+#   puts
+# end
+# verify_matrix(matrix, rows_array, columns_array)
+# # Test 3
+# rows = 4
+# columns = 4
+# matrix = initialize_matrix(rows, columns)
+# rows_array = []
+# columns_array = []
+# puts "Original:"
+# rows.times do |row|
+#   print matrix[row]
+#   puts
+# end
+# matrix_convert_to_0(matrix)
+# puts "Converted:"
+# rows.times do |row|
+#   print matrix[row]
+#   puts
+# end
+# verify_matrix(matrix, rows_array, columns_array)
+# puts "End of matrix convert to zero tests.\n\n"
+#
+# puts "Tests for Matrix check sum of rows and columns"
+# matrix = [[1, 2, 3, 4], # sum of 0th row = 10
+#           [9, 5, 3, 1], # sum of 1st row = 18
+#           [0, 3, 5, 6], # sum of 2nd row = 14
+#           [0, 8, 3, 6]] # sum of 3rd row = 17
+# # sums = 10, 18, 14, 17 for columns 0 through 3
+# if matrix_check_sum(matrix) == false
+#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# # test 2
+# rows = 5
+# columns = 5
+# matrix = initialize_matrix(rows, columns) # initialize to all 0s
+# matrix[0][2] = 4
+# matrix[2][0] = 4
+# if matrix_check_sum(matrix) == false
+#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# # test 3
+# matrix = [[1, 2, 3],
+#           [4, 5, 6],
+#           [7, 8, 9],
+#           [10, 11, 12]]
+# if matrix_check_sum(matrix) == true
+#   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# # test 3
+# matrix = [[1, 10, 1],
+#           [2, 3, 12],
+#           [9, 4, 9]]
+# if matrix_check_sum(matrix) == false
+#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# puts "End of matrix check sum of rows and columns.\n\n"
