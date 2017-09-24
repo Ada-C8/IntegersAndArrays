@@ -1,5 +1,4 @@
-require 'pry'
-require 'pry-byebug'
+
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
   num1_length = number_1.to_s.length
