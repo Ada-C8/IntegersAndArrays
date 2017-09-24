@@ -29,7 +29,7 @@ def is_palindrome(number)
     if less_sig != most_sig
       return false
     end
-    number -= less_sig * (10**(length))
+    number -= less_sig * (10**length)
     number /= 10
   end
   return true
@@ -56,19 +56,46 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
-# time complexity
-# space complexity
+# time complexity - the time complexity is O(n) where n is equal to the nth number that is how many times it is looping
+# space complexity - I don't keep a storage of the numbers besides my simple variables that I replace each loop therefore its a O(1)
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return 0
+  end
+  if n == 1
+    return 1
+  end
+  first = 0
+  second = 1
+  i = 2
+  while i <= n
+    next_n = first + second
+    first = second
+    second = next_n
+    i += 1
+  end
+  return next_n
 end
 
 # Creates a new array to return the intersection of the two input arrays
-# time complexity
-# space complexity
+# time complexity - O(n^2) there is a nested loop therefore it has too loop n*n times
+# space complexity - O(1) there is no memory change with increasing array lengths
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  length_1 = array_1.length
+  length_2 = array_2.length
+  i = 0
+  array_to_return = []
+  while i < length_1
+    j = 0
+    while array_1[i] != array_2[j] && j < length_2
+      j += 1
+    end
+    if array_1[i] == array_2[j]
+      array_to_return << array_1[i]
+    end
+    i += 1
+  end
+  return array_to_return
 end
 
 # Questions on 2D array or matrix
