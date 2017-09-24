@@ -104,10 +104,40 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
-# time complexity
-# space complexity
+# time complexity - n*n + n + n consitutes each loop which reducs to O(n^2)
+# space complexity - O(n) there are 2*n memory storage n for each array worst case scenario
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  row_length = matrix.length
+  column_length = matrix[0].length
+  i = 0
+  rows = []
+  columns = []
+  while i < row_length
+    j = 0
+    while j < column_length
+      if matrix[i][j] == 0
+        rows << i
+        columns << j
+      end
+      j += 1
+    end
+    i += 1
+  end
+  for item in rows
+    j = 0
+    while j < column_length
+      matrix[item][j] = 0
+      j += 1
+    end
+  end
+
+  for item in columns
+    j = 0
+    while j < row_length
+      matrix[j][item] = 0
+      j += 1
+    end
+  end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
