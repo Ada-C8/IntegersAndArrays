@@ -117,14 +117,9 @@ def matrix_check_sum(matrix)
       sum1 = 0
       sum2 = 0
       matrix[a].size.times do |b|
-        # puts "matrix row: #{matrix[a][b]}"
-        # puts "matrix col: #{matrix[b][a]}"
         sum1 += matrix[a][b]
         sum2 += matrix[b][a]
-
       end
-      # puts sum1
-      # puts sum2
       if sum1 != sum2
         return false
       end
@@ -132,7 +127,6 @@ def matrix_check_sum(matrix)
     return true
   end
 end
-
 
 ### END OF METHODS
 puts "Tests for Digit Match"
