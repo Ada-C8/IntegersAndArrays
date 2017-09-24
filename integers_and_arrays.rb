@@ -1,13 +1,9 @@
 
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  num1_length = number_1.to_s.length
-  num2_length = number_2.to_s.length
-
   matches = 0
-  times = 0
 
-  num1_length > num2_length ? times = num2_length : times = num1_length
+  (number_1.to_s.length) > (number_2.to_s.length) ? times = number_2.to_s.length : times = number_1.to_s.length
 
   times.times do |i|
     temp_number_1 = number_1 / (10 ** i)
