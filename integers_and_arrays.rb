@@ -144,10 +144,32 @@ end
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
-# time complexity
-# space complexity
+# time complexity - O(n^2), there is a nested loop which is n*n with an additional loop of n which reduces to n^2.
+# space complexity - O(n), there are 2 n length arrays which I store the results of the sums
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  row_length = matrix.length
+  column_length = matrix[0].length
+  i = 0
+  rows = Array.new(row_length){0}
+  columns = Array.new(row_length){0}
+  while i < row_length
+    j = 0
+    while j < column_length
+      columns[j] += matrix[i][j]
+      rows[i] += matrix[i][j]
+      j += 1
+    end
+    i += 1
+  end
+  k = 0
+  while k < row_length
+    if rows[k] != columns[k]
+      return false
+    end
+    k +=1
+  end
+  return true
+
 end
 
 ### END OF METHODS
