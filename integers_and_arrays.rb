@@ -1,19 +1,43 @@
 # Returns count of digits matching in the two input non-negative integers
+require 'pry'
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  # convert integer into array
+  num1 = number_1.to_s.split('').map(&:to_i)
+  num2 = number_2.to_s.split('').map(&:to_i)
+  i = (-1)
+  match_counter = 0
+  num1.length.times do
+    if num1[i] == num2[i]
+      match_counter += 1
+      i -= 1
+    else
+      i -= 1
+    end
+  end
+  return match_counter
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+  num = number.to_s
+  if num.length == 1 || num.length == 0
+    return true
+  else
+    if num[0] == num[-1]
+      is_palindrome(num[1..-2])
+    else
+      return false
+    end
+  end
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0
+    return 1
+  else
+    number * factorial(number-1)
+  end
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,15 +47,79 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 1 || n == 2
+    return 1
+  else
+    fibonacci(n-1) + fibonacci(n-2)
+  end
 end
 
 # Creates a new array to return the intersection of the two input arrays
-def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
-end
+# ruby library: array_1 & array_2
+#  Array 1: [70, 90, 34, 21, 78, 42] Array 2: [21, 67, 54, 29, 42, 30]
+
+  # def sort_method(array)
+  #   array.length.times do |index|
+  #     min_index = index
+  #     temp_index = index + 1
+  #     while temp_index < array.length
+  #       if array[temp_index] < array[min_index]
+  #         min_index = temp_index
+  #       end
+  #       temp_index += 1
+  #     end
+  #     if min_index != index
+  #       temp = array[min_index]
+  #       array[min_index] = array[index]
+  #       array[index] = temp
+  #     end
+  #   end
+  # end
+
+  def intersection(array_1, array_2)
+
+    array_1.length.times.each do |t|
+     i = 0
+     array_1.each do |b|
+       if b > array_1[i+1]
+         array_1[i],array_1[i+1] = array_1[i+1],array_1[i]
+       end
+       i += 1 if i < array_1.length-2
+     end
+    end
+    a = array_1
+#####
+    array_2.length.times.each do |t|
+     i = 0
+     array_2.each do |b|
+       if b > array_2[i+1]
+         array_2[i],array_2[i+1] = array_2[i+1],array_2[i]
+       end
+       i += 1 if i < array_2.length-2
+     end
+    end
+    b = array_2
+#####
+    final = []
+    i1 = 0
+    i2 = 0
+    # a = array_1.sort
+    # b = array_2.sort
+    while(i1 < a.length && i2 < b.length)
+      if a[i1] == b[i2]
+        final << a[i1]
+        i1 += 1
+        i2 += 1
+      elsif a[i1] < b[i2]
+        i1 += 1
+      else
+        i2 += 1
+      end
+    end
+    return final
+  end
+
+
 
 # Questions on 2D array or matrix
 
@@ -313,9 +401,9 @@ puts "End of matrix convert to zero tests.\n\n"
 
 puts "Tests for Matrix check sum of rows and columns"
 matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-          [9, 5, 3, 1], # sum of 1st row = 18
-          [0, 3, 5, 6], # sum of 2nd row = 14
-          [0, 8, 3, 6]] # sum of 3rd row = 17
+[9, 5, 3, 1], # sum of 1st row = 18
+[0, 3, 5, 6], # sum of 2nd row = 14
+[0, 8, 3, 6]] # sum of 3rd row = 17
 # sums = 10, 18, 14, 17 for columns 0 through 3
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
@@ -341,9 +429,9 @@ if matrix_check_sum(matrix) == false
 end
 # test 3
 matrix = [[1, 2, 3],
-          [4, 5, 6],
-          [7, 8, 9],
-          [10, 11, 12]]
+[4, 5, 6],
+[7, 8, 9],
+[10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
@@ -354,8 +442,8 @@ if matrix_check_sum(matrix) == true
 end
 # test 3
 matrix = [[1, 10, 1],
-          [2, 3, 12],
-          [9, 4, 9]]
+[2, 3, 12],
+[9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
