@@ -32,7 +32,7 @@ end
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number) # time: O(n/2) => O(n), space: O(1)
   i = 1
-  until i > length(number)
+  until i > ((length(number) / 2) + 1)
 
     # # readable version:
     # i2 = length(number) - i
