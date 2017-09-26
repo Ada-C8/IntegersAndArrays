@@ -19,13 +19,25 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  number1 = number.to_s
-  last = 1
-  (number1.length / 2).times do |i|
-    if number1[i] != number1[-last]
+  digits = 0
+
+  number1 = number
+  while number1 > 0
+    number1 = number1 / 10
+    digits += 1
+  end
+
+  digits1 = digits
+  (digits1 / 2).times do |i|
+
+    first = number / (10 ** (digits - 1))
+    if number % 10 != first
       return false
     else
-      last += 1
+      number = number - (first * (10 ** (digits - 1)))
+      number = number / 10
+
+      digits = digits - 2
     end
   end
   return true
@@ -87,20 +99,36 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
+  col = []
+  row = []
   matrix.size.times do |a|
     matrix[a].size.times do |b|
       if matrix[a][b] == 0
-        matrix[a].size.times do |c|
-          matrix[a][c] = 0
-          matrix.size.times do |d|
-            matrix[d][b] = 0
-          end
+        unless row.include? a
+          row << a
+        end
+        unless col.include? b
+          col << b
         end
       end
     end
   end
+
+  col.length.times do |a|
+    matrix.size.times do |b|
+      matrix[b][col[a]] = 0
+    end
+  end
+
+  row.length.times do |c|
+    matrix[0].size.times do |d|
+      matrix[row[c]][d] = 0
+    end
+  end
+
   return matrix
 end
+
 # Checks that for the given matrix, where number of rows are equal to number of columns
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
