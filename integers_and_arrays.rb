@@ -99,30 +99,29 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  col = []
-  row = []
+  
   matrix.size.times do |a|
     matrix[a].size.times do |b|
       if matrix[a][b] == 0
-        unless row.include? a
-          row << a
-        end
-        unless col.include? b
-          col << b
-        end
+        matrix[a][0] = 0
+        matrix[0][b] = 0
       end
     end
   end
 
-  col.length.times do |a|
-    matrix.size.times do |b|
-      matrix[b][col[a]] = 0
+  matrix.size.times do |a|
+    if matrix[a][0] == 0
+      matrix[0].size.times do |b|
+        matrix[a][b] = 0
     end
   end
+end
 
-  row.length.times do |c|
-    matrix[0].size.times do |d|
-      matrix[row[c]][d] = 0
+  matrix[0].size.times do |c|
+    if matrix[0][c] == 0
+      matrix.size.times do |d|
+        matrix[d][c] = 0
+      end
     end
   end
 
