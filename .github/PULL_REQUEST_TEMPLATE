@@ -6,17 +6,17 @@ What is the time and space complexity for each method you implemented? Provide j
 
 |  Question 	|  Answer 	|
 |---	|---	|
-|  What is the time complexity of the digit_match method? Provide justification.	|   	|
-|  What is the space complexity of the digit_match method? Provide justification.	|   	|
-|  What is the time complexity of the is_palindrome method? Provide justification.	|   	|
-|  What is the space complexity of the is_palindrome method? Provide justification.	|   	|
-|  What is the time complexity of the factorial method? Provide justification.	|   	|
-|  What is the space complexity of the factorial method? Provide justification.	|   	|
-|  What is the time complexity of the fibonacci method? Provide justification.	|   	|
-|  What is the space complexity of the fibonacci method? Provide justification.	|   	|
-|  What is the time complexity of the intersection method? Provide justification.	|   	|
-|  What is the space complexity of the intersection method? Provide justification.	|   	|
-|  What is the time complexity of the matrix_convert_to_0 method? Provide justification.	|   	|
-|  What is the space complexity of the matrix_convert_to_0 method? Provide justification.	|   	|
-|  What is the time complexity of the matrix_check_sum method? Provide justification.	|   	|
-|  What is the space complexity of the matrix_check_sum method? Provide justification.	| 
+|  What is the time complexity of the digit_match method? Provide justification.	| O(n) because if n is the number of digits in the smaller of the two given numbers, you will complete n operations before returning the number of matches. 	|
+|  What is the space complexity of the digit_match method? Provide justification.	|  O(1) because regardless of the number of digits in the given numbers, you will only create one new variable matches. 	|
+|  What is the time complexity of the is_palindrome method? Provide justification.	| O(n) because you have to go through the digits in the number (O(n))to determine the first digit and then you perform about 1/2 n operations to compare digits. After dropping constants we get a linear time complexity. 	|
+|  What is the space complexity of the is_palindrome method? Provide justification.	| O(1) because you will always create only one variable (value used to find first digit) regardless of the input size (the digits in the number).  	|
+|  What is the time complexity of the factorial method? Provide justification.	| O(n) because the number of operations you need to conduct to execute the method grows linearly as the input number increases.   	|
+|  What is the space complexity of the factorial method? Provide justification.	|  O(1) because you are creating one variable (sum) regardless of how large the input number is. 	|
+|  What is the time complexity of the fibonacci method? Provide justification.	| O(n) because the number of operations needed to execute the method grows linearly with n. 	|
+|  What is the space complexity of the fibonacci method? Provide justification.	| O(1) because regardless of the size of n, you will only create four variables (counter, i, j, and temp).   	|
+|  What is the time complexity of the intersection method? Provide justification.	| O(m*n) because for each element in array m you will need to go through all n elements in array n.  	|
+|  What is the space complexity of the intersection method? Provide justification.	| O(n) because we create an intersection array which in the worst case scenario would be the size of the smaller of the two given arrays. 	|
+|  What is the time complexity of the matrix_convert_to_0 method? Provide justification.	|  O(m*n) because you will have to go through each row and column of the matrix.	|
+|  What is the space complexity of the matrix_convert_to_0 method? Provide justification.	| O(1) because you will create the same constant number of variables regardless of the size of the matrix.  	|
+|  What is the time complexity of the matrix_check_sum method? Provide justification.	| O(n^2) because you sum a row which has n elements and then a column which has n elements (or 2n) for a total of n times (2n*n). After dropping constants we are left with n^2. 	|
+|  What is the space complexity of the matrix_check_sum method? Provide justification.	| The space complexity is constant O(1) because you create the same number of variables regardless of the size of the 2d array.|
