@@ -1,13 +1,15 @@
+#additional methods
+def find_num_digits(number)
+  digit = 1
+  while number / (10 ** digit) > 0
+    digit += 1
+  end
+  return digit
+end
+
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
   #find length of each number
-  def find_num_digits(number)
-    digit = 1
-    while number / (10 ** digit) > 0
-      digit += 1
-    end
-    return digit
-  end
   length1 = find_num_digits(number_1)
   length2 = find_num_digits(number_2)
   #determine number of matches
@@ -23,13 +25,27 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  digits = find_num_digits(number)
+  i = 0
+  j = digits - 1
+  while i < j
+    greater_digit = (number / (10 ** j)) % 10
+    smaller_digit = (number % (10 ** (i + 1))) / (10 ** i)
+    return false if greater_digit != smaller_digit
+    i += 1
+    j -= 1
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
+  return 1 if number == 0
+  n = number - 1
+  while n > 0
+    number *= n
+    n -= 1
+  end
   return number
 end
 
@@ -40,8 +56,17 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  i = 1
+  a = 0
+  b = 1
+  number = 0
+  while i < n
+    number = a + b
+    a = b
+    b = number
+    i += 1
+  end
+  return number
 end
 
 # Creates a new array to return the intersection of the two input arrays
@@ -105,57 +130,57 @@ if is_palindrome(15677641) == true
 end
 puts "End of Palindrome tests.\n\n"
 
-# puts "Tests for Factorial"
-# fact = factorial(5)
-# if fact != 120
-#   puts "BUG!! Factorial of 5 should be 120 and not #{fact}."
-# end
-# fact = factorial(1)
-# if fact != 1
-#   puts "BUG!! Factorial of 1 should be 1 and not #{fact}."
-# end
-# fact = factorial(0)
-# if fact != 1
-#   puts "BUG!! Factorial of 0 should be 1 and not #{fact}."
-# end
-# fact = factorial(6)
-# if fact != 720
-#   puts "BUG!! Factorial of 6 should be 720 and not #{fact}."
-# end
-# fact = factorial(7)
-# if fact != 5040
-#   puts "BUG!! Factorial of 7 should be 5040 and not #{fact}."
-# end
-# puts "End of Factorial tests.\n\n"
-#
-# puts "Tests for nth fibonacci number."
-# # 0 1 1 2 3 5 8 13 21 34 55 89 144
-# fib = fibonacci(1)
-# if fib != 1
-#   puts "BUG!! the 1st fibonacci number is 0 and not #{fib}."
-# end
-# fib = fibonacci(3)
-# if fib != 2
-#   puts "BUG!! the 3rd fibonacci number is 2 and not #{fib}."
-# end
-# fib = fibonacci(8)
-# if fib != 21
-#   puts "BUG!! the 8th fibonacci number is 21 and not #{fib}."
-# end
-# fib = fibonacci(11)
-# if fib != 89
-#   puts "BUG!! the 11th fibonacci number is 89 and not #{fib}."
-# end
-# fib = fibonacci(12)
-# if fib != 144
-#   puts "BUG!! the 12th fibonacci number is 144 and not #{fib}."
-# end
-# fib = fibonacci(6)
-# if fib != 8
-#   puts "BUG!! the 6th fibonacci number is 8 and not #{fib}."
-# end
-# puts "End of Fibonacci tests.\n\n"
-#
+puts "Tests for Factorial"
+fact = factorial(5)
+if fact != 120
+  puts "BUG!! Factorial of 5 should be 120 and not #{fact}."
+end
+fact = factorial(1)
+if fact != 1
+  puts "BUG!! Factorial of 1 should be 1 and not #{fact}."
+end
+fact = factorial(0)
+if fact != 1
+  puts "BUG!! Factorial of 0 should be 1 and not #{fact}."
+end
+fact = factorial(6)
+if fact != 720
+  puts "BUG!! Factorial of 6 should be 720 and not #{fact}."
+end
+fact = factorial(7)
+if fact != 5040
+  puts "BUG!! Factorial of 7 should be 5040 and not #{fact}."
+end
+puts "End of Factorial tests.\n\n"
+
+puts "Tests for nth fibonacci number."
+# 0 1 1 2 3 5 8 13 21 34 55 89 144
+fib = fibonacci(1)
+if fib != 0
+  puts "BUG!! the 1st fibonacci number is 0 and not #{fib}."
+end
+fib = fibonacci(3)
+if fib != 2
+  puts "BUG!! the 3rd fibonacci number is 2 and not #{fib}."
+end
+fib = fibonacci(8)
+if fib != 21
+  puts "BUG!! the 8th fibonacci number is 21 and not #{fib}."
+end
+fib = fibonacci(11)
+if fib != 89
+  puts "BUG!! the 11th fibonacci number is 89 and not #{fib}."
+end
+fib = fibonacci(12)
+if fib != 144
+  puts "BUG!! the 12th fibonacci number is 144 and not #{fib}."
+end
+fib = fibonacci(6)
+if fib != 8
+  puts "BUG!! the 6th fibonacci number is 8 and not #{fib}."
+end
+puts "End of Fibonacci tests.\n\n"
+
 # puts "Tests for intersection of two arrays."
 # # Test 1
 # array_1 = [70, 90, 34, 21, 78, 42]
