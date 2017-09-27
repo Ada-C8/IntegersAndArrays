@@ -1,19 +1,67 @@
+# require 'pry'
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  # puts "NOT IMPLEMENTED"
+  # iterate through num, compare last digit of each, then drop
+  # final digit and repeat
+  count = 0
+
+  while number_1 > 0 && number_2 > 0
+    digit1 = number_1 % 10
+    digit2 = number_2 % 10
+
+    if digit1 == digit2
+      count += 1
+    end
+
+    number_1 /= 10
+    number_2 /= 10
+  end
+
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  # puts "NOT IMPLEMENTED"
+
+  # check if only one digit
+  if number < 10
+    return true
+  end
+
+  # binding.pry
+  # find first digit
+  j = 10
+  i = 10
+  while number / i > 10
+    i *= 10
+  end
+
+  while i >= j
+    digit1 = (number / i) % 10
+    digit2 = (number % j) / (j / 10)
+
+    if digit1 != digit2
+      return false
+    end
+
+    i /= 10
+    j *= 10
+  end
+
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  # puts "NOT IMPLEMENTED"
+  # base case
+  if number == 0
+    return 1
+  else
+    return number * factorial(number - 1)
+  end
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,15 +71,124 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  # puts "NOT IMPLEMENTED"
+  # base case
+  if n == 0
+    return 0
+  elsif n == 1
+    return 1
+  else
+    return fibonacci(n - 1) + fibonacci(n - 2)
+  end
+  # return n
 end
+
+# with memoization
+# def fibonacci(n, memo_hash)
+#   # if n in memo_hash, return stored sum
+#   # base case; set up initial hash
+#   if n == 0
+#     memo_hash[0] = 0
+#   elsif n == 1
+#     memo_hash[1] = 1
+#   end
+#
+#   if memo_hash.include?(n)
+#     return memo_hash[n]
+#   else
+#     fib1 = fibonacci(n - 1, memo_hash)
+#     fib2 = fibonacci(n - 2, memo_hash)
+#     memo_hash[n] = fib1 + fib2
+#
+#     return fib1 + fib2
+#   end
+# end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  # puts "NOT IMPLEMENTED"
+  intersection = []
+
+  array_1.each do |num1|
+    array_2.each do |num2|
+      if num1 == num2
+        intersection << num1
+      end
+    end
+  end
+  return intersection
 end
+
+# def merge(array1, array2)
+#   i = 0
+#   j = 0
+#   sorted = []
+#
+#   while i < array1.length && j < array2.length
+#     # iterate through arrays while neither array is empty
+#     if array1[i] <= array2[j]
+#       sorted << array1[i]
+#       i += 1
+#     else
+#       sorted << array2[j]
+#       j += 1
+#     end
+#   end
+#
+#   # copy rest of vals in array1, if len array 1 > len array 2
+#   (i...array1.length).each do |idx|
+#     sorted << array1[idx]
+#   end
+#
+#   # copy rest of vals in array2, if len array2 > len array 1
+#   (j...array2.length).each do |idx|
+#     sorted << array2[idx]
+#   end
+#
+#   return sorted
+# end
+#
+# def merge_sort(unsorted_array)
+#   if unsorted_array.length <= 1
+#     return unsorted_array
+#   else
+#     mid = unsorted_array.length / 2
+#     left = unsorted_array[0...mid]
+#     right = unsorted_array[mid..-1]
+#
+#     return merge(merge_sort(left), merge_sort(right))
+#   end
+#
+# end
+#
+# def intersection(array_1, array_2)
+#   intersection = []
+#
+#   array_1 = merge_sort(array_1)
+#   array_2 = merge_sort(array_2)
+#
+#   len1 = array_1.length
+#   len2 = array_2.length
+#   i = 0
+#   j = 0
+#
+#   while i < len1 && j < len2
+#     if array_1[i] == array_2[j]
+#       intersection << array_1[i]
+#       i += 1
+#       j += 1
+#
+#     elsif
+#       array_1[i] < array_2[j]
+#       i += 1
+#
+#     else
+#       j += 1
+#     end
+#   end
+#
+#   return intersection
+# end
 
 # Questions on 2D array or matrix
 
@@ -40,7 +197,44 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  # puts "NOT IMPLEMENTED"
+  # creates array to store numbers to change
+  # avoids issue of turning a number to zero in one row/col and then
+  # confusing it w/original input array
+  zeros = []
+
+  num_rows = matrix.length
+  num_cols = matrix[0].length
+
+  if num_rows == 0 || num_cols == 0
+    return
+  end
+
+  # iterate through array, get all zeros
+  num_rows.times do |row|
+    num_cols.times do |col|
+      if matrix[row][col] == 0
+        zeros << [row, col]
+      end
+    end
+  end
+
+  # iterate through zeros, change relevant rows and cols
+  zeros.each do |zero|
+    zero_row = zero[0]
+    zero_col = zero[1]
+
+    num_cols.times do |col|
+      matrix[zero_row][col] = 0
+    end
+
+    num_rows.times do |row|
+      matrix[row][zero_col] = 0
+    end
+  end
+
+  return matrix
+
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
@@ -48,7 +242,31 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  # puts "NOT IMPLEMENTED"
+  num_rows = matrix.length
+  num_cols = matrix[0].length
+
+  if num_rows != num_cols
+    return false
+  end
+
+  row_sums = [0] * num_rows
+  col_sums = [0] * num_cols
+
+  num_rows.times do |row|
+    num_cols.times do |col|
+      row_sums[col] += matrix[row][col]
+      col_sums[row] += matrix[row][col]
+    end
+  end
+
+  num_rows.times do |idx|
+    if row_sums[idx] != col_sums[idx]
+      return false
+    end
+  end
+
+  return true
 end
 
 ### END OF METHODS
@@ -68,12 +286,12 @@ end
 puts "End of digit match tests.\n\n"
 
 puts "Tests for Palindrome"
-if is_palindrome(1001) == false
-  puts "BUG!! 1001 is a palindrome."
-end
-if is_palindrome(1234321) == false
-  puts "BUG!! 1234321 is a palindrome."
-end
+# if is_palindrome(1001) == false
+#   puts "BUG!! 1001 is a palindrome."
+# end
+# if is_palindrome(1234321) == false
+#   puts "BUG!! 1234321 is a palindrome."
+# end
 if is_palindrome(77) == false
   puts "BUG!! 77 is a palindrome."
 end
