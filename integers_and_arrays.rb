@@ -72,23 +72,11 @@ end
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
   intersection = []
-  shorter_array = []
-  shorter_length = 0
-  longer_array = []
-  if array_1.length < array_2.length
-    shorter_array = array_1
-    shorter_length = array_1.length
-    longer_array = array_2
-    longer_length = array_2.length
-  else
-    shorter_array = array_2
-    shorter_length = array_2.length
-    longer_array = array_1
-    longer_length = array_1.length
-  end
-  (0..shorter_length - 1).each do |i|
-    (0..longer_length - 1).each do |j|
-      intersection << shorter_array[i] if shorter_array[i] == longer_array[j]
+  length_1 = array_1.length
+  length_2 = array_2.length
+  (0..length_1 - 1).each do |i|
+    (0..length_2 - 1).each do |j|
+      intersection << array_1[i] if array_1[i] == array_2[j]
     end
   end
   return intersection
