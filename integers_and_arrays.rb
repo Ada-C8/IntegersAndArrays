@@ -2,19 +2,28 @@
 require 'pry'
 def digit_match(number_1, number_2)
   # convert integer into array
-  num1 = number_1.to_s.split('').map(&:to_i)
-  num2 = number_2.to_s.split('').map(&:to_i)
-  i = (-1)
-  match_counter = 0
-  num1.length.times do
-    if num1[i] == num2[i]
-      match_counter += 1
-      i -= 1
-    else
-      i -= 1
+  # num1 = number_1.to_s.split('').map(&:to_i)
+  # num2 = number_2.to_s.split('').map(&:to_i)
+  # i = (-1)
+  # match_counter = 0
+  # num1.length.times do
+  #   if num1[i] == num2[i]
+  #     match_counter += 1
+  #     i -= 1
+  #   else
+  #     i -= 1
+  #   end
+  # end
+  # return match_counter
+  i = 0
+  while number_1 != 0 && number_2 != 0
+    if number_1 % 10 == number_2 % 10
+      i += 1
     end
+    number_1 /= 10
+    number_2 /= 10
   end
-  return match_counter
+  return i
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
@@ -56,68 +65,63 @@ end
 
 # Creates a new array to return the intersection of the two input arrays
 # ruby library: array_1 & array_2
-#  Array 1: [70, 90, 34, 21, 78, 42] Array 2: [21, 67, 54, 29, 42, 30]
 
-  # def sort_method(array)
-  #   array.length.times do |index|
-  #     min_index = index
-  #     temp_index = index + 1
-  #     while temp_index < array.length
-  #       if array[temp_index] < array[min_index]
-  #         min_index = temp_index
-  #       end
-  #       temp_index += 1
+def intersection(array_1, array_2)
+intersection = []
+i = 0
+while i < array_1.length
+  x = 0
+  while x < array_2.length
+    if array_1[i] == array_2[x]
+      intersection << array_1[i]
+    end
+    x += 1
+  end
+  i += 1
+end
+return intersection
+
+  #### bubble sort for each array
+  # array_1.length.times.each do |t|
+  #   i = 0
+  #   array_1.each do |b|
+  #     if b > array_1[i+1]
+  #       array_1[i],array_1[i+1] = array_1[i+1],array_1[i]
   #     end
-  #     if min_index != index
-  #       temp = array[min_index]
-  #       array[min_index] = array[index]
-  #       array[index] = temp
-  #     end
+  #     i += 1 if i < array_1.length-2
   #   end
   # end
-
-  def intersection(array_1, array_2)
-
-    array_1.length.times.each do |t|
-     i = 0
-     array_1.each do |b|
-       if b > array_1[i+1]
-         array_1[i],array_1[i+1] = array_1[i+1],array_1[i]
-       end
-       i += 1 if i < array_1.length-2
-     end
-    end
-    a = array_1
-#####
-    array_2.length.times.each do |t|
-     i = 0
-     array_2.each do |b|
-       if b > array_2[i+1]
-         array_2[i],array_2[i+1] = array_2[i+1],array_2[i]
-       end
-       i += 1 if i < array_2.length-2
-     end
-    end
-    b = array_2
-#####
-    final = []
-    i1 = 0
-    i2 = 0
-    # a = array_1.sort
-    # b = array_2.sort
-    while(i1 < a.length && i2 < b.length)
-      if a[i1] == b[i2]
-        final << a[i1]
-        i1 += 1
-        i2 += 1
-      elsif a[i1] < b[i2]
-        i1 += 1
-      else
-        i2 += 1
-      end
-    end
-    return final
-  end
+  # a = array_1
+  # #####
+  # array_2.length.times.each do |t|
+  #   i = 0
+  #   array_2.each do |b|
+  #     if b > array_2[i+1]
+  #       array_2[i],array_2[i+1] = array_2[i+1],array_2[i]
+  #     end
+  #     i += 1 if i < array_2.length-2
+  #   end
+  # end
+  # b = array_2
+  # #####
+  # final = []
+  # i1 = 0
+  # i2 = 0
+  # # a = array_1.sort
+  # # b = array_2.sort
+  # while(i1 < a.length && i2 < b.length)
+  #   if a[i1] == b[i2]
+  #     final << a[i1]
+  #     i1 += 1
+  #     i2 += 1
+  #   elsif a[i1] < b[i2]
+  #     i1 += 1
+  #   else
+  #     i2 += 1
+  #   end
+  # end
+  # return final
+end
 
 
 
@@ -127,8 +131,38 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
+
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  row_length = matrix.length
+  column_length = matrix[0].length
+  i = 0
+  rows = []
+  columns = []
+  while i < row_length
+    j = 0
+    while j < column_length
+      if matrix[i][j] == 0
+        rows << i
+        columns << j
+      end
+      j += 1
+    end
+    i += 1
+  end
+  for item in rows
+    j = 0
+    while j < column_length
+      matrix[item][j] = 0
+      j += 1
+    end
+    for item in columns
+      j = 0
+      while j < row_length
+        matrix[j][item] = 0
+        j += 1
+      end
+    end
+  end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
