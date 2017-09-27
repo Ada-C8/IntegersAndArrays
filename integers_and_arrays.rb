@@ -59,7 +59,7 @@ def fibonacci(n)
   i = 1
   a = 0
   b = 1
-  number = 0
+  number = n
   while i < n
     number = a + b
     a = b
@@ -198,8 +198,8 @@ puts "End of Factorial tests.\n\n"
 puts "Tests for nth fibonacci number."
 # 0 1 1 2 3 5 8 13 21 34 55 89 144
 fib = fibonacci(1)
-if fib != 0
-  puts "BUG!! the 1st fibonacci number is 0 and not #{fib}."
+if fib != 1
+  puts "BUG!! the 1st fibonacci number is 1 and not #{fib}."
 end
 fib = fibonacci(3)
 if fib != 2
