@@ -101,7 +101,30 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  rows = matrix.length
+  columns = matrix[0].length
+  #find 0s
+  zero_rows = []
+  zero_columns = []
+  (0..rows - 1).each do |r|
+    (0..columns - 1).each do |c|
+      if matrix[r][c] == 0
+        zero_rows << r
+        zero_columns << c
+      end
+    end
+  end
+  #change rows and columns to 0
+  zero_rows.each do |row|
+    (0..columns - 1).each do |c|
+      matrix[row][c] = 0
+    end
+  end
+  zero_columns.each do |column|
+    (0..rows - 1).each do |r|
+      matrix[r][column] = 0
+    end
+  end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
@@ -237,141 +260,141 @@ if common_elements != expected_intersection
   print common_elements
   puts
 end
-# # Test 3
-# array_1 = [2, 5, 4, 1, 89]
-# array_2 = [89, 5, 4, 1, 2]
-# expected_intersection = [1, 2, 4, 5, 89]
-# common_elements = intersection(array_1, array_2).sort
-# if common_elements != expected_intersection
-#   puts "BUG!! Intersection elements unexpected."
-#   print "Array 1: "
-#   print array_1
-#   print " Array 2: "
-#   print array_2
-#   puts
-#   print "Expected intersection: "
-#   print expected_intersection
-#   print "Intersection method returned: "
-#   print common_elements
-#   puts
-# end
-# # Test 4
-# array_1 = [92, 2, 5, 4, 1, 89, 90]
-# array_2 = [89, 5, 76, 4, 1, 2]
-# expected_intersection = [1, 2, 4, 5, 89]
-# common_elements = intersection(array_1, array_2).sort
-# if common_elements != expected_intersection
-#   puts "BUG!! Intersection elements unexpected."
-#   print "Array 1: "
-#   print array_1
-#   print " Array 2: "
-#   print array_2
-#   puts
-#   print "Expected intersection: "
-#   print expected_intersection
-#   print "Intersection method returned: "
-#   print common_elements
-#   puts
-# end
-# puts "End of intersection of two arrays tests.\n\n"
-#
-# puts "Tests for Matrix convert to zero"
-# ## helper method for creating and initializing a matrix with 1s
-# def initialize_matrix(rows, columns)
-#   # create the matrix using the rows and columns
-#   matrix = Array.new(rows){Array.new(columns)}
-#
-#   # initialize the matrix
-#   rows.times do |row|
-#     columns.times do |column|
-#       matrix[row][column] = 1
-#     end
-#   end
-#   return matrix
-# end
-# # helper method for verifying updated matrix
-# def verify_matrix(matrix, rows_array, columns_array)
-#   rows = matrix.size
-#   columns = matrix[0].size
-#
-#   rows.times do |row|
-#     columns.times do |column|
-#       if (rows_array.include?(row) || columns_array.include?(column))
-#         if matrix[row][column] != 0
-#           puts "BUG!!! matrix[#{row}][#{column}] should be 0"
-#           return false
-#         end
-#       elsif matrix[row][column] != 1
-#         puts "BUG!!! matrix[#{row}][#{column}] should be 1"
-#         return false
-#       end
-#     end
-#   end
-#   return true
-# end
-# # Test 1
-# rows = 3
-# columns = 5
-# matrix = initialize_matrix(rows, columns)
-# matrix[1][3] = 0 # row 1, column 3
-# matrix[2][4] = 0 # row 2, column 4
-# rows_array = [1, 2]
-# columns_array = [3, 4]
-# puts "Original:"
-# rows.times do |row|
-#   print matrix[row]
-#   puts
-# end
-# matrix_convert_to_0(matrix)
-# puts "Converted:"
-# rows.times do |row|
-#   print matrix[row]
-#   puts
-# end
-# verify_matrix(matrix, rows_array, columns_array)
-# # Test 2
-# rows = 5
-# columns = 3
-# matrix = initialize_matrix(rows, columns)
-# matrix[0][1] = 0 # row 0, column 1
-# matrix[1][1] = 0 # row 1, column 1
-# matrix[2][1] = 0 # row 2, column 1
-# matrix[3][1] = 0 # row 3, column 1
-# matrix[4][1] = 0 # row 4, column 1
-# rows_array = [0, 1, 2, 3, 4]
-# columns_array = [1]
-# puts "Original:"
-# rows.times do |row|
-#   print matrix[row]
-#   puts
-# end
-# matrix_convert_to_0(matrix)
-# puts "Converted:"
-# rows.times do |row|
-#   print matrix[row]
-#   puts
-# end
-# verify_matrix(matrix, rows_array, columns_array)
-# # Test 3
-# rows = 4
-# columns = 4
-# matrix = initialize_matrix(rows, columns)
-# rows_array = []
-# columns_array = []
-# puts "Original:"
-# rows.times do |row|
-#   print matrix[row]
-#   puts
-# end
-# matrix_convert_to_0(matrix)
-# puts "Converted:"
-# rows.times do |row|
-#   print matrix[row]
-#   puts
-# end
-# verify_matrix(matrix, rows_array, columns_array)
-# puts "End of matrix convert to zero tests.\n\n"
-#
+# Test 3
+array_1 = [2, 5, 4, 1, 89]
+array_2 = [89, 5, 4, 1, 2]
+expected_intersection = [1, 2, 4, 5, 89]
+common_elements = intersection(array_1, array_2).sort
+if common_elements != expected_intersection
+  puts "BUG!! Intersection elements unexpected."
+  print "Array 1: "
+  print array_1
+  print " Array 2: "
+  print array_2
+  puts
+  print "Expected intersection: "
+  print expected_intersection
+  print "Intersection method returned: "
+  print common_elements
+  puts
+end
+# Test 4
+array_1 = [92, 2, 5, 4, 1, 89, 90]
+array_2 = [89, 5, 76, 4, 1, 2]
+expected_intersection = [1, 2, 4, 5, 89]
+common_elements = intersection(array_1, array_2).sort
+if common_elements != expected_intersection
+  puts "BUG!! Intersection elements unexpected."
+  print "Array 1: "
+  print array_1
+  print " Array 2: "
+  print array_2
+  puts
+  print "Expected intersection: "
+  print expected_intersection
+  print "Intersection method returned: "
+  print common_elements
+  puts
+end
+puts "End of intersection of two arrays tests.\n\n"
+
+puts "Tests for Matrix convert to zero"
+## helper method for creating and initializing a matrix with 1s
+def initialize_matrix(rows, columns)
+  # create the matrix using the rows and columns
+  matrix = Array.new(rows){Array.new(columns)}
+
+  # initialize the matrix
+  rows.times do |row|
+    columns.times do |column|
+      matrix[row][column] = 1
+    end
+  end
+  return matrix
+end
+# helper method for verifying updated matrix
+def verify_matrix(matrix, rows_array, columns_array)
+  rows = matrix.size
+  columns = matrix[0].size
+
+  rows.times do |row|
+    columns.times do |column|
+      if (rows_array.include?(row) || columns_array.include?(column))
+        if matrix[row][column] != 0
+          puts "BUG!!! matrix[#{row}][#{column}] should be 0"
+          return false
+        end
+      elsif matrix[row][column] != 1
+        puts "BUG!!! matrix[#{row}][#{column}] should be 1"
+        return false
+      end
+    end
+  end
+  return true
+end
+# Test 1
+rows = 3
+columns = 5
+matrix = initialize_matrix(rows, columns)
+matrix[1][3] = 0 # row 1, column 3
+matrix[2][4] = 0 # row 2, column 4
+rows_array = [1, 2]
+columns_array = [3, 4]
+puts "Original:"
+rows.times do |row|
+  print matrix[row]
+  puts
+end
+matrix_convert_to_0(matrix)
+puts "Converted:"
+rows.times do |row|
+  print matrix[row]
+  puts
+end
+verify_matrix(matrix, rows_array, columns_array)
+# Test 2
+rows = 5
+columns = 3
+matrix = initialize_matrix(rows, columns)
+matrix[0][1] = 0 # row 0, column 1
+matrix[1][1] = 0 # row 1, column 1
+matrix[2][1] = 0 # row 2, column 1
+matrix[3][1] = 0 # row 3, column 1
+matrix[4][1] = 0 # row 4, column 1
+rows_array = [0, 1, 2, 3, 4]
+columns_array = [1]
+puts "Original:"
+rows.times do |row|
+  print matrix[row]
+  puts
+end
+matrix_convert_to_0(matrix)
+puts "Converted:"
+rows.times do |row|
+  print matrix[row]
+  puts
+end
+verify_matrix(matrix, rows_array, columns_array)
+# Test 3
+rows = 4
+columns = 4
+matrix = initialize_matrix(rows, columns)
+rows_array = []
+columns_array = []
+puts "Original:"
+rows.times do |row|
+  print matrix[row]
+  puts
+end
+matrix_convert_to_0(matrix)
+puts "Converted:"
+rows.times do |row|
+  print matrix[row]
+  puts
+end
+verify_matrix(matrix, rows_array, columns_array)
+puts "End of matrix convert to zero tests.\n\n"
+
 # puts "Tests for Matrix check sum of rows and columns"
 # matrix = [[1, 2, 3, 4], # sum of 0th row = 10
 #           [9, 5, 3, 1], # sum of 1st row = 18
