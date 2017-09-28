@@ -1,12 +1,45 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+
+    i = 1 #was 10
+    j = 0 # was 1
+    count = 0
+
+    until ((number_1 / (10 ** j)) == 0) || ((number_2 / (10 ** j)) == 0)
+      if ((number_1 % (10 ** i)) / (10 ** j)) ==  ((number_2 % (10 ** i)) / (10 ** j))
+        count += 1
+        i += 1
+        j += 1
+      else
+        i += 1
+        j += 1
+      end #if
+    end #until
+    return count
+
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  i = 1
+  j = 0
+  k = 0
+
+  until (number / (10 ** k)) == 0
+    k += 1
+  end
+
+  k -= 1
+
+  until k < i
+    if ((number % (10 ** i)) / (10 ** j)) == ((number / (10 ** k) % 10))
+      k -= 1
+      i += 1
+      j += 1
+    else
+      return false
+    end #if
+  end#second until
   return true
 end
 
@@ -313,9 +346,9 @@ puts "End of matrix convert to zero tests.\n\n"
 
 puts "Tests for Matrix check sum of rows and columns"
 matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-          [9, 5, 3, 1], # sum of 1st row = 18
-          [0, 3, 5, 6], # sum of 2nd row = 14
-          [0, 8, 3, 6]] # sum of 3rd row = 17
+[9, 5, 3, 1], # sum of 1st row = 18
+[0, 3, 5, 6], # sum of 2nd row = 14
+[0, 8, 3, 6]] # sum of 3rd row = 17
 # sums = 10, 18, 14, 17 for columns 0 through 3
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
@@ -341,9 +374,9 @@ if matrix_check_sum(matrix) == false
 end
 # test 3
 matrix = [[1, 2, 3],
-          [4, 5, 6],
-          [7, 8, 9],
-          [10, 11, 12]]
+[4, 5, 6],
+[7, 8, 9],
+[10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
@@ -354,8 +387,8 @@ if matrix_check_sum(matrix) == true
 end
 # test 3
 matrix = [[1, 10, 1],
-          [2, 3, 12],
-          [9, 4, 9]]
+[2, 3, 12],
+[9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
