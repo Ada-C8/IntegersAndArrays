@@ -15,13 +15,30 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+  # TODO: write this method
+#   i = 1
+# while number != 0
+#   if number % (10 ** i) != number / (10 ** i )
+#     return false
+#   end
+# end
+
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
+  # 0! = 1
+  if number == 0
+    return 1
+  end # if
+
+  # calculate factorial for non 0 numbers (5! = 5 * 4 * 3 * 2 * 1)
+  # times_by starts off as one less than the number and decreases until it is zero
+  times_by = (number - 1)
+  while times_by > 0
+    number *= times_by
+    times_by -= 1
+  end
   return number
 end
 
@@ -32,15 +49,49 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  num_1 = 0
+  num_2 = 1
+  fib = 0
+
+#return 1 for the first fibonacci number
+  if n == 1
+    return num_2
+  end
+
+#return the 2nd-nth fibonacci number
+  (n - 1).times do
+    fib = num_1 + num_2
+    num_1 = num_2
+    num_2 = fib
+  end #.times
+  return fib
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
+
+# return an empty array if either of the arrays is empty
+if array_1.length == 0 || array_2.length == 0
   return []
-end
+end # if
+
+i = 0
+intersection = []
+
+# for each element array_1[i] interate though array_2 to see if array[i] is present in array_2. If it is then push array[i] into intersection.
+# have to reset j to zero in each interation of i
+while i < array_1.length
+  j = 0
+  while j < array_2.length
+    if array_1[i] == array_2[j]
+      intersection << array_2[j]
+    end # if
+    j += 1
+  end # inner while
+  i += 1
+end # outer while
+return intersection
+end # intersection
 
 # Questions on 2D array or matrix
 
@@ -49,7 +100,9 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  # if a row contains a 0 then add that row# to a row array
+  # if a column contains a 0 then add the column # to a colum array
+  # then go back and 
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
