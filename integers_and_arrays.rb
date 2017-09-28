@@ -45,8 +45,11 @@ end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0
+    return 1
+  else
+    return number * factorial(number - 1)
+  end
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -56,8 +59,14 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return 0
+  elsif
+    n == 1
+    return 1
+  else
+    return fibonacci(n - 1) + fibonacci(n - 2)
+  end
 end
 
 # Creates a new array to return the intersection of the two input arrays
