@@ -1,20 +1,75 @@
 # Returns count of digits matching in the two input non-negative integers
+# Time Complexity: O(n), where n is number of digits in shorter input
+# Space Complexity: O(1)
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  counter = 0
+  while number_1 > 0 && number_2 > 0
+    if number_1 % 10 == number_2 % 10
+      counter += 1
+    end
+    number_1 /= 10
+    number_2 /= 10
+  end
+  return counter
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+# Time Complexity: O(n), where n is number of digits in input
+# Space Complexity: O(1)
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+  if (number % 10 == 0)
+    return false
+  end
+  lastdigit = 0
+  first_half = number
+  reverse_of_second_half = 0
+  while (first_half > reverse_of_second_half) do
+    lastdigit = first_half % 10
+    # add last digit to the start of reverse_of_second_half
+    reverse_of_second_half = reverse_of_second_half * 10 + lastdigit
+    # remove last digit
+    first_half /= 10
+  end
+
+  if first_half == reverse_of_second_half
+    return true
+  end
+  first_half = first_half * 10 + lastdigit # for odd number
+  if first_half == reverse_of_second_half
+    return true
+  else
+    return false
+  end
 end
 
 # Computes factorial of the input number and returns it
+# Time Complexity: O(n)
+# Space Complexity: O(n), because of stack memory used by recursive calls
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number <= 1
+    return 1
+  else
+    number * factorial(number - 1)
+  end
 end
+
+# To reduce Space Complexity we can use non recursive version
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def factorial_modified(number)
+  if number <= 1
+    return 1
+  else
+    i = 1
+    result = 1
+    while i < number do
+      result *= (i + 1)
+      i += 1
+    end
+    return result
+  end
+end
+
 
 # Computes the nth fibonacci number in the series starting with 0.
 # fibonacci series: 0 1 1 2 3 5 8 13 21 ...
@@ -22,16 +77,69 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+
+# Time Complexity: O(n)= O(n-1) + O(n-2)
+# Space Complexity: O(n) because of the recursive calls
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return 0
+  elsif n == 1
+    return 1
+  else
+    fibonacci(n - 1) + fibonacci(n - 2)
+  end
 end
 
-# Creates a new array to return the intersection of the two input arrays
-def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+
+def modified_fibonacci(n) # Fibonacci without using recursion
+  a = 0                   # Time Complexity: O(n), Space Complexity: O(1)
+  b = 1
+  for i in 0..n
+    a, b = b, a + b
+  end
+  return a
 end
+
+# def modified_fibonacci(n)
+#   a = 0                   # Time Complexity: O(n), Space Complexity: O(1)
+#   b = 1
+#   if n == 0
+#     return a
+#   elsif n == 1
+#     return b
+#   else
+#     for i in 2..n
+#       c = a + b
+#       a = b
+#       b = c
+#     end
+#     return b
+#   end
+# end
+
+# Creates a new array to return the intersection of the two input arrays
+# Time Complexity: O(m*n) for each element in array_1, we need to iterate through array_2
+# Space Complexity: O(n) Created a new array to store numbers that are intersections
+def intersection(array_1, array_2)
+  if array_1 != [] && array_2 != []
+    intersects = []
+    i = 0
+    while i < array_1.length
+      j = 0
+      while j < array_2.length
+        if array_1[i] == array_2[j]
+          intersects << array_1[i]
+        end
+        j += 1
+      end
+      i += 1
+    end
+    return intersects
+  else
+    return []
+  end
+end
+
 
 # Questions on 2D array or matrix
 
@@ -39,16 +147,76 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
+# Time Complexity : O(n * m) I iterated through 2 arrays in helper methods, through 2 arrays with zeros,
+# and 2 times on row and column. So,
+# O(n) + O (n) + O(n) * O(m) + O(n) + O(n) = O(n*m) + O(n+n+n+n) = O(n*m)
+# Space Complexity: O(n + m) I created two arrays, one for rows with zeros, one for columns with zeros
+
+# Helper method to convert given column to zeros
+def zero_column(matrix, col)
+  matrix.length.times do |row|
+    matrix[row][col] = 0
+  end
+end
+# Helper method to convert given row in a matrix to zeros
+def zero_row(matrix, row)
+  matrix[row].length.times do |col|
+    matrix[row][col] = 0
+  end
+end
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  row_with_zeros = []
+  column_with_zeros = []
+  matrix.length.times do |i|
+    matrix[0].length.times do |j|
+      if matrix[i][j] == 0
+        if !row_with_zeros.include?(i)
+          row_with_zeros << i
+        end
+        if !column_with_zeros.include?(j)
+          column_with_zeros << j
+        end
+      end
+    end
+  end
+
+ for a in row_with_zeros do
+  zero_row(matrix, a)
+ end
+
+ for b in column_with_zeros do
+  zero_column(matrix, b)
+ end
+
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
+# Time Complexity: O(n * m) For each column iterates through the length of an array once
+# Space Complexity: O(1) Used 2 constant variables.
+
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  rows = matrix.length
+  columns = matrix[0].length
+  if rows != columns
+    return false
+  else
+    sum_rows = 0
+    sum_columns = 0
+    rows.times do |i|
+      matrix[i].length.times do |j|
+        sum_rows += matrix[i][j]
+        sum_columns += matrix[j][i]
+      end
+    end
+    if sum_rows == sum_columns
+      return true
+    else
+      return false
+    end
+  end
 end
 
 ### END OF METHODS
@@ -248,6 +416,14 @@ def verify_matrix(matrix, rows_array, columns_array)
   end
   return true
 end
+
+def print_matrix(matrix)
+  matrix.size.times do |row|
+    print matrix[row]
+    puts
+  end
+end
+
 # Test 1
 rows = 3
 columns = 5
