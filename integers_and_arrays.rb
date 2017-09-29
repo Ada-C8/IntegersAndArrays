@@ -13,6 +13,7 @@ def digit_match(number_1, number_2)
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+# http://www.sanfoundry.com/python-program-check-number-palindrome/
 def is_palindrome(number)
   n = number
   reverse = 0
@@ -26,8 +27,13 @@ end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  total = 1
+
+  while number > 1
+    total *= number
+    number -= 1
+  end
+  return total
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
