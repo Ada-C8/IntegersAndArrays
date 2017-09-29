@@ -15,15 +15,37 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  # TODO: write this method
-  #   i = 1
-  # while number != 0
-  #   if number % (10 ** i) != number / (10 ** i )
-  #     return false
-  #   end
-  # end
+# determines what value (i) to start deviding number by to return the most significant digit
+# For the number 354 this while loop will return i = 100
+    # (354 / 100) => 3
+    # (354 / 1000) => 0
+# This is what we want, because 354 / 100 returns 3, which is the most significant digit in the number!
+  i = 1
+  while (number / i) >= 10
+    i *= 10
+  end # while
 
-end
+# you want to keep this while loop going while number is a positive integer greater than 0
+  while number != 0
+    # j is the most significant digit
+    j = (number / i)
+    # k is the least significant digit
+    k = (number % 10)
+    # compare the most and least significant digits, if they aren't the same then the number is not a palendrome
+    if j != k
+      return false
+    end # if
+    # (number % i) removes the most significant digit from number
+    # / 10 removes the least significant digit from number
+    # So, 12321 will now equal 232
+    number = (number % i) / 10
+    # Need to devide i by 100 to get the next significant digit since we lost two digits (a 100th place) from number (12321 is now 232)
+    i /= 100
+  end # while
+  
+  #if the while loop never returns false then the number is a palendrome!
+  return true
+end # is_palindrome
 
 # Computes factorial of the input number and returns it
 def factorial(number)
