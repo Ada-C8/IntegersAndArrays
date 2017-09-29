@@ -71,9 +71,23 @@ end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
-end
+  count1 = 0
+  intersect = []
+
+  until count1 == array_1.length
+    count2 = 0
+    until count2 == array_2.length
+      if array_1[count1] == array_2[count2]
+        intersect << array_1[count1]
+        break
+      else
+        count2 += 1
+      end #if
+    end #inner until
+    count1 += 1
+  end #out until
+  return intersect
+end #function
 
 # Questions on 2D array or matrix
 
@@ -82,7 +96,46 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  i = (matrix.length - 1)
+  j = (matrix[0].length - 1)
+  row_index = 0
+  zero_rows = []
+  zero_columns = []
+  while row_index <= i
+    column_index = 0
+    while column_index <= j
+      if matrix[row_index][column_index] == 0
+        zero_rows << row_index
+        zero_columns << column_index
+      end #if
+      column_index += 1
+    end #columns
+    row_index += 1
+  end #row_while
+
+row_index = 0
+while row_index <= (zero_rows.length - 1)
+  column_index = 0
+  while column_index <= j
+    matrix[zero_rows[row_index]][column_index] = 0
+    column_index += 1
+  end #while
+  row_index += 1
+end # row change
+
+column_index = 0
+
+while column_index <= (zero_columns.length - 1 )
+  row_index = 0
+  while row_index <= i
+    matrix[row_index][zero_columns[column_index]] = 0
+    row_index += 1
+  end #while
+  column_index += 1
+end #while
+
+return matrix
+
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
@@ -90,8 +143,29 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
-end
+  i = (matrix.length - 1)
+  j = (matrix[0].length - 1)
+  main_index = 0
+  if i != j
+    return false
+  end
+
+  while main_index <= i
+    row_sum = 0
+    sub_index = 0
+    column_sum = 0
+    while sub_index <= j
+      row_sum += matrix[main_index][sub_index]
+      column_sum += matrix[sub_index][main_index]
+      sub_index += 1
+    end #inner while
+    if row_sum != column_sum
+      return false
+    end #if statement
+    main_index += 1
+  end #main while statement
+  return true
+end #method
 
 ### END OF METHODS
 puts "Tests for Digit Match"
