@@ -1,19 +1,46 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  if number_1 == number_2 && number_1 / 10 == 0 && number_2 / 10 == 0
+  # if the left most number is the same and both numbers have the same length
+    return 1
+  elsif number_1 / 10 == 0 || number_2 / 10 == 0
+  # if you've iterated through one or both numbers
+    return 0
+  elsif number_1 % 10 == number_2 % 10
+  #their ones digit matches
+    return 1 + digit_match((number_1 / 10), (number_2 / 10))
+  else
+  # ones digit doesn't match
+    return digit_match((number_1 / 10), (number_2 / 10))
+  end
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  # str_number = number.to_s #O(n) space is use
+  left_divisor = 1
+  while number / (left_divisor * 10) > 0
+    left_divisor *= 10
+  end
+  right_mod = 10
+  until left_divisor < right_mod
+    if number / left_divisor != number % right_mod
+      return false
+    end
+
+    number = number % left_divisor / right_mod
+    left_divisor /= 100
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number <= 1
+    return 1
+  else
+    return number * factorial(number - 1)
+  end
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,15 +50,35 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return 0
+  elsif n == 1
+    return 1
+  else
+    return fibonacci(n - 1) + fibonacci(n - 2)
+  end
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  i = 0
+  intersection = []
+  while i < array_1.length
+    j = 0
+    while j < array_2.length
+      if array_1[i] == array_2[j]
+        intersection << array_1[i]
+      end
+      j += 1
+    end
+    i += 1
+  end
+  return intersection
+  # Alternative solution:
+  # sort each array, then binary search on second one
+  # n log n + k log k + l log k
 end
+
 
 # Questions on 2D array or matrix
 
@@ -39,8 +86,33 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
+
+# If it finds a 0, turn everything in the array 0 and turn every object with the same index in other arrays to 0
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  row = 0
+  while row < matrix.length
+    column = 0
+    while column < matrix[row].length
+      # if an object is equal to 0
+      if matrix[row][column] == 0
+        # ...turn everything with the same index 0
+        row_iterator = 0
+        while row_iterator < matrix.length
+          matrix[row_iterator][column] = 0
+          row_iterator += 1
+        end
+
+        # ...and turn everything within the array 0
+        column_iterator = 0
+        while column_iterator < matrix[row].length
+          matrix[row][column_iterator] = 0
+          column_iterator += 1
+        end
+      end
+      column += 1
+    end
+    row += 1
+  end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
