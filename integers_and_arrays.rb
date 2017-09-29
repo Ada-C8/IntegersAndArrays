@@ -74,8 +74,15 @@ end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  intersection = []
+  for number in array_1
+    for digit in array_2
+      if number == digit
+        intersection << number
+      end
+    end
+  end
+  return intersection
 end
 
 # Questions on 2D array or matrix
