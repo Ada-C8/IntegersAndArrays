@@ -1,7 +1,6 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
   count = 0
-
   first_digits = Math.log10(number_1).to_i + 1
   second_digits = Math.log10(number_2).to_i + 1
   difference = (first_digits - second_digits).abs
@@ -25,19 +24,30 @@ end
 def is_palindrome(number)
   digits = Math.log10(number).to_i + 1
   number = number.to_s
+
   first_half = number[0...number.length/2]
   if digits % 2 == 0
     second_half = number[(number.length/2)..number.length]
   else
     second_half = number[(number.length/2 + 1)..number.length]
   end
+
   first_half.reverse == second_half ? true : false
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  numbers = []
+  until number == 0
+    numbers << number
+    number -= 1
+  end
+
+  factorial = 1
+  for number in numbers
+    factorial *= number
+  end
+  return factorial
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -47,8 +57,19 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  sequence = []
+  if n > 1
+    sequence[0] = 0
+    sequence[1] = 1
+    i = 2
+    until i > n
+      sequence << (sequence[i-1]) + (sequence[i-2])
+      i += 1
+    end
+  else
+    sequence << n
+  end
+  return sequence.last
 end
 
 # Creates a new array to return the intersection of the two input arrays
