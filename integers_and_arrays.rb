@@ -25,7 +25,6 @@ def is_palindrome(number)
 
   count = 0
   index = (length - 1)
-
   while count < index
     first_digit = number / (10 ** (index))
     first_digit %= 10
@@ -68,6 +67,7 @@ def fibonacci(n)
   first = 0
   second = 1
   another = 0
+
   (n - 1).times do
     another = first + second
     first = second
@@ -108,19 +108,16 @@ def matrix_convert_to_0(matrix)
 
   rows.times do |row|
     columns.times do |column|
-      if matrix[row - 1][column - 1] == 0
+      if matrix[row][column] == 0
         columns.times do |column|
-          matrix[row - 1][column] = 0
+          matrix[row][column] = 0
         end
-
-        rows.times do |row|
-          matrix[row - 1][column - 1] = 0
+        row.times do |row|
+          matrix[row][column] = 0
         end
       end
     end
   end
-
-
 end
 
 
