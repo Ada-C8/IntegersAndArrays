@@ -1,7 +1,24 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  count = 0
+
+  first_digits = Math.log10(number_1).to_i + 1
+  second_digits = Math.log10(number_2).to_i + 1
+  difference = (first_digits - second_digits).abs
+
+  number_1 = number_1.to_s.split('')
+  number_2 = number_2.to_s.split('')
+
+  first_digits >= second_digits ? number_1.shift(difference) : number_2.shift(difference)
+
+  number_1 = number_1.join
+  number_2 = number_2.join
+  i = 0
+  until i == number_1.length
+    number_1[i] == number_2[i] ? count += 1 : count += 0
+    i += 1
+  end
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
