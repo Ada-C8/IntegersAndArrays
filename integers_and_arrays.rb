@@ -16,12 +16,12 @@ end
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
   # TODO: write this method
-#   i = 1
-# while number != 0
-#   if number % (10 ** i) != number / (10 ** i )
-#     return false
-#   end
-# end
+  #   i = 1
+  # while number != 0
+  #   if number % (10 ** i) != number / (10 ** i )
+  #     return false
+  #   end
+  # end
 
 end
 
@@ -53,12 +53,12 @@ def fibonacci(n)
   num_2 = 1
   fib = 0
 
-#return 1 for the first fibonacci number
+  #return 1 for the first fibonacci number
   if n == 1
     return num_2
   end
 
-#return the 2nd-nth fibonacci number
+  #return the 2nd-nth fibonacci number
   (n - 1).times do
     fib = num_1 + num_2
     num_1 = num_2
@@ -70,27 +70,27 @@ end
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
 
-# return an empty array if either of the arrays is empty
-if array_1.length == 0 || array_2.length == 0
-  return []
-end # if
+  # return an empty array if either of the arrays is empty
+  if array_1.length == 0 || array_2.length == 0
+    return []
+  end # if
 
-i = 0
-intersection = []
+  i = 0
+  intersection = []
 
-# for each element array_1[i] interate though array_2 to see if array[i] is present in array_2. If it is then push array[i] into intersection.
-# have to reset j to zero in each interation of i
-while i < array_1.length
-  j = 0
-  while j < array_2.length
-    if array_1[i] == array_2[j]
-      intersection << array_2[j]
-    end # if
-    j += 1
-  end # inner while
-  i += 1
-end # outer while
-return intersection
+  # for each element array_1[i] interate though array_2 to see if array[i] is present in array_2. If it is then push array[i] into intersection.
+  # have to reset j to zero in each interation of i
+  while i < array_1.length
+    j = 0
+    while j < array_2.length
+      if array_1[i] == array_2[j]
+        intersection << array_2[j]
+      end # if
+      j += 1
+    end # inner while
+    i += 1
+  end # outer while
+  return intersection
 end # intersection
 
 # Questions on 2D array or matrix
@@ -102,16 +102,84 @@ end # intersection
 def matrix_convert_to_0(matrix)
   # if a row contains a 0 then add that row# to a row array
   # if a column contains a 0 then add the column # to a colum array
-  # then go back and 
-end
+  # then go back and
+
+  rows = matrix.length
+  columns = matrix[0].length
+  i = 0
+  rows_with_zeros = []
+  columns_with_zeros = []
+  while i < rows
+    j = 0
+    while j < columns
+      if matrix[i][j] == 0
+        rows_with_zeros << i
+        columns_with_zeros << j
+      end # if
+      j += 1
+    end # innwe while
+    i += 1
+  end # outer while
+
+  rows_length = rows_with_zeros.length
+  columns_length = columns_with_zeros.length
+
+  k = 0
+  while k < rows_length
+    m = 0
+    while m < columns
+      matrix[rows_with_zeros[k]][m] = 0
+      m += 1
+    end # inner while
+    k += 1
+  end # outer while
+
+  x = 0
+  while x < columns_length
+    y = 0
+    while y < rows
+      matrix[y][columns_with_zeros[x]] = 0
+      y += 1
+    end # inner while
+    x += 1
+  end # outer while
+
+  return matrix
+end # matrix_convert_to_0
+
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
-end
+  # since it is stated that this is for square matrixes, the size of columns and rows are both equal to length
+  #NOTE: This works, but it throws an error in the tests.....
+  length = matrix.size
+  i = 0
+  sum_row = 0
+  sum_column = 0
+
+  while i < length
+    j = 0
+    sum_row = 0
+    sum_column = 0
+    while j < length
+      sum_row += matrix[i][j]
+      # puts "sum_row for #{j} is #{sum_row}"
+      col = i
+      row = j
+      sum_column += matrix[row][col]
+      # puts "sum_column for #{j} is #{sum_column}"
+      j += 1
+    end # inner while
+    if sum_row != sum_column
+      return false
+    end # if
+    i += 1
+  end # outer white
+  return true
+end #matrix_check_sum
 
 ### END OF METHODS
 puts "Tests for Digit Match"
