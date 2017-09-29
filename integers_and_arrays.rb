@@ -1,19 +1,71 @@
 # Returns count of digits matching in the two input non-negative integers
+
+require 'pry'
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  m = 0
+
+  j = 1
+
+  while (number_1/j > 1) && (number_2/j > 1)
+    if ((number_1/j) % 10) == ((number_2/j) % 10)
+      m += 1
+    end
+
+    j *= 10
+  end
+  return m
+
+  # m = 0
+  #
+  # while (number_1 > 1) && (number_2 > 1)
+  #   if (number_1 % 10) == (number_2 % 10)
+  #     m += 1
+  #   end
+  #
+  #   number_1 /= 10
+  #   number_2 /= 10
+  # end
+  #
+  # return m
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  i = 0
+  # j = Math.log10(number).to_i
+  #
+  j = 0
+
+  n = number
+
+  while n >= 10
+    n /= 10
+    j += 1
+  end
+
+  while j >= i
+
+    if number % (10**(j+1))/(10**j) != number % (10**(i+1))/(10**i)
+      return false
+    end
+
+    i += 1
+    j -= 1
+
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  factorial = 1
+
+  while number > 0
+    factorial = factorial * number
+    number -= 1
+  end
+
+  return factorial
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +75,43 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  i = 0
+  j = 1
+  c = 1
+
+  if n == 0
+    return i
+  else
+    while c < n
+      temp = j
+      j = i + j
+      i = temp
+      c += 1
+    end
+    return j
+  end
+
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  i = 0
+  k = 0
+  intersection = []
+
+  while i < (array_1.length)
+    j = 0
+    while j < (array_2.length)
+      if array_1[i] == array_2[j]
+        intersection[k] = array_1[i]
+        k += 1
+      end
+      j += 1
+    end
+    i += 1
+  end
+
+  return intersection
 end
 
 # Questions on 2D array or matrix
@@ -40,7 +121,27 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  i = 0
+
+  while i < matrix.length
+    j = 0
+    while j < matrix[0].length
+      if matrix[i][j] == 0
+        a = 0
+        while a < matrix.length
+          matrix[a][j] = 0
+          a += 1
+        end
+        a = 0
+        while a < matrix[0].length
+          matrix[i][a] = 0
+          a += 1
+        end
+      end
+      j += 1
+    end
+    i += 1
+  end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
@@ -48,7 +149,31 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+i = 0
+  while i < matrix.length
+    sum_row = 0
+    j = 0
+
+    while j < matrix[0].length
+      sum_row += matrix[i][j]
+      j += 1
+    end
+
+    sum_column = 0
+    j = 0
+
+    while j < matrix.length
+      sum_column += matrix[j][i]
+      j += 1
+    end
+
+    if sum_row != sum_column
+      return false
+    else
+      i += 1
+    end
+  end
+
 end
 
 ### END OF METHODS
