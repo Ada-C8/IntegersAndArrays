@@ -1,7 +1,15 @@
+require 'pry'
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  counter = 0
+  until number_1 == 0 || number_2 == 0
+    if number_1 % 10 == number_2 % 10
+      counter += 1
+    end
+    number_1 /= 10
+    number_2 /= 10
+  end
+  return counter
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
