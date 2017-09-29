@@ -23,8 +23,15 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+  digits = Math.log10(number).to_i + 1
+  number = number.to_s
+  first_half = number[0...number.length/2]
+  if digits % 2 == 0
+    second_half = number[(number.length/2)..number.length]
+  else
+    second_half = number[(number.length/2 + 1)..number.length]
+  end
+  first_half.reverse == second_half ? true : false
 end
 
 # Computes factorial of the input number and returns it
