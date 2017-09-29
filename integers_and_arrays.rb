@@ -14,8 +14,14 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+  n = number
+  reverse = 0
+  while n > 0
+    digit = n % 10
+    reverse = reverse * 10 + digit
+    n /= 10
+  end
+  number == reverse ? (return true) : (return false)
 end
 
 # Computes factorial of the input number and returns it
