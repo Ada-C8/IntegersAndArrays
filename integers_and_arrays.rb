@@ -32,10 +32,10 @@ def is_palindrome(number)
   end
   return true
 end
-# Time: O(n) + O(n) = O(n)
+# Time: O(n) + O(n/2) = O(n)
 
 # Computes factorial of the input number and returns it
-def factorial(number) # This is the factorial
+def factorial(number) 
   i = number - 1
   total = 1
   until i < 0 # O(n)
