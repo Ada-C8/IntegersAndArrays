@@ -1,19 +1,65 @@
+require 'pry'
 # Returns count of digits matching in the two input non-negative integers
+def digit_length(number)
+  length = 0
+
+  while (number /= 10) > 0
+    length += 1
+  end
+
+  length += 1
+  return length
+end
+
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+
+  length_1 = digit_length(number_1)
+  length_2 = digit_length(number_2)
+
+  if number_1 == number_2
+    return length_1
+  end
+
+  shortest = length_1 > length_2 ? length_2 : length_1
+
+  matching = 0
+
+  shortest.times do |i|
+    digit_1 = (number_1 % 10 ** (i + 1)) / 10 ** i
+    digit_2 = (number_2 % 10 ** (i + 1)) / 10 ** i
+
+    if digit_1 == digit_2
+      matching += 1
+    end
+
+  end
+
+  return matching
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  length = digit_length(number)
+  (length/2).times do |i|
+    from_end = (number / 10 ** i) % 10
+      # also: (number % 10 ** (i + 1)) / 10 ** i
+    from_start = number / 10 ** (length - (i + 1)) % 10
+    # binding.pry
+    return false if from_end != from_start
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  # (number - 0) * (number - 1) * (number - 2) ... * 2 * 1
+  factorial = 1
+
+  number.times do |i|
+    factorial *= (number - i)
+  end
+
+  return factorial
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +69,31 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  fib_two_back = 1
+  fib_one_back = 0
+  fibonacci = 0
+
+  n.times do |i|
+    fibonacci = fib_one_back + fib_two_back
+    fib_two_back = fib_one_back
+    fib_one_back = fibonacci
+  end
+  return fibonacci
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  intersection = []
+
+  array_1.length.times do |i|
+    array_2.length.times do |n|
+      if array_1[i] == array_2[n]
+        intersection << array_1[i]
+      end
+    end
+  end
+
+  return intersection
 end
 
 # Questions on 2D array or matrix
@@ -40,7 +103,19 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  number_of_rows = matrix.length
+
+  number_of_rows.times do |r|
+    number_of_columns = matrix[r].length
+    number_of_columns.times do |c|
+      if matrix[r][c] == 0
+        matrix[r] = Array.new(number_of_columns){0}
+        number_of_rows.times do |r2|
+          matrix[r2][c] = 0
+        end
+      end
+    end
+  end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
@@ -48,7 +123,33 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  number_of_rows = matrix.length
+  row_totals = []
+  column_totals = []
+
+  number_of_rows.times do |r|
+    number_of_columns = matrix[r].length
+
+    row_total = 0
+
+    number_of_columns.times do |c|
+      column_total = 0
+
+      row_total += matrix[r][c]
+
+      number_of_rows.times do |r2|
+        column_total += matrix[r2][c]
+      end
+
+      column_totals << column_total
+    end
+    
+    row_totals << row_total
+
+    return false if row_totals[r] != column_totals[r]
+
+  end
+  return true
 end
 
 ### END OF METHODS
@@ -68,11 +169,11 @@ end
 puts "End of digit match tests.\n\n"
 
 puts "Tests for Palindrome"
-if is_palindrome(1001) == false
-  puts "BUG!! 1001 is a palindrome."
-end
 if is_palindrome(1234321) == false
   puts "BUG!! 1234321 is a palindrome."
+end
+if is_palindrome(1001) == false
+  puts "BUG!! 1001 is a palindrome."
 end
 if is_palindrome(77) == false
   puts "BUG!! 77 is a palindrome."
@@ -342,7 +443,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
-          [7, 8, 9],
           [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
@@ -352,7 +452,7 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
           [2, 3, 12],
           [9, 4, 9]]
