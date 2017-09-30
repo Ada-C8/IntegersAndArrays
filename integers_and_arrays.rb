@@ -42,8 +42,7 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
-# https://www.youtube.com/watch?v=0FqLNPt9plg
-
+# https://stackoverflow.com/questions/24438655/ruby-fibonacci-algorithm
 #
 def fibonacci(n)
   if n == 0
@@ -376,7 +375,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
-          [7, 8, 9],
           [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
@@ -386,7 +384,7 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
           [2, 3, 12],
           [9, 4, 9]]
