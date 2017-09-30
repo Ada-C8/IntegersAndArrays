@@ -6,17 +6,17 @@ What is the time and space complexity for each method you implemented? Provide j
 
 |  Question 	|  Answer 	|
 |---	|---	|
-|  What is the time complexity of the digit_match method? Provide justification.	|   	|
-|  What is the space complexity of the digit_match method? Provide justification.	|   	|
-|  What is the time complexity of the is_palindrome method? Provide justification.	|   	|
-|  What is the space complexity of the is_palindrome method? Provide justification.	|   	|
-|  What is the time complexity of the factorial method? Provide justification.	|   	|
-|  What is the space complexity of the factorial method? Provide justification.	|   	|
-|  What is the time complexity of the fibonacci method? Provide justification.	|   	|
-|  What is the space complexity of the fibonacci method? Provide justification.	|   	|
-|  What is the time complexity of the intersection method? Provide justification.	|   	|
-|  What is the space complexity of the intersection method? Provide justification.	|   	|
-|  What is the time complexity of the matrix_convert_to_0 method? Provide justification.	|   	|
-|  What is the space complexity of the matrix_convert_to_0 method? Provide justification.	|   	|
-|  What is the time complexity of the matrix_check_sum method? Provide justification.	|   	|
-|  What is the space complexity of the matrix_check_sum method? Provide justification.	| 
+|  What is the time complexity of the digit_match method? Provide justification.	| The time complexity is O(n), where n in the number of digits in the smaller of the two numbers. We need to check every digit, therefore as the number of digits grows the time it will take to check each one will grow at the same rate.  	|
+|  What is the space complexity of the digit_match method? Provide justification.	|  I believe it's constant, as I am only creating a few local variables (counter, last_digit_1, last_digit_2), and deleting the last digits from the numbers in place. 	|
+|  What is the time complexity of the is_palindrome method? Provide justification.	|  The time complexity is linear O(n), as the time is takes to check every digit grows at the same rate as the length of the number.	|
+|  What is the space complexity of the is_palindrome method? Provide justification.	| The space complexity is constant O(1), I think. Only a few local variables are being created. (first_digit = number is only creating a local variable right? Not an entirely new number?) 	|
+|  What is the time complexity of the factorial method? Provide justification.	|  The time complexity is O(n), where n is how big the number is. As the number gets larger, the number of times through the while loop increases at the same rate.	|
+|  What is the space complexity of the factorial method? Provide justification.	| The space complexity is O(1), as only creating a few local variables. |
+|  What is the time complexity of the fibonacci method? Provide justification.	| The time complexity is O(n), where n is how big the number is. As n grows, the time it takes to populate the fib_array to find the fib number grows at the same rate. |
+|  What is the space complexity of the fibonacci method? Provide justification.	| The space complexity is O(n), and a few local variables are created (constant), and a new array is created to store the numbers. As n becomes larger, the array gets bigger at the same rate. 	|
+|  What is the time complexity of the intersection method? Provide justification.	|  The time complexity is 0(n^2). The outer loop takes O(n), as array_1 grows we must go through each number. The inner loop also takes O(n), as array_2 grows we must go through each number. The overall time complexity is O(n^2).|
+|  What is the space complexity of the intersection method? Provide justification.	|  The space complexity is O(n), as are creating a few local variables and a new array that grows according to how many matches there are. In the worst case, all the numbers will match, so the array will take up O(n) space. |
+|  What is the time complexity of the matrix_convert_to_0 method? Provide justification.	| The time complexity is O(n^2). To search each array with the array for zeros, it takes 0(n^2) time, as for each array you need to check every number within that array. Then, you need to iterate through, in the worst case, the same size array O(n^2), and use these results to change every number in the original array which requires two iterations through, one to change the rows and one to change the columns O(n^2) + O(n^2). The total time complexity is O(n^2). (I think...)|
+|  What is the space complexity of the matrix_convert_to_0 method? Provide justification.	| The space complexity is O(n) as I create a new nested array to store the locations of the zeros. In the worst case, that is if every number was a 0, you'd end up with the same size array. |
+|  What is the time complexity of the matrix_check_sum method? Provide justification.	| The time complexity is O(n^3), I think? Where n is the length of all the arrays. The outer loop takes O(n) time, as you must go through the full length of the array. The inner loop, for every n, must sum up row and column, which times O(n) * O(n) time (O(n^2)). Then you compare the sums which takes constant time. So would the time complexity be O(n) * O(n^2) + O(1) = O(n^3)?	|
+|  What is the space complexity of the matrix_check_sum method? Provide justification. |  	The space complexity is constant, O(1), as I am creating a few local variables. |
