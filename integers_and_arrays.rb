@@ -1,19 +1,47 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  count = 0
+  while number_1 > 0 && number_2 > 0
+    if number_1 % 10 == number_2 % 10
+      count += 1
+    end
+
+    number_1 = (number_1 / 10)
+    number_2 = (number_2 / 10)
+  end
+  # puts "NOT IMPLEMENTED"
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  temp = []
+
+  while number > 0
+    temp.push(number % 10)
+    number = number / 10
+  end
+
+  i = 0
+  while i < temp.length / 2
+    if temp[i] != temp[temp.length - 1 - i]
+      return false
+    end
+    i += 1
+  end
+  # puts "NOT IMPLEMENTED"
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number <= 1
+    return 1
+  else
+    return number * factorial(number - 1)
+  end
+  # puts "NOT IMPLEMENTED"
+  # return number
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -342,7 +370,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
-          [7, 8, 9],
           [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
@@ -352,7 +379,7 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
           [2, 3, 12],
           [9, 4, 9]]
