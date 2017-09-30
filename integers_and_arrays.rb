@@ -120,7 +120,33 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  row = 0
+  while row < matrix.length
+    # get the sum of objects in current row
+    col_sum = 0 # numbers in one row array
+    col = 0
+    while col < matrix[row].length
+      col_sum += matrix[row][col]
+      puts "\tcurrent sum of cols: #{col_sum} | current number: #{matrix[row][col]}"
+      col += 1
+    end
+    puts "sum in row #{row}: #{col_sum}"
+
+    # get the sum of the objects in the column equivalent to that row
+    row_iterator = 0
+    row_sum = 0
+    while row_iterator < matrix.length
+      row_sum += matrix[row_iterator][row]
+      puts "\tcurrent sum of rows: #{row_sum} | current number: #{matrix[row_iterator][row]}"
+      row_iterator += 1
+    end
+    puts "sum in column #{row}: #{row_sum}"
+    if col_sum != row_sum
+      return false
+    end
+    row += 1
+  end
+  return true
 end
 
 ### END OF METHODS
@@ -414,7 +440,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
-          [7, 8, 9],
           [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
@@ -424,7 +449,7 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
           [2, 3, 12],
           [9, 4, 9]]
