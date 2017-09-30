@@ -127,20 +127,16 @@ def matrix_check_sum(matrix)
     col = 0
     while col < matrix[row].length
       col_sum += matrix[row][col]
-      puts "\tcurrent sum of cols: #{col_sum} | current number: #{matrix[row][col]}"
       col += 1
     end
-    puts "sum in row #{row}: #{col_sum}"
 
     # get the sum of the objects in the column equivalent to that row
     row_iterator = 0
     row_sum = 0
     while row_iterator < matrix.length
       row_sum += matrix[row_iterator][row]
-      puts "\tcurrent sum of rows: #{row_sum} | current number: #{matrix[row_iterator][row]}"
       row_iterator += 1
     end
-    puts "sum in column #{row}: #{row_sum}"
     if col_sum != row_sum
       return false
     end
