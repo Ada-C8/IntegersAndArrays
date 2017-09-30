@@ -1,20 +1,50 @@
 # Returns count of digits matching in the two input non-negative integers
-def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+def digit_match(number_1, number_2) #72503891, 62530841
+  pairs = 0
+
+  while (number_1 > 0) && (number_2 > 0) # O(n)
+    pairs += 1 if (number_1 % 10) == (number_2 % 10)
+    number_1 /= 10
+    number_2 /= 10
+  end
+  return pairs
 end
+# Time: O(n)
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  temp_numb = number
+  length = 1
+
+  # Count the length of the number
+  while (temp_numb /= 10) > 0 # O(n)
+    length += 1
+  end
+
+  while length > 0 # O(n/2)
+    if number % 10 == (number / (10**(length - 1)))
+      number = number % (10**(length - 1)) # Removes the first digit
+      number /= 10 # Removes the last digit
+      length -= 2
+    else
+      return false
+    end
+  end
   return true
 end
+# Time: O(n) + O(n/2) = O(n)
 
 # Computes factorial of the input number and returns it
-def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+def factorial(number) 
+  i = number - 1
+  total = 1
+  until i < 0 # O(n)
+    total = total * (number - i)
+    i -= 1
+  end
+  return total
 end
+# Time: O(n)
 
 # Computes the nth fibonacci number in the series starting with 0.
 # fibonacci series: 0 1 1 2 3 5 8 13 21 ...
@@ -23,15 +53,39 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  series = [0,1]
+  i = 1
+  j = 0
+  if n == 0 # O(1)
+    return 0
+  elsif n == 1 # O(1)
+    return 1
+  else
+    while i < n # O(n)
+      series << series[i] + series[j]
+      i += 1
+      j += 1
+    end
+    return series[n]
+  end
 end
+# Time: O(1) + O(1) + O(n) --> O(n)
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  common_nums = []
+  i = 0
+  while i < array_1.length # O(n)
+    j = 0
+    while j < array_2.length # O(m)
+      common_nums << array_1[i] if array_1[i] == array_2[j]
+      j += 1
+    end
+    i += 1
+  end
+  return common_nums
 end
+# Time: O(n * m)
 
 # Questions on 2D array or matrix
 
@@ -40,16 +94,67 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
-end
+  row_i = 0
+  points = []
 
-# Checks that for the given matrix, where number of rows are equal to number of columns
-# whether the sum of each row matches the sum of corresponding column i.e. sum
-# of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
-# If this is the case, return true. Otherwise, return false.
-def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  while row_i < matrix.length # O(n^2)
+    column_i = 0
+    while column_i < matrix[row_i].length
+      points << [row_i, column_i] if matrix[row_i][column_i] == 0
+      column_i += 1
+    end
+    row_i += 1
+  end
+
+  i = 0 # points = [ [1,2], [2,0], [0,0] ] point[i][0] = row, point [i][1] = column
+  while i < points.length # O(n)
+    j = 0
+    while j < matrix[0].length # Converts each row in matrix into 0s, O(n)
+      matrix[points[i][0]][j] = 0
+      j += 1
+    end
+    k = 0
+    while k < matrix.length # Converts each column in matrix into 0s, O(n)
+      matrix[k][points[i][1]] = 0
+      k += 1
+    end
+    i += 1
+  end
 end
+# Time: O(n^2) + O(n^2) = O(2n^2) --> O(n^2)
+
+# If this is the case, return true. Otherwise, return false.
+#For example for the following input, the method should return true. (Sum of 0th row and 0th column is 10, sum of 1st row as well as the 1st column is 18 and so on.)
+def matrix_check_sum(matrix)
+  i = 0  # Each matrix row
+  while i < matrix.length # O(n)
+    row_total = 0
+    column_total = 0
+
+    # Calculate sum of row
+    matrix[i].each do |num| # O(n) - Worst case where row is as big as possible
+      row_total += num
+    end
+
+    j = 0 # Current row
+    k = 0 # Current column index in [j] row
+    # Calculate sum of column
+    matrix.length.times do # O(n)
+      column_total += matrix[j][k]
+      j += 1
+    end
+
+    if row_total == column_total
+      return true
+    else
+      i += 1
+      k += 1
+    end
+  end
+  return false
+end
+# Time: O(n) + O(n) = O(2n) * O(n) --> O(n^2)
+
 
 ### END OF METHODS
 puts "Tests for Digit Match"
