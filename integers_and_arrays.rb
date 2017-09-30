@@ -245,7 +245,7 @@ def matrix_check_sum(matrix)
   return true
 end
 
-#time complexity: Where n is the length of all the arrays, outer loop O(n), as must go through the full length of the array. Inner loop, for every n, must sum up row and column, O(n) * O(n). Then you compare the sums which takes O(n) time. So would the time complexity be O(n^3)?  
+#time complexity: Where n is the length of all the arrays, outer loop O(n), as must go through the full length of the array. Inner loop, for every n, must sum up row and column, O(n) + O(n). Then you compare the sums which takes O(n) time. So would the time complexity be O(n^2)?  
 #space complexity: Constant, as are only creating a few new local varibles.
 
 ### END OF METHODS
