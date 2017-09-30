@@ -9,6 +9,7 @@ def digit_match(number_1, number_2) #72503891, 62530841
   end
   return pairs
 end
+# Time: O(n)
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
@@ -20,7 +21,7 @@ def is_palindrome(number)
     length += 1
   end
 
-  while length > 0 # O(n)
+  while length > 0 # O(n/2)
     if number % 10 == (number / (10**(length - 1)))
       number = number % (10**(length - 1)) # Removes the first digit
       number /= 10 # Removes the last digit
@@ -31,6 +32,7 @@ def is_palindrome(number)
   end
   return true
 end
+# Time: O(n) + O(n) = O(n)
 
 # Computes factorial of the input number and returns it
 def factorial(number) # This is the factorial
@@ -42,6 +44,7 @@ def factorial(number) # This is the factorial
   end
   return total
 end
+# Time: O(n)
 
 # Computes the nth fibonacci number in the series starting with 0.
 # fibonacci series: 0 1 1 2 3 5 8 13 21 ...
@@ -66,6 +69,7 @@ def fibonacci(n)
     return series[n]
   end
 end
+# Time: O(1) + O(1) + O(n) --> O(n)
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
@@ -73,7 +77,7 @@ def intersection(array_1, array_2)
   i = 0
   while i < array_1.length # O(n)
     j = 0
-    while j < array_2.length # O(n)
+    while j < array_2.length # O(m)
       common_nums << array_1[i] if array_1[i] == array_2[j]
       j += 1
     end
@@ -81,8 +85,7 @@ def intersection(array_1, array_2)
   end
   return common_nums
 end
-
-# O(n^2)
+# Time: O(n * m)
 
 # Questions on 2D array or matrix
 
@@ -106,19 +109,19 @@ def matrix_convert_to_0(matrix)
   i = 0 # points = [ [1,2], [2,0], [0,0] ] point[i][0] = row, point [i][1] = column
   while i < points.length # O(n)
     j = 0
-    while j < matrix[0].length # Converts each row in matrix into 0s
+    while j < matrix[0].length # Converts each row in matrix into 0s, O(n)
       matrix[points[i][0]][j] = 0
       j += 1
     end
     k = 0
-    while k < matrix.length # Converts each column in matrix into 0s
+    while k < matrix.length # Converts each column in matrix into 0s, O(n)
       matrix[k][points[i][1]] = 0
       k += 1
     end
     i += 1
   end
 end
-# O(n) + # O(n^2) --> O(n^2)
+# Time: O(n^2) + O(n^2) = O(2n^2) --> O(n^2)
 
 # If this is the case, return true. Otherwise, return false.
 #For example for the following input, the method should return true. (Sum of 0th row and 0th column is 10, sum of 1st row as well as the 1st column is 18 and so on.)
@@ -150,7 +153,7 @@ def matrix_check_sum(matrix)
   end
   return false
 end
-
+# Time: O(n) + O(n) = O(2n) * O(n) --> O(n^2)
 
 
 ### END OF METHODS
