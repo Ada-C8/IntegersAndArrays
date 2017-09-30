@@ -1,19 +1,65 @@
+require 'pry'
+require 'awesome_print'
 # Returns count of digits matching in the two input non-negative integers
-def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+
+# Since README states "you can use .length", but there is no Integer.length method, I created the below as a stand-in. It is not maximally efficient - using Ruby's built-in methods to convert the integer to a string and find the length is faster. I'm considering this a more readable stand-in for a hypothetical better Integer.length method.
+
+def length(num)
+  return 0 if num == 0
+  count = 0
+  until num == 0
+    num /= 10
+    count += 1
+  end
+  return count
+end
+
+def digit_match(number_1, number_2) # time: O(n), space: O(1)
+  return length(number_1) if number_1 == number_2
+  number_1 %= 10 ** [length(number_1), length(number_2)].min
+  number_2 %= 10 ** length(number_1)
+  i = 10 ** length(number_1)
+  count = 0
+  until i == 1
+    if ((number_1 % i) / (i / 10)) == ((number_2 % i) / (i / 10))
+      count += 1
+    end
+    i /= 10
+  end
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
-def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+def is_palindrome(number) # time: O(n/2) => O(n), space: O(1)
+  i = 1
+  until i > ((length(number) / 2) + 1)
+
+    # # readable version:
+    # i2 = length(number) - i
+    # first = (number % (10 ** (i2 + 1))) / (10 ** (i2))
+    # last = (number % (10 ** (i))) / (10 ** (i-1))
+    # unless first == last
+    #   return false
+    # end
+
+    # minimal memory usage version:
+    unless (number % (10 ** (length(number) - i + 1))) / (10 ** (length(number) - i)) == (number % (10 ** (i))) / (10 ** (i-1))
+      return false
+    end
+
+    i += 1
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
-def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+def factorial(number) # time: O(n), space: O(1)
+  total = 1
+  until number == 0
+    total *= number
+    number -= 1
+  end
+  return total
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -22,15 +68,41 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
-def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+def fibonacci(n) # time: O(n), space: O(1)
+  i = 1
+  prev = 1
+  last = 0
+  num = 0
+  n.times do |i|
+    num = prev + last
+    prev = last
+    last = num
+  end
+  return num
 end
 
 # Creates a new array to return the intersection of the two input arrays
-def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+
+def intersection(array_1, array_2) # time: O(2n + nlogn) => O(nlogn), space: O(n)
+  array_1.sort!
+  array_2.sort!
+  result = []
+  array_1.each do |n|
+    min = 0
+    max = array_2.length
+    until min >= max
+      mid = (min + max) / 2
+      if array_2[mid] == n
+        result << n
+        break
+      elsif array_2[mid] > n
+        max = mid
+      else
+        min = mid + 1
+      end
+    end
+  end
+  return result
 end
 
 # Questions on 2D array or matrix
@@ -39,15 +111,50 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
-def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+def matrix_convert_to_0(matrix) # time complex O(n^2 + n^3) => O(n^3) (kind of, since that assumes n = m, which it doesnt), space complex O(2n) => O(n)
+  rows_with_0s = []
+  columns_with_0s = []
+  matrix.each_with_index do |row, x|
+    row.each_with_index do |item, y|
+      if item == 0
+        columns_with_0s << y
+        rows_with_0s << x
+      end
+    end
+  end
+  matrix.each_with_index do |row, x|
+    row.each_with_index do |item, y|
+      if rows_with_0s.include?(x) || columns_with_0s.include?(y)
+        matrix[x][y] = 0
+      end
+    end
+  end
+  return matrix
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
-def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+def matrix_check_sum(matrix) # time complexity: O(2n^2) => O(n^2), space complexity: O(n)
+  row_sums = Array.new(matrix.length, 0)
+
+  matrix.each_with_index do |row, x|
+    row.each do |item|
+      row_sums[x] += item
+    end
+  end
+
+  row_sums.each_with_index do |sum, y|
+    column_sum = 0
+    matrix.each do |row|
+      column_sum += row[y]
+    end
+    unless column_sum == sum
+      return false
+    end
+  end
+
+  return true
 end
 
 ### END OF METHODS
@@ -115,6 +222,10 @@ puts "Tests for nth fibonacci number."
 fib = fibonacci(1)
 if fib != 1
   puts "BUG!! the 1st fibonacci number is 1 and not #{fib}."
+end
+fib = fibonacci(0)
+if fib != 0
+  puts "BUG!! the 0th fibonacci number is 0 and not #{fib}."
 end
 fib = fibonacci(3)
 if fib != 2
