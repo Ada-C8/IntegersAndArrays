@@ -1,18 +1,51 @@
+#additional methods
+def find_num_digits(number)
+  digit = 1
+  while number / (10 ** digit) > 0
+    digit += 1
+  end
+  return digit
+end
+
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  #find length of each number
+  length1 = find_num_digits(number_1)
+  length2 = find_num_digits(number_2)
+  #determine number of matches
+  matches = 0
+  digit = 1
+  while digit <= length1 && digit <= length2
+    #get only the last n digits where n = digit, and then git the first of those digits
+    matches += 1 if (number_1 % (10 ** digit)) / (10 ** (digit - 1)) == (number_2 % (10 ** digit)) / (10 ** (digit - 1))
+    digit += 1
+  end
+  return matches
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  digits = find_num_digits(number)
+  i = 0
+  j = digits - 1
+  while i < j
+    greater_digit = (number / (10 ** j)) % 10
+    smaller_digit = (number % (10 ** (i + 1))) / (10 ** i)
+    return false if greater_digit != smaller_digit
+    i += 1
+    j -= 1
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
+  return 1 if number == 0
+  n = number - 1
+  while n > 0
+    number *= n
+    n -= 1
+  end
   return number
 end
 
@@ -23,14 +56,30 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  i = 1
+  a = 0
+  b = 1
+  number = n
+  while i < n
+    number = a + b
+    a = b
+    b = number
+    i += 1
+  end
+  return number
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  intersection = []
+  length_1 = array_1.length
+  length_2 = array_2.length
+  (0..length_1 - 1).each do |i|
+    (0..length_2 - 1).each do |j|
+      intersection << array_1[i] if array_1[i] == array_2[j]
+    end
+  end
+  return intersection
 end
 
 # Questions on 2D array or matrix
@@ -40,14 +89,49 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  rows = matrix.length
+  columns = matrix[0].length
+  #find 0s
+  zero_rows = []
+  zero_columns = []
+  (0..rows - 1).each do |r|
+    (0..columns - 1).each do |c|
+      if matrix[r][c] == 0
+        zero_rows << r
+        zero_columns << c
+      end
+    end
+  end
+  #change rows and columns to 0
+  zero_rows.each do |row|
+    (0..columns - 1).each do |c|
+      matrix[row][c] = 0
+    end
+  end
+  zero_columns.each do |column|
+    (0..rows - 1).each do |r|
+      matrix[r][column] = 0
+    end
+  end
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  len = matrix.length
+  return false if len != matrix[0].length
+  (0..len - 1).each do |i|
+    # get the sums
+    row_sum = 0
+    col_sum = 0
+    (0..len - 1).each do |j|
+      row_sum += matrix[i][j]
+      col_sum += matrix[j][i]
+    end
+    return false if row_sum != col_sum
+  end
+  return true
 end
 
 ### END OF METHODS
