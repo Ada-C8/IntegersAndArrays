@@ -28,7 +28,6 @@ end
 # Computes factorial of the input number and returns it
 def factorial(number)
   total = 1
-
   while number > 1
     total *= number
     number -= 1
@@ -57,13 +56,29 @@ def fibonacci(n)
     end
     return old_num
   end
-
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  holder = []
+  if array_1.length == 0 || array_2.length == 0
+    return holder
+  end
+  # index for array 1
+  i = 0
+  while i < array_1.length
+    # index for array 2
+    j = 0
+    while j < array_2.length
+      if array_1[i] == array_2[j]
+        temp = array_1[i]
+        holder << temp
+      end
+      j += 1
+    end
+    i += 1
+  end
+  return holder
 end
 
 # Questions on 2D array or matrix
