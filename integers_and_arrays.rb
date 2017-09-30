@@ -2,7 +2,7 @@
 def digit_match(number_1, number_2) #72503891, 62530841
   pairs = 0
 
-  while (number_1 > 0) && (number_2 > 0)
+  while (number_1 > 0) && (number_2 > 0) # O(n)
     pairs += 1 if (number_1 % 10) == (number_2 % 10)
     number_1 /= 10
     number_2 /= 10
@@ -16,11 +16,11 @@ def is_palindrome(number)
   length = 1
 
   # Count the length of the number
-  while (temp_numb /= 10) > 0
+  while (temp_numb /= 10) > 0 # O(n)
     length += 1
   end
 
-  while length > 0
+  while length > 0 # O(n)
     if number % 10 == (number / (10**(length - 1)))
       number = number % (10**(length - 1)) # Removes the first digit
       number /= 10 # Removes the last digit
@@ -36,7 +36,7 @@ end
 def factorial(number) # This is the factorial
   i = number - 1
   total = 1
-  until i < 0
+  until i < 0 # O(n)
     total = total * (number - i)
     i -= 1
   end
@@ -53,12 +53,12 @@ def fibonacci(n)
   series = [0,1]
   i = 1
   j = 0
-  if n == 0
+  if n == 0 # O(1)
     return 0
-  elsif n == 1
+  elsif n == 1 # O(1)
     return 1
   else
-    while i < n
+    while i < n # O(n)
       series << series[i] + series[j]
       i += 1
       j += 1
@@ -71,9 +71,9 @@ end
 def intersection(array_1, array_2)
   common_nums = []
   i = 0
-  while i < array_1.length
+  while i < array_1.length # O(n)
     j = 0
-    while j < array_2.length
+    while j < array_2.length # O(n)
       common_nums << array_1[i] if array_1[i] == array_2[j]
       j += 1
     end
@@ -81,6 +81,8 @@ def intersection(array_1, array_2)
   end
   return common_nums
 end
+
+# O(n^2)
 
 # Questions on 2D array or matrix
 
@@ -92,7 +94,7 @@ def matrix_convert_to_0(matrix)
   row_i = 0
   points = []
 
-  while row_i < matrix.length
+  while row_i < matrix.length # O(n^2)
     column_i = 0
     while column_i < matrix[row_i].length
       points << [row_i, column_i] if matrix[row_i][column_i] == 0
@@ -102,7 +104,7 @@ def matrix_convert_to_0(matrix)
   end
 
   i = 0 # points = [ [1,2], [2,0], [0,0] ] point[i][0] = row, point [i][1] = column
-  while i < points.length
+  while i < points.length # O(n)
     j = 0
     while j < matrix[0].length # Converts each row in matrix into 0s
       matrix[points[i][0]][j] = 0
@@ -148,6 +150,8 @@ def matrix_check_sum(matrix)
   end
   return false
 end
+
+
 
 ### END OF METHODS
 puts "Tests for Digit Match"
