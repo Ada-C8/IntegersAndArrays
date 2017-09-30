@@ -42,9 +42,23 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+# https://www.youtube.com/watch?v=0FqLNPt9plg
+
+#
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return n
+  else
+    new_num = 1
+    old_num = 0
+    n.times do
+      temp = old_num
+      old_num = new_num
+      new_num = new_num + temp
+    end
+    return old_num
+  end
+
 end
 
 # Creates a new array to return the intersection of the two input arrays
