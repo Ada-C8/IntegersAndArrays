@@ -1,4 +1,6 @@
 # Returns count of digits matching in the two input non-negative integers
+#Time complexity : O(n), time depends on number length
+#Space Complexity: O(1), varibles don't change with number length
 def digit_match(number_1, number_2)
   num1 = number_1
   num2 = number_2
@@ -18,6 +20,8 @@ return x
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+#Time complexity: O(n), time increases linearly with number length
+#Space complexity: O(1), variables don't change with number length
 def is_palindrome(number)
   num = number
   x = 0
@@ -41,6 +45,8 @@ def is_palindrome(number)
 end
 
 # Computes factorial of the input number and returns it
+# Time complexity: O(n), time increases linearly with number length
+# Space Complexity: O(1), variables don't change with number length
 def factorial(number)
   x = 1
   if number == 0
@@ -59,6 +65,8 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+# Time complexity: O(n), time increases linearly with number length
+# Space complexity: O(1), variables don't change with number length
 def fibonacci(n)
   if n == 0
     return 0
@@ -79,6 +87,8 @@ def fibonacci(n)
 end
 
 # Creates a new array to return the intersection of the two input arrays
+# Time Complexity: O(n^2), each loop runs O(n) times and they are nested
+# Space Complexity: O(n), variable space depends on array length
 def intersection(array_1, array_2)
   i = 0
   array_3 = []
@@ -102,6 +112,8 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
+# Time complexity: O(n^2), loops run O(n) times, they are nested
+# Space Complexity: O(1), array changed in place
 def matrix_convert_to_0(matrix)
 
   i = 0
@@ -150,6 +162,8 @@ end
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
+# Time Complexity: O(n log n), outer loop is logrithmic, inner loop is O(n)
+# Space Complexity: O(1), variables don't change with matrix size
 def matrix_check_sum(matrix)
   i = 0
   j = 0
