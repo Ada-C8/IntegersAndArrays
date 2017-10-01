@@ -1,19 +1,47 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  count = 0
+  while number_1 > 0 && number_2 > 0
+    if number_1 % 10 == number_2 % 10
+      count += 1
+    end
+
+    number_1 = (number_1 / 10)
+    number_2 = (number_2 / 10)
+  end
+  # puts "NOT IMPLEMENTED"
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  temp = []
+
+  while number > 0
+    temp.push(number % 10)
+    number = number / 10
+  end
+
+  i = 0
+  while i < temp.length / 2
+    if temp[i] != temp[temp.length - 1 - i]
+      return false
+    end
+    i += 1
+  end
+  # puts "NOT IMPLEMENTED"
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number <= 1
+    return 1
+  else
+    return number * factorial(number - 1)
+  end
+  # puts "NOT IMPLEMENTED"
+  # return number
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +51,27 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n <= 1
+    return n
+  else
+    return fibonacci(n - 1) + fibonacci(n - 2)
+  end
+  # puts "NOT IMPLEMENTED"
+  # return n
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  temp = []
+  array_1.each do |num1|
+    array_2.each do |num2|
+      if num1 == num2
+        temp << num1
+      end
+    end
+  end
+  # puts "NOT IMPLEMENTED"
+  return temp
 end
 
 # Questions on 2D array or matrix
@@ -40,14 +81,59 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  rows = matrix.length
+  columns = matrix[0].length
+  coordinates = []
+
+  rows.times do |row|
+    columns.times do |column|
+      if matrix[row][column] == 0
+        coordinates << [row, column]
+      end
+    end
+  end
+
+  coordinates.each do |coord|
+    coord_row = coord[0]
+    coord_col = coord[1]
+
+    columns.times do |i|
+      matrix[coord_row][i] = 0
+    end
+
+    rows.times do |i|
+      matrix[i][coord_col] = 0
+    end
+  end
+
+  # puts "NOT IMPLEMENTED"
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  m_size = matrix.length
+
+  m_size.times do |i|
+    row_sum = 0
+    col_sum = 0
+
+    m_size.times do |row|
+      col_sum += matrix[row][i]
+    end
+
+    m_size.times do |column|
+      row_sum += matrix[i][column]
+    end
+
+    if row_sum != col_sum
+      return false
+    end
+  end
+
+  return true
+  # puts "NOT IMPLEMENTED"
 end
 
 ### END OF METHODS
