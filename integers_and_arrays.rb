@@ -1,19 +1,73 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  count = 0
+  i = 1
+
+  while true
+    int_1 = (number_1 / i) % 10
+    int_2 = (number_2 / i) % 10
+
+    if i > number_1 || i > number_2
+      break
+    end
+
+    if int_1 == int_2
+      count += 1
+    end
+
+    i *= 10
+  end
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  length = 0
+  i = 1
+  while true
+    if i > number
+      break
+    end
+    length += 1
+    i *= 10
+  end
+
+  i = 1
+  j = 1
+  count = 0
+  while count <= length / 2
+    int_1 = (number / 10 ** (length - i)) % 10
+    int_2 = (number / j) % 10
+    if int_1 != int_2
+      return false
+    end
+    i += 1
+    j *= 10
+    count += 1
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  # if number <= 1
+  #   return 1
+  # end
+  #
+  # return factorial(number - 1) * number
+
+  if number == 0
+    return 1
+  end
+
+  i = 1
+  result = number
+  while i < number
+    result *= number - i
+    i += 1
+  end
+
+  return result
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +77,41 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return 0
+  end
+  if n == 1 || n == 2
+    return 1
+  end
+
+  # return fibonacci(n - 1) + fibonacci(n - 2)
+
+  fn = 0
+  fn1 = 1
+  fn2 = 1
+  (n - 2).times do
+    fn = fn1 + fn2
+    fn2 = fn1
+    fn1 = fn
+  end
+  return fn
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  i = 0
+  intersection = []
+  while i < array_1.length
+    j = 0
+    while j < array_2.length
+      if array_1[i] == array_2[j]
+        intersection << array_1[i]
+      end
+      j += 1
+    end
+    i += 1
+  end
+  return intersection
 end
 
 # Questions on 2D array or matrix
@@ -40,7 +121,41 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  rows = matrix.size
+  columns = matrix[0].size
+
+  row_0 = []
+  column_0 = []
+
+  rows.times do |i|
+    columns.times do |j|
+      if matrix[i][j] == 0
+        row_0 << i
+        column_0 << j
+      end
+    end
+  end
+
+  row_0.length.times do |row|
+    rows.times do |i|
+      columns.times do |j|
+        if i == row_0[row]
+          matrix[i][j] = 0
+        end
+      end
+    end
+  end
+
+  column_0.length.times do |col|
+    rows.times do |i|
+      columns.times do |j|
+        if j == column_0[col]
+          matrix[i][j] = 0
+        end
+      end
+    end
+  end
+
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
@@ -48,7 +163,19 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  rows = matrix.size
+  columns = matrix[0].size
+
+  row_sums = Array.new(rows, 0)
+  col_sums = Array.new(columns, 0)
+
+  rows.times do |i|
+    columns.times do |j|
+      row_sums[i] += matrix[i][j]
+      col_sums[j] += matrix[i][j]
+    end
+  end
+  return row_sums == col_sums
 end
 
 ### END OF METHODS
@@ -64,6 +191,14 @@ end
 count = digit_match(3862947593, 3862947593)
 if count != 10
   puts "BUG!! 10 digits should match for (3862947593, 3862947593). Returned value: #{count}"
+end
+count = digit_match(123132, 2)
+if count != 1
+  puts "BUG!! 10 digits should match for (123132, 2). Returned value: #{count}"
+end
+count = digit_match(123132, 3)
+if count != 0
+  puts "BUG!! 10 digits should match for (123132, 3). Returned value: #{count}"
 end
 puts "End of digit match tests.\n\n"
 
@@ -342,7 +477,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
-          [7, 8, 9],
           [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
@@ -352,7 +486,7 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
           [2, 3, 12],
           [9, 4, 9]]
