@@ -58,16 +58,23 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+
 def fibonacci(n)
-  if n == 0
-    return 0
-  elsif
-    n == 1
+  i = 1
+  previous_number = 0
+  current_number = 1
+  if n == 1
     return 1
   else
-    return fibonacci(n - 1) + fibonacci(n - 2)
-  end
-end
+    until i == n
+      temp = current_number
+      current_number += previous_number
+      previous_number = temp
+      i += 1
+    end #while
+  end #if/else
+  return current_number
+end #function
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
