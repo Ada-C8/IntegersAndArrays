@@ -51,14 +51,27 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n <= 1
+    return n
+  else
+    return fibonacci(n - 1) + fibonacci(n - 2)
+  end
+  # puts "NOT IMPLEMENTED"
+  # return n
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  temp = []
+  array_1.each do |num1|
+    array_2.each do |num2|
+      if num1 == num2
+        temp << num1
+      end
+    end
+  end
+  # puts "NOT IMPLEMENTED"
+  return temp
 end
 
 # Questions on 2D array or matrix
@@ -68,7 +81,32 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  rows = matrix.length
+  columns = matrix[0].length
+  coordinates = []
+
+  rows.times do |row|
+    columns.times do |column|
+      if matrix[row][column] == 0
+        coordinates << [row, column]
+      end
+    end
+  end
+
+  coordinates.each do |coord|
+    coord_row = coord[0]
+    coord_col = coord[1]
+
+    columns.times do |i|
+      matrix[coord_row][i] = 0
+    end
+
+    rows.times do |i|
+      matrix[i][coord_col] = 0
+    end
+  end
+
+  # puts "NOT IMPLEMENTED"
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
@@ -76,7 +114,27 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  m_size = matrix.length
+
+  m_size.times do |i|
+    row_sum = 0
+    col_sum = 0
+
+    m_size.times do |row|
+      col_sum += matrix[row][i]
+    end
+
+    m_size.times do |column|
+      row_sum += matrix[i][column]
+    end
+
+    if row_sum != col_sum
+      return false
+    end
+  end
+
+  return true
+  # puts "NOT IMPLEMENTED"
 end
 
 ### END OF METHODS
