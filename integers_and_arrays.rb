@@ -1,8 +1,8 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
 
-    i = 1 #was 10
-    j = 0 # was 1
+    i = 1
+    j = 0
     count = 0
 
     until ((number_1 / (10 ** j)) == 0) || ((number_2 / (10 ** j)) == 0)
@@ -456,10 +456,10 @@ if matrix_check_sum(matrix) == false
   end
 end
 # test 3
+# test 3
 matrix = [[1, 2, 3],
-[4, 5, 6],
-[7, 8, 9],
-[10, 11, 12]]
+          [4, 5, 6],
+          [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
@@ -468,10 +468,10 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
-[2, 3, 12],
-[9, 4, 9]]
+          [2, 3, 12],
+          [9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
@@ -481,3 +481,32 @@ if matrix_check_sum(matrix) == false
   end
 end
 puts "End of matrix check sum of rows and columns.\n\n"
+
+
+
+
+# matrix = [[1, 2, 3],
+# [4, 5, 6],
+# [7, 8, 9],
+# [10, 11, 12]]
+# if matrix_check_sum(matrix) == true
+#   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# # test 3
+# matrix = [[1, 10, 1],
+# [2, 3, 12],
+# [9, 4, 9]]
+# if matrix_check_sum(matrix) == false
+#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# puts "End of matrix check sum of rows and columns.\n\n"
