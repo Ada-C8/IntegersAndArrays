@@ -1,19 +1,55 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+
+    i = 1
+    j = 0
+    count = 0
+
+    until ((number_1 / (10 ** j)) == 0) || ((number_2 / (10 ** j)) == 0)
+      if ((number_1 % (10 ** i)) / (10 ** j)) ==  ((number_2 % (10 ** i)) / (10 ** j))
+        count += 1
+        i += 1
+        j += 1
+      else
+        i += 1
+        j += 1
+      end #if
+    end #until
+    return count
+
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  i = 1
+  j = 0
+  k = 0
+
+  until (number / (10 ** k)) == 0
+    k += 1
+  end
+
+  k -= 1
+
+  until k < i
+    if ((number % (10 ** i)) / (10 ** j)) == ((number / (10 ** k) % 10))
+      k -= 1
+      i += 1
+      j += 1
+    else
+      return false
+    end #if
+  end#second until
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0
+    return 1
+  else
+    return number * factorial(number - 1)
+  end
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -22,16 +58,43 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
-end
+  i = 1
+  previous_number = 0
+  current_number = 1
+  if n == 1
+    return 1
+  else
+    until i == n
+      temp = current_number
+      current_number += previous_number
+      previous_number = temp
+      i += 1
+    end #while
+  end #if/else
+  return current_number
+end #function
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
-end
+  count1 = 0
+  intersect = []
+
+  until count1 == array_1.length
+    count2 = 0
+    until count2 == array_2.length
+      if array_1[count1] == array_2[count2]
+        intersect << array_1[count1]
+        break
+      else
+        count2 += 1
+      end #if
+    end #inner until
+    count1 += 1
+  end #out until
+  return intersect
+end #function
 
 # Questions on 2D array or matrix
 
@@ -40,15 +103,75 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  i = (matrix.length - 1)
+  j = (matrix[0].length - 1)
+  row_index = 0
+  zero_rows = []
+  zero_columns = []
+  while row_index <= i
+    column_index = 0
+    while column_index <= j
+      if matrix[row_index][column_index] == 0
+        zero_rows << row_index
+        zero_columns << column_index
+      end #if
+      column_index += 1
+    end #columns
+    row_index += 1
+  end #row_while
+
+row_index = 0
+while row_index <= (zero_rows.length - 1)
+  column_index = 0
+  while column_index <= j
+    matrix[zero_rows[row_index]][column_index] = 0
+    column_index += 1
+  end #while
+  row_index += 1
+end # row change
+
+column_index = 0
+
+while column_index <= (zero_columns.length - 1 )
+  row_index = 0
+  while row_index <= i
+    matrix[row_index][zero_columns[column_index]] = 0
+    row_index += 1
+  end #while
+  column_index += 1
+end #while
+
+return matrix
+
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
-end
+  i = (matrix.length - 1)
+  j = (matrix[0].length - 1)
+  main_index = 0
+  if i != j
+    return false
+  end
+
+  while main_index <= i
+    row_sum = 0
+    sub_index = 0
+    column_sum = 0
+    while sub_index <= j
+      row_sum += matrix[main_index][sub_index]
+      column_sum += matrix[sub_index][main_index]
+      sub_index += 1
+    end #inner while
+    if row_sum != column_sum
+      return false
+    end #if statement
+    main_index += 1
+  end #main while statement
+  return true
+end #method
 
 ### END OF METHODS
 puts "Tests for Digit Match"
@@ -312,9 +435,9 @@ puts "End of matrix convert to zero tests.\n\n"
 
 puts "Tests for Matrix check sum of rows and columns"
 matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-          [9, 5, 3, 1], # sum of 1st row = 18
-          [0, 3, 5, 6], # sum of 2nd row = 14
-          [0, 8, 3, 6]] # sum of 3rd row = 17
+[9, 5, 3, 1], # sum of 1st row = 18
+[0, 3, 5, 6], # sum of 2nd row = 14
+[0, 8, 3, 6]] # sum of 3rd row = 17
 # sums = 10, 18, 14, 17 for columns 0 through 3
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
@@ -338,6 +461,7 @@ if matrix_check_sum(matrix) == false
     puts
   end
 end
+# test 3
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
@@ -363,3 +487,32 @@ if matrix_check_sum(matrix) == false
   end
 end
 puts "End of matrix check sum of rows and columns.\n\n"
+
+
+
+
+# matrix = [[1, 2, 3],
+# [4, 5, 6],
+# [7, 8, 9],
+# [10, 11, 12]]
+# if matrix_check_sum(matrix) == true
+#   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# # test 3
+# matrix = [[1, 10, 1],
+# [2, 3, 12],
+# [9, 4, 9]]
+# if matrix_check_sum(matrix) == false
+#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# puts "End of matrix check sum of rows and columns.\n\n"
