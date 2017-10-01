@@ -55,7 +55,7 @@ def is_palindrome(number)
 end # is_palindrome
 
 # Computes factorial of the input number and returns it
-#NOTE: The space complexity if the factorial method is O(n!), because the while loop runs num * (num - 1) * (num -1) * .. * 2 * 1 times.
+#NOTE: The time complexity if the factorial method is O(n!), because the while loop runs num * (num - 1) * (num -1) * .. * 2 * 1 times.
 # NOTE: The space complexity of the factorial method is O(1) because memory is only alocated for one integer variable no matter how large n gets.
 def factorial(number)
   # 0! = 1
@@ -196,7 +196,7 @@ end # matrix_convert_to_0
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 # NOTE: The space complexity of the matrix_check_sum method is O(1), the same 7 integer variables will be created no matter how large n is.
-# The time complexity of the matrix_check_sum method is O(n^2), where n is the size of each row in the matrix. 
+# NOTE: The time complexity of the matrix_check_sum method is O(n^2), where n is the size of each row in the matrix.
 def matrix_check_sum(matrix)
   # since it is stated that this is for square matrixes, the size of columns and rows are both equal to length
   #NOTE: This works, but it throws an error in the tests.....
@@ -519,10 +519,36 @@ if matrix_check_sum(matrix) == false
   end
 end
 # test 3
+# matrix = [[1, 2, 3],
+# [4, 5, 6],
+# [7, 8, 9],
+# [10, 11, 12]]
+# if matrix_check_sum(matrix) == true
+#   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# test 3
+# matrix = [[1, 10, 1],
+# [2, 3, 12],
+# [9, 4, 9]]
+# if matrix_check_sum(matrix) == false
+#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+#   rows = matrix.length
+#   rows.times do |row|
+#     print matrix[row]
+#     puts
+#   end
+# end
+# puts "End of matrix check sum of rows and columns.\n\n"
+
+# test 3
 matrix = [[1, 2, 3],
-[4, 5, 6],
-[7, 8, 9],
-[10, 11, 12]]
+          [4, 5, 6],
+          [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
@@ -531,10 +557,10 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
-[2, 3, 12],
-[9, 4, 9]]
+          [2, 3, 12],
+          [9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
