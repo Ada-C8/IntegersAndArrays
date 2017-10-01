@@ -67,19 +67,19 @@ end
 # ruby library: array_1 & array_2
 
 def intersection(array_1, array_2)
-intersection = []
-i = 0
-while i < array_1.length
-  x = 0
-  while x < array_2.length
-    if array_1[i] == array_2[x]
-      intersection << array_1[i]
+  intersection = []
+  i = 0
+  while i < array_1.length
+    x = 0
+    while x < array_2.length
+      if array_1[i] == array_2[x]
+        intersection << array_1[i]
+      end
+      x += 1
     end
-    x += 1
+    i += 1
   end
-  i += 1
-end
-return intersection
+  return intersection
 
   #### bubble sort for each array
   # array_1.length.times.each do |t|
@@ -123,8 +123,6 @@ return intersection
   # return final
 end
 
-
-
 # Questions on 2D array or matrix
 
 # Updates the input matrix based on the following rules:
@@ -133,11 +131,13 @@ end
 # corresponding row as well as the corresponding column to be 0.
 
 def matrix_convert_to_0(matrix)
+  rows = []
+  columns = []
+
   row_length = matrix.length
   column_length = matrix[0].length
   i = 0
-  rows = []
-  columns = []
+
   while i < row_length
     j = 0
     while j < column_length
@@ -149,28 +149,53 @@ def matrix_convert_to_0(matrix)
     end
     i += 1
   end
-  for item in rows
+
+  i = 0
+  while i < rows.length
     j = 0
     while j < column_length
-      matrix[item][j] = 0
+      matrix[rows[i]][j] = 0
       j += 1
     end
-    for item in columns
-      j = 0
-      while j < row_length
-        matrix[j][item] = 0
-        j += 1
-      end
+    i += 1
+  end
+  # this feels redundant... I am doing this again but now for columns...
+  j = 0
+  while j < columns.length
+    i = 0
+    while i < row_length
+      matrix[i][columns[j]] = 0
+      i += 1
     end
+    j += 1
   end
 end
-
 # Checks that for the given matrix, where number of rows are equal to number of columns
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  row = 0
+  column = 0
+
+  i = 0
+  x = 0
+
+  while i < matrix.length-1
+    x = 0
+    while x < matrix[i].length
+      row += matrix[i][x]
+      column += matrix[x][i]
+      x += 1
+    end
+    if row != column
+      return false
+    end
+    i += 1
+    row = 0
+    column = 0
+  end
+  return true
 end
 
 ### END OF METHODS
@@ -464,7 +489,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
 [4, 5, 6],
-[7, 8, 9],
 [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
