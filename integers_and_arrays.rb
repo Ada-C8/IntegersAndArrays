@@ -1,20 +1,89 @@
+
+##helper method##
+=begin
+Time complexity: O(n)
+Becasue: I am not really sure, but I think that because this
+runs one time for every digit in the number that means that the run-time depends on the size of the number.
+Space complexity: O constant
+Note: At first I did this without recurssion, but when I realized I could use recursion I wanted to see if I could make it work.
+=end
+def number_of_digits(number)
+  answer = 1 if answer == nil
+  if number < 10
+    return 1
+  else
+    answer = answer + number_of_digits(number/10)
+  end
+  return answer
+end
+
 # Returns count of digits matching in the two input non-negative integers
+=begin
+Time complexity: O(longer_array) + O(shortest_array) + O(shortest_array)
+= O(shortest_array)+ O(longest_array)
+Because: I call the number_of_digits method on each array, which has an O(n), then I pick the shortest array and step through that one.
+Space complexity: O constant since I making several variables, but I make the same number of variables regardless of how large the inputs are.
+=end
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  a = number_of_digits(number_1)
+  b = number_of_digits(number_2)
+  repeats = (a <= b ? a : b)
+  index = 10
+  count = 0
+  repeats.times do
+    if number_1%index - number_1%(index/10.0) == number_2%index - number_2%(index/10.0)
+      count += 1
+    end
+    index *= 10
+  end
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+#Time complexity = O(n), as we loop through the digits of the number once.
+#Space complexity = O constant, because the number of variables I create does not change as the size of the input changes.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+  return true if number < 10
+  digits = number_of_digits(number)
+  big_exp = 10 ** digits
+  little_exp = 10
+  (digits/2).times do
+    big = (number % big_exp - number % (big_exp / 10)) / (big_exp / 10)
+    little = (number % little_exp - number % (little_exp/ 10)) / (little_exp / 10)
+    if big != little
+      return false
+   end
+   big_exp = big_exp / 10
+   little_exp = little_exp * 10
+  end
+ return true
 end
 
 # Computes factorial of the input number and returns it
+# Time complexity: O(n), I think, because the number of times through the loop increases in pace with how large the number becomes... but I am confused about how to calculate time complexity with a recursive function.
+#space complexity: O constant, as I only create one variable.
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0 || number == 1
+    return 1
+  else
+     answer = number * factorial(number-1)
+  end
+  return answer
 end
+
+#This is a way to calcuate the factorial without using recursion.
+# def factorial(number)
+#   answer = 1
+#   if number == 0 or number == 1
+#     return answer
+#   end
+#   until number == 0
+#   answer *= number
+#   number -= 1
+#   end
+#   number = answer
+#   return number
+# end
 
 # Computes the nth fibonacci number in the series starting with 0.
 # fibonacci series: 0 1 1 2 3 5 8 13 21 ...
@@ -22,16 +91,42 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+# Time complexity: O(n), I think, because the number of times through the loop increases in pace with how large the number becomes... but I am confused about how to calculate time complexity with a recursive function.
+#space complexity: O constant, as I only create one variable.
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  index = n
+  if n == 1 || n == 2
+     1
+  elsif n == 0
+     0
+  else
+    fibonacci(n-1) + fibonacci(n-2)
+  end
 end
 
 # Creates a new array to return the intersection of the two input arrays
+#Time complexity: O(n^2) because of the nested times loops.
+#Space complexity:O constant because I make 1 array
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  intersection_set = []
+  if array_1.length == 0 || array_1.length == 0
+    return intersection_set
+  end
+
+  array_1.length.times do |i|
+    array_2.length.times do |n|
+    if array_1[i] == array_2[n]
+    intersection_set << array_1[i]
+    end
+  end
+  end
+  return intersection_set
 end
+
+
+
+
+
 
 # Questions on 2D array or matrix
 
@@ -39,16 +134,75 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
+#Time complexity: O(n) because I loop through the matrix 4 times, but none of those times are nested, so O(n)*4 = O(n)
+#Space complexity: O constant?  I create a row and a column array, and if those count as creating 2 variables, then space complexity is constant.  If the length of the arrays matters to space complexity, then space complexity is greater, probablly O(n).
+
+
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  rows =[]
+  columns= []
+  #find all rows with a zero
+  matrix.length.times do |i|
+    if sum_rows(matrix, i) != matrix[0].length
+      rows << i
+    end
+  end
+  #find all columns with a zero
+  matrix[0].length.times do |i|
+    if sum_columns(matrix, i) != matrix.length
+      columns << i
+    end
+  end
+  #populate all indicated rows with zeros
+  if rows != []
+    rows.each do |row|
+      matrix[row].length.times do |i|
+        matrix[row][i] = 0
+      end
+    end
+  end
+  #populate all indicated columns with zeros
+  if columns != []
+    columns.each do |column|
+      matrix.each do |row|
+        row[column] = 0
+      end
+    end
+    return matrix
+  end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
+
+def sum_columns(matrix, column)
+  col_sum = 0
+  matrix.each do |row|
+    col_sum += row[column]
+  end
+  return col_sum
+end
+
+def sum_rows(matrix, row)
+  row_sum = 0
+  matrix[row].each do |element|
+    row_sum += element
+  end
+  return row_sum
+end
+
+
+#time complexity = 2O(n^2), which becomes O(n^2) because I have a 2 nested loops (the sum_rows method in the times loop below, and the sum_columns method in the times loop below.)
+#space complexity: O constant because the number of variables I make does not increase as the input gets larger.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  matrix.length.times do |i|
+    if sum_columns(matrix, i) != sum_rows(matrix, i)
+      return false
+    end
+  end
+  return true
 end
 
 ### END OF METHODS
@@ -313,9 +467,9 @@ puts "End of matrix convert to zero tests.\n\n"
 
 puts "Tests for Matrix check sum of rows and columns"
 matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-          [9, 5, 3, 1], # sum of 1st row = 18
-          [0, 3, 5, 6], # sum of 2nd row = 14
-          [0, 8, 3, 6]] # sum of 3rd row = 17
+[9, 5, 3, 1], # sum of 1st row = 18
+[0, 3, 5, 6], # sum of 2nd row = 14
+[0, 8, 3, 6]] # sum of 3rd row = 17
 # sums = 10, 18, 14, 17 for columns 0 through 3
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
@@ -341,9 +495,9 @@ if matrix_check_sum(matrix) == false
 end
 # test 3
 matrix = [[1, 2, 3],
-          [4, 5, 6],
-          [7, 8, 9],
-          [10, 11, 12]]
+[4, 5, 6],
+[7, 8, 9],
+[10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
@@ -354,8 +508,8 @@ if matrix_check_sum(matrix) == true
 end
 # test 3
 matrix = [[1, 10, 1],
-          [2, 3, 12],
-          [9, 4, 9]]
+[2, 3, 12],
+[9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
