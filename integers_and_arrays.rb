@@ -1,19 +1,89 @@
 # Returns count of digits matching in the two input non-negative integers
+
+=begin
+TIME COMPLEXITY:
+O(n) because the method checks each digit, the time to complete is dependent on the input (number length)
+
+SPACE COMPLEXITY:
+O(1) because no array is made to store the returned value; only variables were used.
+=end
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  count = 0
+
+  while number_1 > 0 && number_2 > 0
+    num1 = number_1 % 10
+    num2 = number_2 % 10
+
+    if num1 == num2
+      count += 1
+    end
+
+    number_1 /= 10
+    number_2 /= 10
+  end
+
+  return count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+
+=begin
+TIME COMPLEXITY:
+Best case would be constant if there's only 1 digit in number, otherwise O(n) because the method checks each digit, the time to complete is dependent on the input (number of digits in number).
+
+SPACE COMPLEXITY:
+O(1) because no array is made to store the returned value; only variables were used.
+=end
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  if number == nil
+    return false
+  elsif number < 10
+    return true
+  end
+
+  while number > 0
+    num_end = number % 10
+    num_start = number
+    counter = 0
+
+    while num_start >= 10
+      num_start /= 10
+      counter +=1
+    end
+
+    if num_start == num_end
+      number /= 10
+      number /= (10 * counter - 1)
+    else
+      return false
+    end
+  end
+
   return true
 end
 
 # Computes factorial of the input number and returns it
+
+=begin
+TIME COMPLEXITY:
+Best case would be constant if the number input is 0 as the result would constantly be 1, otherwise O(n) because the method checks each digit and the time to complete is dependent on the input (number of digits in number).
+
+SPACE COMPLEXITY:
+O(1) because no array is made to store the returned value; only variables were used.
+=end
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0
+    return 1
+  end
+
+  product = 1 #set to 1 as base for multiplication
+  while number > 0
+    product *= number
+    number -= 1
+  end
+
+  return product
+
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -22,15 +92,69 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+
+=begin
+TIME COMPLEXITY:
+Best case constant if number is 0 or 1 (as these to will always return 0 and 1 respectively), otherwise O(n) because the method checks each digit in the sequence(n) to add them to the previous digit sum. Thus, the time to complete is dependent on the input n (fibonacci sequence).
+
+SPACE COMPLEXITY:
+O(1) because no array is made to store the returned value; only variables were used.
+=end
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return 0
+  elsif n == 1
+    return 1
+  end
+
+  num1 = 0
+  num2 = 1
+
+  fib_num_counter = 2
+  while fib_num_counter <= n
+    fib_num = num1 + num2
+    num1 = num2
+    num2 = fib_num
+    fib_num_counter += 1
+  end
+  return fib_num
 end
 
 # Creates a new array to return the intersection of the two input arrays
+=begin
+TIME COMPLEXITY:
+The first while loop is O(n) as it iterates over each index in array_1. Nested in that loop is a second while loop, which is also O(n) as it iterates over each index in array_2 to compare the indexes for the 2 arrays. That makes the overall time complexity O(n) * O(n) = O(n^2).
+
+Question: Would the best case be O(1) if one of the arrays is empty as it returns an empty array, or is it still O(n) because an array was created?
+
+SPACE COMPLEXITY:
+O(n) because an array is made (intersection) to store the intersecting index values; thus, the size of the output (intersection) can grow with respect to the input sizes.
+=end
+
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+
+  intersection = []
+
+  if array_1.length == 0 || array_2.length == 0
+    return intersection
+  else
+    arr1_idx = 0
+
+    while arr1_idx < array_1.length
+      arr2_idx = 0
+
+      while arr2_idx < array_2.length
+        if array_1[arr1_idx] == array_2[arr2_idx]
+          intersection << array_1[arr1_idx]
+        end
+        arr2_idx += 1
+      end
+
+      arr1_idx += 1
+    end
+
+    return intersection
+  end
 end
 
 # Questions on 2D array or matrix
@@ -39,15 +163,77 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
+
+=begin
+TIME COMPLEXITY:
+O(n^2) because it iterates over each row and column (which make up arrays in the matrix).
+
+SPACE COMPLEXITY:
+O(n), because an array is created where its growth is dependent on the amount of zeros in the the matrix input.
+=end
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  rows = matrix.length
+  columns = matrix[0].length
+  matrix_update = []
+
+  rows.times do |row|
+    columns.times do |column|
+      if matrix[row][column] == 0
+        matrix_update << [row, column]
+      end
+    end
+  end
+
+  matrix_update.each do |row_col_arr|
+    columns.times do |col|
+      matrix[row_col_arr[0]][col] = 0
+    end
+
+    rows.times do |row|
+      matrix[row][row_col_arr[1]] = 0
+    end
+  end
 end
 
-# Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
+# Checks that for the given matrix. If the sum of each row matches the sum of corresponding
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
+
+=begin
+matrix = [
+  [1, 2, 3, 4],
+  [9, 5, 3, 1],
+  [0, 3, 5, 6],
+  [0, 8, 3, 6]
+]
+
+TIME COMPLEXITY:
+O(n^2), because there is a nested loop where both loops (for rows and columns) are O(n) as they iterate over each element in their respective arrays.
+
+SPACE COMPLEXITY:
+O(1) because no arrays were created. 
+=end
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  row_count = matrix.length
+
+  row_count.times do |i|
+    row_sum = 0
+    col_sum = 0
+
+    row_count.times do |row|
+      col_sum += matrix[row][i]
+    end
+
+    row_count.times do |column|
+      row_sum += matrix[i][column]
+    end
+
+    if row_sum != col_sum
+      return false
+    end
+  end
+
+  return true
 end
 
 ### END OF METHODS
@@ -312,9 +498,9 @@ puts "End of matrix convert to zero tests.\n\n"
 
 puts "Tests for Matrix check sum of rows and columns"
 matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-          [9, 5, 3, 1], # sum of 1st row = 18
-          [0, 3, 5, 6], # sum of 2nd row = 14
-          [0, 8, 3, 6]] # sum of 3rd row = 17
+[9, 5, 3, 1], # sum of 1st row = 18
+[0, 3, 5, 6], # sum of 2nd row = 14
+[0, 8, 3, 6]] # sum of 3rd row = 17
 # sums = 10, 18, 14, 17 for columns 0 through 3
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
@@ -340,8 +526,8 @@ if matrix_check_sum(matrix) == false
 end
 # test 3
 matrix = [[1, 2, 3],
-          [4, 5, 6],
-          [10, 11, 12]]
+[4, 5, 6],
+[10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
@@ -352,8 +538,8 @@ if matrix_check_sum(matrix) == true
 end
 # test 4
 matrix = [[1, 10, 1],
-          [2, 3, 12],
-          [9, 4, 9]]
+[2, 3, 12],
+[9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
