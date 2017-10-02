@@ -66,7 +66,9 @@ end
 def fibonacci(n)
   fib_seq = [0,1]
 
-  until fib_seq.length == n+1
+  return fib_seq[n] if n < 2
+
+  until fib_seq.length == n + 1
     fib_seq << (fib_seq[-1] + fib_seq[-2])
   end
 
