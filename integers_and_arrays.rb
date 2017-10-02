@@ -1,18 +1,61 @@
+
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  matches = 0
+
+  (number_1.to_s.length) > (number_2.to_s.length) ? times = number_2.to_s.length : times = number_1.to_s.length
+
+  times.times do |i|
+    temp_number_1 = number_1 / (10 ** i)
+    temp_number_2 = number_2 / (10 ** i)
+
+    if temp_number_1 % 10 == temp_number_2 % 10
+      matches += 1
+    end
+  end
+
+  return matches
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  digits = 0
+
+  number1 = number
+  while number1 > 0
+    number1 = number1 / 10
+    digits += 1
+  end
+
+  digits1 = digits
+  (digits1 / 2).times do |i|
+
+    first = number / (10 ** (digits - 1))
+    if number % 10 != first
+      return false
+    else
+      number = number - (first * (10 ** (digits - 1)))
+      number = number / 10
+
+      digits = digits - 2
+    end
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
+  if number == 0
+    number = 1
+    return number
+  else
+    i = 1
+    number1 = number
+    (number - 1).times do
+      number = number * (number1 - i )
+      i += 1
+    end
+  end
   return number
 end
 
@@ -23,14 +66,30 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
+
+  a = 0
+  b = 1
+
+  (n - 1).times do
+    n = a + b
+    a = b
+    b = n
+  end
   return n
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  common_elements = []
+
+  (array_1.length).times do |i|
+    (array_2.length).times do |i2|
+      if array_1[i] == array_2[i2]
+        common_elements << array_1[i]
+      end
+    end
+  end
+  return common_elements
 end
 
 # Questions on 2D array or matrix
@@ -40,14 +99,54 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+
+  matrix.size.times do |a|
+    matrix[a].size.times do |b|
+      if matrix[a][b] == 0
+        matrix[a][0] = 0
+        matrix[0][b] = 0
+      end
+    end
+  end
+
+  matrix.size.times do |a|
+    if matrix[a][0] == 0
+      matrix[0].size.times do |b|
+        matrix[a][b] = 0
+      end
+    end
+  end
+
+  matrix[0].size.times do |c|
+    if matrix[0][c] == 0
+      matrix.size.times do |d|
+        matrix[d][c] = 0
+      end
+    end
+  end
+
+  return matrix
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  if matrix.size == matrix[0].size
+
+    matrix.size.times do |a|
+      sum1 = 0
+      sum2 = 0
+      matrix[a].size.times do |b|
+        sum1 += matrix[a][b]
+        sum2 += matrix[b][a]
+      end
+      if sum1 != sum2
+        return false
+      end
+    end
+    return true
+  end
 end
 
 ### END OF METHODS
@@ -312,9 +411,9 @@ puts "End of matrix convert to zero tests.\n\n"
 
 puts "Tests for Matrix check sum of rows and columns"
 matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-          [9, 5, 3, 1], # sum of 1st row = 18
-          [0, 3, 5, 6], # sum of 2nd row = 14
-          [0, 8, 3, 6]] # sum of 3rd row = 17
+[9, 5, 3, 1], # sum of 1st row = 18
+[0, 3, 5, 6], # sum of 2nd row = 14
+[0, 8, 3, 6]] # sum of 3rd row = 17
 # sums = 10, 18, 14, 17 for columns 0 through 3
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
@@ -332,6 +431,19 @@ matrix[0][2] = 4
 matrix[2][0] = 4
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+  rows = matrix.length
+  rows.times do |row|
+    print matrix[row]
+    puts
+  end
+end
+# test 3
+matrix = [[1, 2, 3],
+[4, 5, 6],
+[7, 8, 9],
+[10, 11, 12]]
+if matrix_check_sum(matrix) == true
+  puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
   rows.times do |row|
     print matrix[row]
