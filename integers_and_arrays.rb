@@ -452,9 +452,21 @@ if matrix_check_sum(matrix) == true
   end
 end
 # test 3
+matrix = [[1, 2, 3],
+          [4, 5, 6],
+          [10, 11, 12]]
+if matrix_check_sum(matrix) == true
+  puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
+  rows = matrix.length
+  rows.times do |row|
+    print matrix[row]
+    puts
+  end
+end
+# test 4
 matrix = [[1, 10, 1],
-[2, 3, 12],
-[9, 4, 9]]
+          [2, 3, 12],
+          [9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
