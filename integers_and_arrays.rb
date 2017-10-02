@@ -12,7 +12,7 @@ def digit_match(number_1, number_2)
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
-def is_palindrome(number)  
+def is_palindrome(number)
   length = 1
   while number / (10**length) > 0
     length += 1
@@ -50,14 +50,31 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    0
+  elsif n == 1
+    1
+  elsif n > 1
+    fibonacci(n-2) + fibonacci(n-1)
+  end
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  inter = []
+  i = 0
+  while i < array_1.length
+    j = 0
+    while j < array_2.length
+      if array_1[i] == array_2[j]
+        inter << array_1[i]
+        # j = array_2.length
+      end
+      j +=1
+    end
+    i += 1
+  end
+  return inter
 end
 
 # Questions on 2D array or matrix
@@ -66,16 +83,87 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
-def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
-end
 
+def matrix_convert_to_0(matrix)
+  m = 0
+  while m < matrix.length
+    n= 0
+    while n < matrix[m].length
+      if matrix[m][n] == 0
+        j = 0
+        while j < matrix[m].length
+          if matrix[m][j] != 0
+            matrix[m][j] = 5
+          end
+          j +=1
+        end
+
+        i = 0
+        while i < matrix.length
+          if matrix[i][n] != 0
+            matrix[i][n] = 5
+          end
+          i += 1
+        end
+
+      end
+      n +=1
+    end
+    m += 1
+  end
+
+  m = 0
+  while m < matrix.length
+    n = 0
+    while n < matrix[m].length
+      if matrix[m][n] == 5
+        matrix[m][n] = 0
+      end
+      n += 1
+    end
+    m += 1
+  end
+
+return matrix
+
+end
 # Checks that for the given matrix, where number of rows are equal to number of columns
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  sum_rows = 0
+  sum_columns = 0
+
+  total_rows = []
+  total_columns = []
+
+
+  m = 0
+  while m < matrix.length
+    n = 0
+    while n< matrix.length
+      sum_rows += matrix[m][n]
+      sum_columns += matrix[n][m]
+      n +=1
+    end
+    total_rows << sum_rows
+    total_columns << sum_columns
+    sum_rows = 0
+    sum_columns = 0
+    m += 1
+  end
+
+  i = 0
+  while i < total_rows.length
+    if total_rows[i] != total_columns[i]
+      return false
+    end
+    i += 1
+  end
+
+  return true
+
 end
 
 ### END OF METHODS
@@ -368,9 +456,8 @@ if matrix_check_sum(matrix) == false
 end
 # test 3
 matrix = [[1, 2, 3],
-[4, 5, 6],
-[7, 8, 9],
-[10, 11, 12]]
+          [4, 5, 6],
+          [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
@@ -379,10 +466,10 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
-[2, 3, 12],
-[9, 4, 9]]
+          [2, 3, 12],
+          [9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
