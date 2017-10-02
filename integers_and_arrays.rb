@@ -1,29 +1,13 @@
 require 'pry'
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  # what is the edge case for this one
-  n = 1
   count = 0
-  # until number_1 % (10 ** n) == number_1 || number_2 % (10 ** n) == number_2
-  # until ( ((number_1 % (10 ** n)) == 0) && ((number_1 % (10 ** n)) / (10 ** (n-1))) == 0) || ( ((number_2 % (10 ** n)) == 0) && ((number_2 % (10 ** n)) / (10 ** (n-1)) == 0 ))
-  # this iteration does not include the first digit
-  while true
-    num1_mod =  (number_1 % (10 ** n))
-    num2_mod = (number_2 % (10 ** n) )
 
-    num1_digit= num1_mod / (10 ** (n-1))
-    num2_digit = num2_mod / (10 ** (n-1))
+  while number_1 > 0 && number_2 > 0
+    count += 1 if (number_1 % 10) == (number_2 % 10)
 
-    break if  ((num1_mod == number_1) && (num1_digit == 0)) || ((num2_mod == number_2) && (num2_digit == 0))
-
-    # until num1_digit == 0 || num2_digit == 0
-    #   count += 1 if num1_digit == num2_digit
-    #   n += 1
-    # end
-    # p [num1_digit, num2_digit]
-    count += 1 if num1_digit == num2_digit
-
-    n += 1
+    number_1 /= 10
+    number_2 /= 10
   end
 
   return count
@@ -68,16 +52,26 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  num_digits = count_digits(number)
-  i = 1
-  j = num_digits
+  #assumption: we consider a number less than two digits as a palindrome
+  return true if number < 10
+
+  digits = []
+
+  while number > 0
+    digits << number % 10
+    number /= 10
+  end
+
+  i = 0
+  j = digits.length-1
   while i < j
-    return false if nth_digit(number, i) != nth_digit(number,j)
+    return false if digits[i] != digits[j]
     i += 1
     j -= 1
   end
 
   return true
+
 end
 
 # Computes factorial of the input number and returns it
@@ -87,8 +81,7 @@ def factorial(number)
   current = number
 
   return 1 if number == 0
-  # until current == 1 do |num|
-  (number - 2).times do |num|
+  until current == 1
     next_num = current - 1
     factorial *= next_num
 
@@ -120,10 +113,7 @@ end
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
   intersect = []
-  #check the smaller array numbers for intersections
-  #edge case?
-  #if either is empty, return empty array
-  # optimize by doing sorted array?
+
   if array_1.length < array_2.length
     smaller = array_1
     larger = array_2
@@ -132,11 +122,6 @@ def intersection(array_1, array_2)
     larger = array_1
   end
 
-  # smaller.each do |num|
-  #   larger.each do |num2|
-  #     intersect << num2 if num2 == num
-  #   end
-  # end
   idx = 0
   while idx < smaller.length
     num = smaller[idx]
@@ -159,7 +144,6 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  #TODO: Check for edge cases
 
   rows_with_z = []
   columns_with_z = []
@@ -180,15 +164,6 @@ def matrix_convert_to_0(matrix)
     r_idx += 1
   end
 
-  # rows_with_z.each do |row| #rows with zero will have all values equal to zero
-  #   # matrix[row][0..-1] = 0
-  #   idx = 0
-  #   matrix[row].length.times do
-  #     matrix[row][idx] = 0
-  #     idx += 1
-  #   end
-  # end
-
   row_idx = 0
   while row_idx < rows_with_z.length
     row = rows_with_z[row_idx]
@@ -200,12 +175,6 @@ def matrix_convert_to_0(matrix)
     row_idx += 1
   end
 
-  # matrix.each do |row| # columns with zero will have all values equal to zero
-  #   columns_with_z.each do |column|
-  #     row[column] = 0
-  #   end
-  # end
-
   idx2 = 0
   while idx2 < matrix.size
     col_idx = 0
@@ -214,7 +183,7 @@ def matrix_convert_to_0(matrix)
       column = columns_with_z[col_idx]
       row[column] = 0
       col_idx += 1
-    end 
+    end
     idx2 += 1
   end
 
@@ -227,7 +196,7 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  #TODO: check for edge cases
+
   idx = 0
   size = matrix[0].length
 
