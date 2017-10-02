@@ -1,4 +1,3 @@
-require 'pry'
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
   count = 0
@@ -11,42 +10,6 @@ def digit_match(number_1, number_2)
   end
 
   return count
-end
-
-
-def digits(number)
-  digits = []
-  n = 1
-  while true
-    num_mod = (number % (10 ** n) )
-    num_digit= num_mod / (10 ** (n-1))
-
-    break if  ((num_mod == number) && (num_digit == 0))
-    digits << num_digit
-    n += 1
-  end
-  return digits
-end
-
-def nth_digit(number, n)
-  num_mod = (number % (10 ** n) )
-  num_digit= num_mod / (10 ** (n-1))
-  return false if ((num_mod == number) && (num_digit == 0))
-  return num_digit
-end
-
-def count_digits(number)
-  num_digits = 0
-  n = 1
-
-  until number % (10 ** n) == number
-    num_digits += 1
-    n += 1
-  end
-
-  num_digits += 1 #account for the last digit
-
-  return num_digits
 end
 
 
