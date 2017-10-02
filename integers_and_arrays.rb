@@ -1,18 +1,74 @@
+#JULIA MEIER- CARETS
+
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+    digits_1 = 0
+    digits_2 = 0
+
+    result = 1
+    until result == 0
+      digits_1 += 1
+      result = (number_1)/10**digits_1
+    end
+
+    result = 1
+    until result == 0
+      digits_2 += 1
+      result = (number_2)/10**digits_2
+    end
+
+    digits_1 > digits_2 ? min = digits_2 : min = digits_1
+
+    i = 1
+    count = 0
+    while i <= min
+      (number_1 % 10**i)/(10**(i-1)) == (number_2 % 10**i)/(10**(i-1)) ? count += 1 : count = count
+      i += 1
+    end
+    count
 end
+
+#METHOD USING TO_S:
+# def digit_match(number_1, number_2)
+#   length1 = number_1.to_s.length
+#   length2 = number_2.to_s.length
+#   length1 > length2 ? min = length1 : min = length2
+#   count = 0
+#   min.times do |num|
+#     number_1.to_s[-num-1] == number_2.to_s[-num-1] ? count +=1 : count = count
+#   end
+#   count
+# end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  digits = 0
+  result = 1
+  until result == 0
+    digits += 1
+    result = number / (10**digits)
+  end
+
+  (digits/2).times do |i|
+    if (number % 10**(i+1))/(10**i) == (number % 10**(digits-i))/(10**(digits-1-i))
+    else
+      return false
+    end
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
+  if number == 0
+    number = 1
+  else
+    x = number
+    until x == 1
+      number = number * (x-1)
+      x = x-1
+    end
+  end
   return number
 end
 
@@ -23,14 +79,34 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  left_num = 0
+  right_num = 1
+
+  if n == 0 || n == 1
+    return n
+  end
+
+  index= 0
+  until index == n-1
+    new_num = left_num + right_num
+    left_num = right_num
+    right_num = new_num
+    index += 1
+  end
+  return new_num
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  intersection = []
+  array_1.each do |num1|
+    array_2.each do |num2|
+      if num1 == num2
+        intersection << num1
+      end
+    end
+  end
+  return intersection
 end
 
 # Questions on 2D array or matrix
@@ -40,7 +116,32 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  column_index_array = [ ]
+  row_index_array = [ ]
+
+  row_index = 0
+  matrix.each do |row|
+    col_index = 0
+    row.each do |column|
+      if column == 0
+        column_index_array << col_index
+        row_index_array << row_index
+      end
+      col_index += 1
+    end
+    row_index += 1
+  end
+
+  x = 0
+  matrix.each do |row|
+    row_index_array.each do |r_index|
+      matrix[r_index][x] = 0
+      column_index_array.each do |c_index|
+        row[c_index] = 0
+      end
+    end
+  x +=1
+  end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
@@ -48,7 +149,22 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  row_sum_array = []
+  column_sum_array = []
+
+  matrix.each do |row|
+    index = 0
+    row_sum = 0
+    col_sum = 0
+    row.each do |column|
+      col_sum += column
+      row_sum += row[index]
+      index += 1
+    end
+    row_sum_array << row_sum
+    column_sum_array << col_sum
+  end
+return true
 end
 
 ### END OF METHODS
@@ -342,7 +458,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
-          [7, 8, 9],
           [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
@@ -352,7 +467,7 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
           [2, 3, 12],
           [9, 4, 9]]
