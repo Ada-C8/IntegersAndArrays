@@ -17,17 +17,20 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  # str_number = number.to_s #O(n) space is use
+  # get the largest base-ten logarithm of the number
+  # use this to keep track of the most significant digit
   left_divisor = 1
   while number / (left_divisor * 10) > 0
     left_divisor *= 10
   end
+  # right_mod isn't going to be modified and uses space but I created a variable for it for code legibility
+  # use this to keep track of least significant digit
   right_mod = 10
   until left_divisor < right_mod
     if number / left_divisor != number % right_mod
       return false
     end
-
+    # remove the most significant and least significant number after checking them
     number = number % left_divisor / right_mod
     left_divisor /= 100
   end
