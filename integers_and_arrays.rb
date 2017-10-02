@@ -1,20 +1,61 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  count = 0
+
+  while number_1 > 0 && number_2 > 0
+    count += 1 if (number_1 % 10) == (number_2 % 10)
+
+    number_1 /= 10
+    number_2 /= 10
+  end
+
+  return count
 end
+
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  #assumption: we consider a number less than two digits as a palindrome
+  return true if number < 10
+
+  digits = []
+
+  while number > 0
+    digits << number % 10
+    number /= 10
+  end
+
+  i = 0
+  j = digits.length-1
+  while i < j
+    return false if digits[i] != digits[j]
+    i += 1
+    j -= 1
+  end
+
   return true
+
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  # TODO: smarter code for factorial of 0 is 1
+  factorial = number
+  current = number
+
+  return 1 if number == 0
+  until current == 1
+    next_num = current - 1
+    factorial *= next_num
+
+    current -= 1
+  end
+
+  return factorial
+
 end
+
+# binding.pry
 
 # Computes the nth fibonacci number in the series starting with 0.
 # fibonacci series: 0 1 1 2 3 5 8 13 21 ...
@@ -23,14 +64,42 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  fib_seq = [0,1]
+
+  return fib_seq[n] if n < 2
+
+  until fib_seq.length == n + 1
+    fib_seq << (fib_seq[-1] + fib_seq[-2])
+  end
+
+  return fib_seq[n]
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  intersect = []
+
+  if array_1.length < array_2.length
+    smaller = array_1
+    larger = array_2
+  else
+    smaller = array_2
+    larger = array_1
+  end
+
+  idx = 0
+  while idx < smaller.length
+    num = smaller[idx]
+    idx2 = 0
+    while idx2 <  larger.length
+      intersect << larger[idx2] if larger[idx2] == num
+      idx2 += 1
+    end
+
+    idx +=1
+  end
+
+  return intersect
 end
 
 # Questions on 2D array or matrix
@@ -40,14 +109,79 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+
+  rows_with_z = []
+  columns_with_z = []
+  r_idx = 0
+
+  (matrix.length).times do #number of rows
+    c_idx = 0
+    (matrix[r_idx].length).times do #number of columns
+
+      if matrix[r_idx][c_idx] == 0
+        columns_with_z << c_idx
+        rows_with_z << r_idx
+      end
+
+      c_idx += 1
+    end
+
+    r_idx += 1
+  end
+
+  row_idx = 0
+  while row_idx < rows_with_z.length
+    row = rows_with_z[row_idx]
+    idx= 0
+    matrix[row].length.times do
+      matrix[row][idx] = 0
+      idx += 1
+    end
+    row_idx += 1
+  end
+
+  idx2 = 0
+  while idx2 < matrix.size
+    col_idx = 0
+    row = matrix[idx2]
+    while col_idx < columns_with_z.length
+      column = columns_with_z[col_idx]
+      row[column] = 0
+      col_idx += 1
+    end
+    idx2 += 1
+  end
+
+  return matrix
+
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+
+  idx = 0
+  size = matrix[0].length
+
+  while idx < size
+    row = matrix[idx]
+    row_sum = 0
+    column_sum = 0
+    idx2 = 0
+    size.times do
+      row_sum += row[idx2]
+      column_sum += matrix[idx2][idx]
+      idx2 += 1
+    end
+
+    return false if row_sum != column_sum
+
+    idx += 1
+  end
+
+  return true
+
 end
 
 ### END OF METHODS
