@@ -132,7 +132,7 @@ def matrix_check_sum(matrix)
       i += 1
      end
     end
-    
+
     return row_sum == column_sum
   end
 end
