@@ -1,19 +1,54 @@
 # Returns count of digits matching in the two input non-negative integers
+require 'pry'
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  sub_num_1 = number_1
+  sub_num_2 = number_2
+  count = 0
+  while (sub_num_1 != 0) && (sub_num_2 != 0)
+    if sub_num_1 % 10 == sub_num_2 % 10
+      count += 1
+
+      sub_num_1 /= 10
+      sub_num_2 /= 10
+
+    else
+      sub_num_1 /= 10
+      sub_num_2 /= 10
+    end
+  end
+  count
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+
+  temp_number = number
+  # until number == 0
+  def reverse_number(digits)
+    reverse_number = 0
+    while digits > 0 do
+      reverse_number = reverse_number * 10
+      reverse_number = reverse_number + (digits % 10)
+      digits = digits / 10
+    end
+    reverse_number
+  end
+
+  if reverse_number(temp_number) == number
+    true
+  else
+    false
+  end
+
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0
+    1
+  else
+    number * factorial(number - 1)
+  end
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +58,40 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  num_1 = 1
+  num_2 = 1
+
+  if n == (0..1)
+    return n
+  else
+    (n - 2).times do
+      temp = num_1 + num_2
+      num_1 = num_2
+      num_2 = temp
+    end
+  end
+  return num_2
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  intersect_array = []
+  # if array_1.length > array_2.le  ngth || array_1.length == array_2.length
+  array_1.each do |element|
+    index = 0
+    (array_2.length).times do
+      case
+      when
+        array_2[index] != element
+        index += 1
+      else
+        intersect_array << element
+        break
+      end
+    end
+  end
+  
+  intersect_array
 end
 
 # Questions on 2D array or matrix
@@ -43,7 +104,7 @@ def matrix_convert_to_0(matrix)
   puts "NOT IMPLEMENTED"
 end
 
-# Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
+# Checks that for the given matrix. If the sum of each row matches the sum of corresponding
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
@@ -312,9 +373,9 @@ puts "End of matrix convert to zero tests.\n\n"
 
 puts "Tests for Matrix check sum of rows and columns"
 matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-          [9, 5, 3, 1], # sum of 1st row = 18
-          [0, 3, 5, 6], # sum of 2nd row = 14
-          [0, 8, 3, 6]] # sum of 3rd row = 17
+[9, 5, 3, 1], # sum of 1st row = 18
+[0, 3, 5, 6], # sum of 2nd row = 14
+[0, 8, 3, 6]] # sum of 3rd row = 17
 # sums = 10, 18, 14, 17 for columns 0 through 3
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
@@ -340,8 +401,8 @@ if matrix_check_sum(matrix) == false
 end
 # test 3
 matrix = [[1, 2, 3],
-          [4, 5, 6],
-          [10, 11, 12]]
+[4, 5, 6],
+[10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
   rows = matrix.length
@@ -352,8 +413,8 @@ if matrix_check_sum(matrix) == true
 end
 # test 4
 matrix = [[1, 10, 1],
-          [2, 3, 12],
-          [9, 4, 9]]
+[2, 3, 12],
+[9, 4, 9]]
 if matrix_check_sum(matrix) == false
   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
   rows = matrix.length
