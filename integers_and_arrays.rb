@@ -1,4 +1,4 @@
-# Returns count of digits matching in the two input non-negative integers
+# RETURNS COUNT OF DIGITS MATCHING IN THE TWO INPUT NON-NEGATIVE NUMBERS
 # NOTE: The time complexity of the digit_match method is O(n), with n being the length of the shorter number. The method will run the while loop
 # NOTE: The space complexity of the digit_match method is O(1). No matter how large n gets the method will only allocate memory to create the number_of_matches variable.
 def digit_match(number_1, number_2)
@@ -18,7 +18,7 @@ def digit_match(number_1, number_2)
   return number_of_matches
 end
 
-# Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+# RETURNS TRUE IF THE INPUT POSITIVE INTEGER NUMBER FORMS A PALINDROME. RETURNS FALSE OTHERWISE.
 # NOTE: The time complexity of the is_palindrome method is O(n/2), or O(n). Because two digits are removed from number during each iteration of the while loop, the while loop will run the length of number / 2 times.
 # NOTE: The space complexity of the is_palindrome method is O(1), because the amount of memory alocated by the method remains constant as n increases.
 def is_palindrome(number)
@@ -54,7 +54,7 @@ def is_palindrome(number)
   return true
 end # is_palindrome
 
-# Computes factorial of the input number and returns it
+# COMPUTES FACTORIAL OF THE INPUT NUMBER AND RETURNS IT
 #NOTE: The time complexity if the factorial method is O(n!), because the while loop runs num * (num - 1) * (num -1) * .. * 2 * 1 times.
 # NOTE: The space complexity of the factorial method is O(1) because memory is only alocated for one integer variable no matter how large n gets.
 def factorial(number)
@@ -62,7 +62,6 @@ def factorial(number)
   if number == 0
     return 1
   end # if
-
   # calculate factorial for non 0 numbers (5! = 5 * 4 * 3 * 2 * 1)
   # times_by starts off as one less than the number and decreases until it is zero
   times_by = (number - 1)
@@ -73,7 +72,7 @@ def factorial(number)
   return number
 end
 
-# Computes the nth fibonacci number in the series starting with 0.
+# COMPUTES THE Nth FIBONACCI NUMBER IN THE SERIES STARTING WITH ZERO.
 # fibonacci series: 0 1 1 2 3 5 8 13 21 ...
 # e.g. 0th fibonacci number is 0
 # e.g. 1st fibonacci number is 1
@@ -89,6 +88,7 @@ def fibonacci(n)
   # define the fib variable outside of the time loop
   fib = 0
 
+# TODO: is there a way to fix the times loop so this if statement isn't nessesary?
   #return 1 for the first fibonacci number
   if n == 1
     return num_2
@@ -103,19 +103,16 @@ def fibonacci(n)
   return fib
 end
 
-# Creates a new array to return the intersection of the two input arrays
+# CREATES A NEW ARRAY TO RETURN THE INTERSECTION OF THE TWO INPUT ARRAYS
 #NOTE: The time complexity of the intersection method is O(n*m), or O(n^2) if array_1 is the same size as array_2. This is because for each interation of array_1 the method also iterates though array_2.
 #NOTE: The space complexity of the intersection method is linear, or O(length of intersection array): the amount of memory alocated is determined by how many elements are in both array_1 and array_2.
 def intersection(array_1, array_2)
-
   # return an empty array if either of the arrays is empty
   if array_1.length == 0 || array_2.length == 0
     return []
   end # if
-
   i = 0
   intersection = []
-
   # for each element array_1[i] interate though array_2 to see if array[i] is present in array_2. If it is then push array[i] into intersection.
   # have to reset j to zero in each interation of i
   while i < array_1.length
@@ -131,25 +128,27 @@ def intersection(array_1, array_2)
   return intersection
 end # intersection
 
-# Questions on 2D array or matrix
+# QUESTIONS ON 2D ARRAY OR MATRIX
 
 # Updates the input matrix based on the following rules:
-# Assumption/ Given: All numbers in the matrix are 0s or 1s
+# Assumption/Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 # NOTE: The space complexity of the matrix_convert_to_0 is linear, or O(number of zeros in rows + number of zeros in columns): As the number of zeros in the matrix increases the space complexity increases liniarly.
+# TODO: Can I figure out how to make the space complexity O(1)?
 # NOTE: The time complexity of the matrix_convert_to_0 method is O(n*m) where n is the size of the rows and m is the size of the columns. At worst, if every index is 0, then the time complexity will be O(2 * (n*m)).
 def matrix_convert_to_0(matrix)
   # determine the number of rows and columns in the matrix
   rows = matrix.length
   columns = matrix[0].length
-  i = 0
+
   # initialize arrays to store data for where the 0s are in the matrix
   rows_with_zeros = []
   columns_with_zeros = []
 
   # add the row index where there is a zero to the rows_with_zeros array and the column index where there is a zero to the columns_with_zeros array
-  # To decrease space complexity and increase time complexity I would add functionality to check if the index was already in the array before adding it...
+  # TODO: To decrease space complexity and increase time complexity I would add functionality to check if the index was already in the array before adding it...
+  i = 0
   while i < rows
     j = 0
     while j < columns
@@ -191,23 +190,19 @@ def matrix_convert_to_0(matrix)
 end # matrix_convert_to_0
 
 
-# Checks that for the given matrix, where number of rows are equal to number of columns
-# whether the sum of each row matches the sum of corresponding column i.e. sum
-# of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
+# CHECKS THAT FOR THE GIVEN MATRIX, WHERE NUMBER OF ROWS ARE EQUAL TO NUMBER OF COLUMNS WHETHER THE SUM OF EACH ROW MATCHES THE SUM OF THE CORRESPONDING COLUMN
+#i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 # NOTE: The space complexity of the matrix_check_sum method is O(1), the same 7 integer variables will be created no matter how large n is.
 # NOTE: The time complexity of the matrix_check_sum method is O(n^2), where n is the size of each row in the matrix.
 def matrix_check_sum(matrix)
   # since it is stated that this is for square matrixes, the size of columns and rows are both equal to length
-  #NOTE: This works, but it throws an error in the tests.....
-
-
   length = matrix.size
   i = 0
   sum_row = 0
   sum_column = 0
 
-# iterate though each row index[i] and check that it's sum is the same as the sum of the corresponding column ( culumn index[i])
+# iterate though each row index[i] and check that it's sum is the same as the sum of the corresponding column (culumn index[i])
   while i < length
     j = 0
     sum_row = 0
@@ -215,10 +210,8 @@ def matrix_check_sum(matrix)
     while j < length
       #calculate the total of the row with index [i]
       sum_row += matrix[i][j]
-      col = i
-      row = j
       # calculate the total of the column with index [i]
-      sum_column += matrix[row][col]
+      sum_column += matrix[j][i]
       j += 1
     end # inner while
     # verify that the total of the row with index[i] is equal to the total of the column with index[i]
