@@ -1,12 +1,10 @@
 # Returns count of digits matching in the two input non-negative integers
 
-require 'pry'
 def digit_match(number_1, number_2)
   m = 0
-
   j = 1
 
-  while (number_1/j > 1) && (number_2/j > 1)
+  while (number_1/j >= 1) && (number_2/j >= 1)
     if ((number_1/j) % 10) == ((number_2/j) % 10)
       m += 1
     end
@@ -36,25 +34,28 @@ def is_palindrome(number)
   #
   j = 0
 
-  n = number
-
-  while n >= 10
-    n /= 10
-    j += 1
-  end
+  j = num_digits(number)
 
   while j >= i
-
     if number % (10**(j+1))/(10**j) != number % (10**(i+1))/(10**i)
       return false
     end
-
     i += 1
     j -= 1
-
   end
   return true
 end
+
+def num_digits(number)
+  j = 0
+
+  while number >= 10
+    number /= 10
+    j += 1
+  end
+  return j
+end
+
 
 # Computes factorial of the input number and returns it
 def factorial(number)
@@ -125,23 +126,64 @@ def matrix_convert_to_0(matrix)
 
   while i < matrix.length
     j = 0
+
     while j < matrix[0].length
       if matrix[i][j] == 0
-        a = 0
-        while a < matrix.length
-          matrix[a][j] = 0
-          a += 1
-        end
-        a = 0
-        while a < matrix[0].length
-          matrix[i][a] = 0
-          a += 1
-        end
+        matrix[0][j] = 0
+        matrix[i][0] = 0
       end
       j += 1
     end
+
     i += 1
   end
+
+
+  i = 0
+  while i < matrix.length
+    if matrix[i][0] == 0
+      j = 1
+      while j < matrix[0].length
+        matrix[i][j] = 0
+        j += 1
+      end
+    end
+    i += 1
+  end
+
+  j = 0
+  while j < matrix[0].length
+    if matrix[0][j] == 0
+      while i < matrix.length
+        matrix[i][j] = 0
+        i += 1
+      end
+    end
+
+    j += 1
+  end
+
+  # i = 0
+  #
+  # while i < matrix.length
+  #   j = 0
+  #   while j < matrix[0].length
+  #     if matrix[i][j] == 0
+  #       a = 0
+  #       while a < matrix.length
+  #         matrix[a][j] = 0
+  #         a += 1
+  #       end
+  #       a = 0
+  #       while a < matrix[0].length
+  #         matrix[i][a] = 0
+  #         a += 1
+  #       end
+  #     end
+  #     j += 1
+  #   end
+  #   i += 1
+  # end
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns

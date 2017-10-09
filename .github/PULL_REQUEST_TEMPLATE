@@ -6,17 +6,17 @@ What is the time and space complexity for each method you implemented? Provide j
 
 |  Question 	|  Answer 	|
 |---	|---	|
-|  What is the time complexity of the digit_match method? Provide justification.	|   	|
-|  What is the space complexity of the digit_match method? Provide justification.	|   	|
-|  What is the time complexity of the is_palindrome method? Provide justification.	|   	|
-|  What is the space complexity of the is_palindrome method? Provide justification.	|   	|
-|  What is the time complexity of the factorial method? Provide justification.	|   	|
-|  What is the space complexity of the factorial method? Provide justification.	|   	|
-|  What is the time complexity of the fibonacci method? Provide justification.	|   	|
-|  What is the space complexity of the fibonacci method? Provide justification.	|   	|
-|  What is the time complexity of the intersection method? Provide justification.	|   	|
-|  What is the space complexity of the intersection method? Provide justification.	|   	|
-|  What is the time complexity of the matrix_convert_to_0 method? Provide justification.	|   	|
-|  What is the space complexity of the matrix_convert_to_0 method? Provide justification.	|   	|
-|  What is the time complexity of the matrix_check_sum method? Provide justification.	|   	|
-|  What is the space complexity of the matrix_check_sum method? Provide justification.	| 
+|  What is the time complexity of the digit_match method? Provide justification.	| O(n) Linear based on the number of digits.  Each digit must be examined once.  The longer the shorter number is, the longer the time complexity due to repeating the operation.  	|
+|  What is the space complexity of the digit_match method? Provide justification.	| Constant. Only 2 variables are required regardless of the size of the input numbers.  	|
+|  What is the time complexity of the is_palindrome method? Provide justification.	| O(n) Linear based on the number of digits. While it is linear + linear due to passing through each digit twice, this is reduced to linear.  	|
+|  What is the space complexity of the is_palindrome method? Provide justification.	| Constant. Required number of variables used in method doesn't change if the size of the number changes. 	|
+|  What is the time complexity of the factorial method? Provide justification.	| O(n)  Linear based on the value of n. Each digit must be used. 	|
+|  What is the space complexity of the factorial method? Provide justification.	| Constant. Variables used in the method are independent of the length of the number.  	|
+|  What is the time complexity of the fibonacci method? Provide justification.	| O(n) Linear based on the value of n. As n increases, the amount of times through the while loop increases proportionally.  	|
+|  What is the space complexity of the fibonacci method? Provide justification.	|  Constant. Required number of variables in independent of n. |
+|  What is the time complexity of the intersection method? Provide justification.	|  O(n x m) Quadratic: Each element of the first array must be passed through, and for each element in the first array, each element in the second array must be passed through.|
+|  What is the space complexity of the intersection method? Provide justification.	| Constant. Only 3 variables are required regardless of the length of the arrays. 	|
+|  What is the time complexity of the matrix_convert_to_0 method? Provide justification.	| Cubic. O(m x n (n + m)) For m arrays you must pass through n elements at least once. For each element that is a zero you must then pass through (n + m) elements.  	|
+|  What is the space complexity of the matrix_convert_to_0 method? Provide justification.	| Constant. Required number of variables doesn't change.  	|
+|  What is the time complexity of the matrix_check_sum method? Provide justification.	| Quadratic. O(m x (n + m))	| For each element in the first array of m elements, the loop passes through m elements in the array and n elements in the column.
+|  What is the space complexity of the matrix_check_sum method? Provide justification.	|
