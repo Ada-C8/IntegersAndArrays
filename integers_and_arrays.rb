@@ -1,19 +1,74 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
+  count = 1
+
+ if number_1 < number_2
+   dividend = 10
+   until (number_1 / dividend ) == 0
+     count += 1
+     dividend *= 10
+   end
+ else
+   dividend = 10
+   until (number_2 / dividend ) == 0
+     count += 1
+     dividend *= 10
+   end
+ end
+
+ match = 0
+ dividend = 10
+ count.times do
+   digit_1 = number_1 % dividend / (dividend / 10)
+   digit_2 = number_2 % dividend / (dividend / 10)
+   if digit_1 == digit_2
+     match += 1
+   end
+   dividend *= 10
+ end
+
+  return match
   return 0
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  modulo = 10
+  dividend = 1
+  dividend_2 = 1
+
+  while number / dividend > 10
+    dividend *= 10
+  end
+
+  until modulo > dividend
+    digit_1 = (number / dividend) % 10
+    digit_2 = number % modulo / dividend_2
+    if (digit_1) != (digit_2)
+      return false
+    end
+    modulo *= 10
+    dividend_2 *= 10
+    dividend = dividend / 10
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0
+    return 1
+  else
+    factorial = number
+    subtract = 1
+
+    while subtract < number do
+     factorial *= number - subtract
+     subtract += 1
+    end
+
+    return factorial
+  end
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +78,45 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  fib_array = [0, 1]
+  i = 1
+
+  if n < 2 && n > -1
+    return n
+  else
+
+    n.times do
+      fib_array << (fib_array[i] + fib_array[i - 1])
+      i += 1
+    end
+  end
+
+  return fib_array[n]
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  inter_array = []
+ if array_1.length == 0 || array_2.length == 0
+   return inter_array
+ elsif array_1.length < array_2.length
+   array_1.each do |num1|
+     array_2.each do |num2|
+       if num1 == num2
+         inter_array << num1
+       end
+     end
+   end
+ else
+   array_2.each do |num1|
+     array_1.each do |num2|
+       if num1 == num2
+         inter_array << num1
+       end
+     end
+   end
+ end
+ return inter_array
 end
 
 # Questions on 2D array or matrix
@@ -40,14 +126,40 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  matrix.each do |array|
+    column = 0
+    array.each do |num|
+      if num == 0
+        matrix.each { |array| array[column] = 0 }
+        i = 0
+        array.each do
+          array[i] = 0
+          i += 1
+        end
+      end
+      column += 1
+    end
+  end
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  i = 0
+  matrix.length.times do
+    row_sum = 0
+    column_sum = 0
+    matrix[i].each { |num| row_sum += num }
+    matrix.each { |array| column_sum += array[i] }
+
+    if row_sum != column_sum
+      return false
+    end
+    i += 1
+  end
+
+  return true
 end
 
 ### END OF METHODS
