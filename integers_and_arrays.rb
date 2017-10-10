@@ -1,4 +1,6 @@
 # Returns count of digits matching in the two input non-negative integers
+##########
+## O(n) ##
 def digit_match(number_1, number_2)
   matches = 0
   while number_1 > 0 && number_2 > 0
@@ -15,6 +17,8 @@ def digit_match(number_1, number_2)
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+##########
+## O(n) ##
 def is_palindrome(number)
   num_str = number.to_s
   front_index = 0
@@ -31,6 +35,8 @@ def is_palindrome(number)
 end
 
 # Computes factorial of the input number and returns it
+##########
+## O(n) ##
 def factorial(number)
   num = 1
   while number > 1
@@ -47,6 +53,8 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+##########
+## O(n) ##
 def fibonacci(n)
   if n == 0
     return 0
@@ -65,6 +73,8 @@ def fibonacci(n)
 end
 
 # Creates a new array to return the intersection of the two input arrays
+##########
+## O(n) ##
 def intersection(array_1, array_2)
   index = 0
   intersection = []
@@ -86,6 +96,8 @@ end
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
   # [[row].length, [column].length]
+  ############
+  ## O(n^2) ##
   width = matrix.length
   height = matrix[0].length
   zeros = []
@@ -100,7 +112,7 @@ def matrix_convert_to_0(matrix)
     end
     x += 1
   end
-  
+
   zeros.each do |bomb|
     x = bomb[0]
     y = bomb[1]
@@ -121,6 +133,8 @@ end
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
+############
+## O(n^2) ##
 def matrix_check_sum(matrix)
   size = matrix.length
   i = 0
