@@ -1,19 +1,80 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+=begin
+  Want: total number of digit matches when comparing two numbers. e.g. when value at the ones place is the same in both numbers
+  Given: two non-negative integers, must compare digits from right to left.
+
+  1. verfity passed in parameters are numbers, if not done.
+  2. compare numbers to find the number with least digits
+  3. set mod = 10, most_sig = 1, and matches = 0
+  4. while mod less than least digit number*10
+    - for both integers
+      - multiply by mod and then divide by most_sig
+      - if both number's digits match increment matches by 1
+    - multiply both mod and most_sig by 10
+  5. return matches
+=end
+
+  if number_1 < number_2
+    least = number_1
+  else
+    least = number_2
+  end
+  # puts least
+
+  matches = 0
+  mod = 10  # this isolates the last digit
+  most_sig = 1  # this isolates the first digit
+
+  while mod < (least*10)
+    if number_1 % mod / most_sig == number_2 % mod /most_sig
+      matches +=1
+    end
+
+    mod *= 10
+    most_sig *= 10
+
+  end
+
+  return matches
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  number_of_comparisons = 3
+  mod = 10
+  most_sig = 1
+  until number % mod == number % (mod * 10)
+    mod *= 10
+    most_sig *=10
+  end
+  least_sig = 1
+  mod = 10
+  while 10 ** number_of_comparisons < number
+    if number / most_sig % 10 == number % mod / least_sig
+      number_of_comparisons += 1
+      most_sig /= 10
+      least_sig *= 10
+      mod *= 10
+    else
+      return false
+    end
+  end
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+=begin
+  a factorial take a number and then multiplies like so 3: 3 *2*1 = 6
+  set variable to 1
+
+=end
+  factorial = 1
+  number.times do |i|
+    factorial *= (number - i)
+  end
+  return factorial
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +84,33 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+=begin
+  fibonacci number add up regular numbers in a sequence. ex 0+1 = 1, 1+1 = 2, 1+2 = 3, 2+3 =5
+=end
+
+  return 0 if n == 0
+  return 1 if n == 1
+  return fibonacci(n-1) + fibonacci(n-2)
+
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  temp = []
+   i = 0
+
+   while i < array_1.length
+     j = 0
+
+     while j < array_2.length
+       if array_1[i] == array_2[j]
+         temp << array_1[i]
+       end
+       j += 1
+     end
+     i += 1
+  end
+  return temp
 end
 
 # Questions on 2D array or matrix
@@ -40,15 +120,53 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  row = 0
+   while row < matrix.length
+     column = 0
+     while column < matrix.first.length
+       if matrix [row][column] == 0
+
+         i = 0
+         while i < matrix.first.length
+           matrix [row][i] = 0
+           i += 1
+         end
+
+         j = 0
+         while j < matrix.length
+           matrix [j][column] = 0
+           j += 1
+         end
+
+       end
+       column += 1
+     end
+     row += 1
+   end
+   return matrix
 end
 
-# Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
+# Checks that for the given matrix. If the sum of each row matches the sum of corresponding
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  n = matrix.length
+
+   n.times do |i|
+     row_sum = 0
+     column_sum = 0
+     n.times do |j|
+       row_sum += matrix[i][j]
+       column_sum += matrix[j][i]
+     end
+    if row_sum != column_sum
+       return false
+     end
+   end
+   return true
 end
+
+# time complexity is o(n^2) because there are two times loops that require the entire length of the matrix
 
 ### END OF METHODS
 puts "Tests for Digit Match"
