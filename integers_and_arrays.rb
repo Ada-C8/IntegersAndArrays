@@ -90,7 +90,9 @@ def intersection(array_1, array_2)
       end
     end
   end
-  
+  # ***** big shortcut *****
+  # array_1 & array_2
+
   intersect_array
 end
 
@@ -101,14 +103,69 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  #step 1 get rows and columns with 0
+  row_include_0 = []
+  column_include_0 = []
+  row_index = 0
+  column_index = 0
+  matrix.each do |array|
+    column_index = 0
+    array.each do |element|
+
+      if element == 0
+        row_include_0 << row_index
+        column_include_0 << column_index
+        column_index += 1
+      else
+        column_index += 1
+      end
+
+    end
+    row_index += 1
+  end
+  # step 2 convert all rows and columns with 0
+  row_include_0 = row_include_0.uniq
+  column_include_0 = column_include_0.uniq
+
+  if row_include_0.any?
+    row_include_0.each do |row_to_zero|
+
+      matrix[row_to_zero].map! do |element|
+        element = 0
+      end
+    end
+  end
+
+  if column_include_0.any?
+    column_include_0.each do |column_to_zero|
+      matrix.each do |array|
+        array[column_to_zero] = 0
+      end
+    end
+  end
+
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  count_column = 0
+  count_row = 0
+  index = 0
+  matrix.each do |array|
+    count_column = array.inject{ |sum, n| sum + n }
+    matrix.each do |row_array|
+      count_row += row_array[index]
+    end
+    index += 1
+    if count_column != count_row
+      return false
+    else
+      count_row = 0
+    end
+  end
+  return true
 end
 
 ### END OF METHODS
