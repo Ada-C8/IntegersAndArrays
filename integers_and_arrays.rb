@@ -35,7 +35,7 @@ end
 # Time: O(n) + O(n/2) = O(n)
 
 # Computes factorial of the input number and returns it
-def factorial(number) 
+def factorial(number)
   i = number - 1
   total = 1
   until i < 0 # O(n)
@@ -129,7 +129,6 @@ def matrix_check_sum(matrix)
   i = 0  # Each matrix row
   while i < matrix.length # O(n)
     row_total = 0
-    column_total = 0
 
     # Calculate sum of row
     matrix[i].each do |num| # O(n) - Worst case where row is as big as possible
@@ -137,10 +136,11 @@ def matrix_check_sum(matrix)
     end
 
     j = 0 # Current row
-    k = 0 # Current column index in [j] row
+    column_total = 0
+
     # Calculate sum of column
-    matrix.length.times do # O(n)
-      column_total += matrix[j][k]
+    while j < matrix.length # O(n)
+      column_total += matrix[j][i]
       j += 1
     end
 
@@ -148,7 +148,6 @@ def matrix_check_sum(matrix)
       return true
     else
       i += 1
-      k += 1
     end
   end
   return false
@@ -447,7 +446,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
-          [7, 8, 9],
           [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
@@ -457,7 +455,7 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
           [2, 3, 12],
           [9, 4, 9]]
