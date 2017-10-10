@@ -1,56 +1,185 @@
 # Returns count of digits matching in the two input non-negative integers
+#time complexity O(n), iterates over each digit
+#space complexity O(1),
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+
+  pairs_matched = 0
+
+  until number_1 == 0 || number_2 == 0
+    if number_1 % 10 == number_2 % 10
+      pairs_matched += 1
+    end
+    number_1 /= 10
+    number_2 /= 10
+  end
+  return pairs_matched
 end
 
+
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+
+  number = number.to_s
+  string_reversed = ""
+  n = 1
+
+  while number.length >= n
+    string_reversed += number[-n]
+    n += 1
+  end
+
+  if string_reversed == number
+    return true
+  else
+    return false
+  end
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  if number == 0
+    return 1
+  else number * factorial(number-1)
+  end
 end
 
-# Computes the nth fibonacci number in the series starting with 0.
-# fibonacci series: 0 1 1 2 3 5 8 13 21 ...
-# e.g. 0th fibonacci number is 0
-# e.g. 1st fibonacci number is 1
-# ....
-# e.g. 6th fibonacci number is 8
-def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+
+# also
+# def factorial(number)
+#   number == 0 ? 1 : number * factorial(number - 1)
+# end
+
+# also
+# def factorial(number)
+#
+#   if number == 0
+#     return 1
+#   end
+#
+#   result = 1
+#
+#   while number > 0
+#     result *= number
+#     number -= 1
+#   end
+#   return result
+# end
+
+
+def recursive_fibonacci(n) # time complexity O(2^n) exponential, space complexity O(n)
+  if n == 2
+    return n
+  else
+    recursive_fibonacci(n-1) + recursive_fibonacci(n-2)
+  end
 end
 
-# Creates a new array to return the intersection of the two input arrays
+
+# iterative fibonacci
+
+#Time complexity O(n)
+#Space complexity O(n)
+
+def fibonacci(num)
+
+  a = 0
+  b = 1
+
+  num.times do
+    temp = a
+    a = b
+    b = temp + b
+  end
+
+  return a
+
+end
+
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  a = 0
+  intersection = []
+  while a < array_1.length
+    b = 0
+    while b < array_2.length
+      if array_1[a] == array_2[b]
+        intersection.push(array_1[a])
+      end
+      b += 1
+    end
+    a += 1
+  end
+  return intersection
 end
 
-# Questions on 2D array or matrix
+# also
 
-# Updates the input matrix based on the following rules:
-# Assumption/ Given: All numbers in the matrix are 0s or 1s
-# If any number is found to be 0, the method updates all the numbers in the
-# corresponding row as well as the corresponding column to be 0.
-def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
-end
+# def intersection(array_1, array_2)
+#    return array_1 & array_2
+#  end
 
-# Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
+ # def union(array_1, array_2)
+ #   array_1 | array_2
+ # end
+
+ # def difference(array_1, array_2)
+ #   array_1 - array_2
+ # end
+
+ def matrix_convert_to_0(matrix)
+   row = 0
+   while row < matrix.length
+     column = 0
+     while column < matrix[0].length
+       if matrix[row][column] == 0
+         i = 0
+         while i < matrix[0].length
+           matrix[row][i] = 0
+           i += 1
+         end
+         j = 0
+         while j < matrix.length
+           matrix[j][column] = 0
+           j+=1
+         end
+       end
+       column += 1
+     end
+     row += 1
+   end
+   return matrix
+ end
+
+# Checks that for the given matrix. If the sum of each row matches the sum of corresponding
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
-end
+  row_sum = 0
+  column_sum = 0
+  i = 0
+  j = 0
 
+  if row_sum != column_sum # this is easy to check right away, saving time
+    return false
+  else
+    matrix.length.times do
+      until i == matrix.length
+        row_sum += matrix[j][i]
+        column_sum += matrix[i][j]
+        i += 1
+      end
+      i = 0
+      j += 1
+    end
+  end
+end
 ### END OF METHODS
+
+
+
+
+
+
 puts "Tests for Digit Match"
 count = digit_match(1072503891, 62530841)
 if count != 4
