@@ -1,19 +1,44 @@
 # Returns count of digits matching in the two input non-negative integers
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  matches = 0
+  while number_1 > 0 && number_2 > 0
+    digit_1 = number_1 % 10
+    digit_2 = number_2 % 10
+    number_1 /= 10
+    number_2 /= 10
+    if digit_1 == digit_2
+      matches += 1
+    end
+  end
+  # puts "NOT IMPLEMENTED"
+  return matches
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
+  num_str = number.to_s
+  front_index = 0
+  back_index = num_str.length-1
+  while front_index < back_index
+    if num_str[front_index] != num_str[back_index]
+      return false
+    end
+    front_index += 1
+    back_index -= 1
+  end
+  # puts "NOT IMPLEMENTED"
   return true
 end
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  num = 1
+  while number > 1
+    num *= number
+    number -= 1
+  end
+  # puts "NOT IMPLEMENTED"
+  return num
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -23,14 +48,34 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return 0
+  end
+  fibonacci_index = 1
+  current = 1
+  past = 0
+  while n > fibonacci_index
+    next_fib = current + past
+    past = current
+    current = next_fib
+    fibonacci_index += 1
+    # puts "NOT IMPLEMENTED"
+  end
+  return current
 end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  index = 0
+  intersection = []
+  while index < array_1.length
+    if array_2.include?(array_1[index])
+      intersection << array_1[index]
+    end
+    index += 1
+  end
+  # puts "NOT IMPLEMENTED"
+  return intersection
 end
 
 # Questions on 2D array or matrix
@@ -40,14 +85,70 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  # [[row].length, [column].length]
+  width = matrix.length
+  height = matrix[0].length
+  zeros = []
+  x = 0
+  while x < width
+    y = 0
+    while y < height
+      if matrix[x][y] == 0
+        zeros << [x, y]
+      end
+      y += 1
+    end
+    x += 1
+  end
+  
+  zeros.each do |bomb|
+    x = bomb[0]
+    y = bomb[1]
+    x_index = 0
+    while x_index < width
+      matrix[x_index][y] = 0
+      x_index += 1
+    end
+    y_index = 0
+    while y_index < height
+      matrix[x][y_index] = 0
+      y_index += 1
+    end
+  end
+  # puts "NOT IMPLEMENTED"
 end
 
-# Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
+# Checks that for the given matrix. If the sum of each row matches the sum of corresponding
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  size = matrix.length
+  i = 0
+
+  while i < size
+    # Find the sum of the row
+    x = 0
+    row_sum = 0
+    while x < size
+      row_sum += matrix[x][i]
+      x += 1
+    end
+    # Find the sum of the column
+    y = 0
+    col_sum = 0
+    while y < size
+      col_sum += matrix[i][y]
+      y += 1
+    end
+
+    if row_sum != col_sum
+      return false
+    end
+    # Compare if they match
+    i += 1
+  end
+  return true
+  # puts "NOT IMPLEMENTED"
 end
 
 ### END OF METHODS
