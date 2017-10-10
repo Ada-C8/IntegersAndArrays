@@ -44,6 +44,7 @@ end
 def is_palindrome(number)
   digits = 0
   result = 1
+  #determines the length of the number:
   until result == 0
     digits += 1
     result = number / (10**digits)
