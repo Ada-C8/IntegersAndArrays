@@ -41,14 +41,25 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-=begin
-  until number = nil multiply most_sig by 10
-  while most significant digit is the same as the least significant
-  multiply mod by 10 and divide most_sig by 10.
-
-=end
-
-  puts "NOT IMPLEMENTED"
+  number_of_comparisons = 3
+  mod = 10
+  most_sig = 1
+  until number % mod == number % (mod * 10)
+    mod *= 10
+    most_sig *=10
+  end
+  least_sig = 1
+  mod = 10
+  while 10 ** number_of_comparisons < number
+    if number / most_sig % 10 == number % mod / least_sig
+      number_of_comparisons += 1
+      most_sig /= 10
+      least_sig *= 10
+      mod *= 10
+    else
+      return false
+    end
+  end
   return true
 end
 
