@@ -132,10 +132,10 @@ end # intersection
 
 # Updates the input matrix based on the following rules:
 # Assumption/Given: All numbers in the matrix are 0s or 1s
-# If any number is found to be 0, the method updates all the numbers in the
-# corresponding row as well as the corresponding column to be 0.
+# If any number is found to be 0, the method updates all the numbers in the corresponding row as well as the corresponding column to be 0.
 # NOTE: The space complexity of the matrix_convert_to_0 is linear, or O(number of zeros in rows + number of zeros in columns): As the number of zeros in the matrix increases the space complexity increases liniarly.
 # TODO: Can I figure out how to make the space complexity O(1)?
+    # NOTE: To do this I can replace the 0 with a temp variable (maybe -1) and then go back through and change the rows and columns containing that temporary variable with zeros!
 # NOTE: The time complexity of the matrix_convert_to_0 method is O(n*m) where n is the size of the rows and m is the size of the columns. At worst, if every index is 0, then the time complexity will be O(2 * (n*m)).
 def matrix_convert_to_0(matrix)
   # determine the number of rows and columns in the matrix
@@ -147,7 +147,8 @@ def matrix_convert_to_0(matrix)
   columns_with_zeros = []
 
   # add the row index where there is a zero to the rows_with_zeros array and the column index where there is a zero to the columns_with_zeros array
-  # TODO: To decrease space complexity and increase time complexity I would add functionality to check if the index was already in the array before adding it...
+  # TODO: To decrease space complexity and increase time complexity I would add functionality to check if the
+  # index was already in the array before adding it...
   i = 0
   while i < rows
     j = 0
@@ -223,7 +224,7 @@ def matrix_check_sum(matrix)
   return true
 end #matrix_check_sum
 
-### END OF METHODS
+### END OF METHODS ##################################################
 puts "Tests for Digit Match"
 count = digit_match(1072503891, 62530841)
 if count != 4
