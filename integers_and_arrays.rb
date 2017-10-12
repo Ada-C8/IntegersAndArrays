@@ -34,6 +34,7 @@ while number / divisor > 0
   divisor *= 10
   num_length += 1
 end
+
 mid_point = num_length / 2
 if num_length % 2 == 0
  first_half = number / (10 ** mid_point)
@@ -49,6 +50,7 @@ if mid_point % 2
 else
   stop = 0
 end
+
 while i > stop
   first_digit = (first_half / (10 ** (i)) % (10))
   last_digit = (second_half % (10 ** (mid_point - i )) / (10 ** (mid_point - i - 1)))
@@ -57,30 +59,22 @@ while i > stop
   end
   i -= 1
 end
-
 return true
 end
 
-# last_digit = ((second_half % (10 ** (mid_point - i + 1))) / (10 ** (mid_point - i)))
-
-
-# i = 1
-# divisor = (10 ** num_length)
-# # binding.pry
-# num_length % 2 == 0 ? (stop = num_length / 2) : (stop = (num_length/2) + 1)
-# while i < stop
-#   divisor /= (10 ** i)
-#   first_digit = number / divisor
-#   last_digit = number % (divisor / (divisor/10))
-#   # binding.pry
-#   return false if last_digit != first_digit
-#   i += 1
-# end
-# return true
 
 # Computes factorial of the input number and returns it
 def factorial(number)
-  puts "NOT IMPLEMENTED"
+  if number == 0
+    number += 1
+    return number
+  end
+  i = number - 1
+  while i > 0
+    number = number * i
+    i -= 1
+  end
+  # binding.pry
   return number
 end
 
