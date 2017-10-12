@@ -135,7 +135,27 @@ end
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  row_sum = 0
+  column_sum = 0
+
+  i = 0 # counter outer loop, rows
+
+  while i < matrix.length # n rows
+    j = 0 # innter loop counter, columns
+    while j < matrix[i].length # columns
+      # switch i and j, rows and columns so that we get both values and add to sum variable
+      row_sum += matrix[i][j]
+      column_sum += matrix[j][i]
+      j += 1 # increment inner loop counter, columns
+    end
+    return false if row_sum != column_sum
+
+    i += 1 # increment inner loop counter, rows
+    # clear sum variables 
+    row_sum = 0
+    column_sum = 0
+  end
+  return true
 end
 
 ### END OF METHODS
