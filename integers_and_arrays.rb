@@ -159,7 +159,25 @@ end
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  i = 0
+  while matrix[i] != nil
+    j = 0
+    row_sum = 0
+    while matrix[i][j] != nil && matrix[i] != nil
+      row_sum += matrix[i][j]
+      j +=1
+    end
+    q = 0
+    column_sum = 0
+    # binding.pry
+    while matrix[q] != nil && matrix[q][i] != nil && matrix[i] != nil
+      column_sum += matrix[q][i]
+      q += 1
+    end
+    return false if row_sum != column_sum
+    i+=1
+  end
+  return true
 end
 
 ### END OF METHODS
@@ -422,56 +440,56 @@ end
 verify_matrix(matrix, rows_array, columns_array)
 puts "End of matrix convert to zero tests.\n\n"
 
-# puts "Tests for Matrix check sum of rows and columns"
-# matrix = [[1, 2, 3, 4], # sum of 0th row = 10
-#           [9, 5, 3, 1], # sum of 1st row = 18
-#           [0, 3, 5, 6], # sum of 2nd row = 14
-#           [0, 8, 3, 6]] # sum of 3rd row = 17
-# # sums = 10, 18, 14, 17 for columns 0 through 3
-# if matrix_check_sum(matrix) == false
-#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
-#   rows = matrix.length
-#   rows.times do |row|
-#     print matrix[row]
-#     puts
-#   end
-# end
-# # test 2
-# rows = 5
-# columns = 5
-# matrix = initialize_matrix(rows, columns) # initialize to all 0s
-# matrix[0][2] = 4
-# matrix[2][0] = 4
-# if matrix_check_sum(matrix) == false
-#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
-#   rows = matrix.length
-#   rows.times do |row|
-#     print matrix[row]
-#     puts
-#   end
-# end
-# # test 3
-# matrix = [[1, 2, 3],
-#           [4, 5, 6],
-#           [10, 11, 12]]
-# if matrix_check_sum(matrix) == true
-#   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
-#   rows = matrix.length
-#   rows.times do |row|
-#     print matrix[row]
-#     puts
-#   end
-# end
-# # test 4
-# matrix = [[1, 10, 1],
-#           [2, 3, 12],
-#           [9, 4, 9]]
-# if matrix_check_sum(matrix) == false
-#   puts "BUG!! Sums of each row matches the corresponding column in this matrix."
-#   rows = matrix.length
-#   rows.times do |row|
-#     print matrix[row]
-#     puts
-#   end
-# end
-# puts "End of matrix check sum of rows and columns.\n\n"
+puts "Tests for Matrix check sum of rows and columns"
+matrix = [[1, 2, 3, 4], # sum of 0th row = 10
+          [9, 5, 3, 1], # sum of 1st row = 18
+          [0, 3, 5, 6], # sum of 2nd row = 14
+          [0, 8, 3, 6]] # sum of 3rd row = 17
+# sums = 10, 18, 14, 17 for columns 0 through 3
+if matrix_check_sum(matrix) == false
+  puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+  rows = matrix.length
+  rows.times do |row|
+    print matrix[row]
+    puts
+  end
+end
+# test 2
+rows = 5
+columns = 5
+matrix = initialize_matrix(rows, columns) # initialize to all 0s
+matrix[0][2] = 4
+matrix[2][0] = 4
+if matrix_check_sum(matrix) == false
+  puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+  rows = matrix.length
+  rows.times do |row|
+    print matrix[row]
+    puts
+  end
+end
+# test 3
+matrix = [[1, 2, 3],
+          [4, 5, 6],
+          [10, 11, 12]]
+if matrix_check_sum(matrix) == true
+  puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
+  rows = matrix.length
+  rows.times do |row|
+    print matrix[row]
+    puts
+  end
+end
+# test 4
+matrix = [[1, 10, 1],
+          [2, 3, 12],
+          [9, 4, 9]]
+if matrix_check_sum(matrix) == false
+  puts "BUG!! Sums of each row matches the corresponding column in this matrix."
+  rows = matrix.length
+  rows.times do |row|
+    print matrix[row]
+    puts
+  end
+end
+puts "End of matrix check sum of rows and columns.\n\n"
