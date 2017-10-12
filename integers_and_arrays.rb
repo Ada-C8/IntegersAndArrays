@@ -16,11 +16,9 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-  number_of_comparisons = 3
-  mod = 10
+  number_of_comparisons = 0
   most_sig = 1
-  until number % mod == number % (mod * 10)
-    mod *= 10
+  while most_sig <= (number / 10)
     most_sig *=10
   end
   least_sig = 1
