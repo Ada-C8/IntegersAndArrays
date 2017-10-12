@@ -4,6 +4,8 @@ require 'pry'
 def digit_match(number_1, number_2)
 # module gives last digit
 # divide removes last digit
+# Time Complexity: O(n), it will take more time based on the size of the numbers given as inputs.
+# Space Complexity: Constant, the variables created will not take up more space based on the size of the input.
 matching = 0
 while number_1 != 0 && number_2 != 0
   last_digit_1 = number_1 % 10
@@ -14,20 +16,13 @@ while number_1 != 0 && number_2 != 0
 end
 return matching
 end
-#helper method to find length of a number
-def num_length(input)
-  num_length = 1
-  divisor = 10
-  while num_length / divisor > 0
-    divisor *= 10
-    num_length += 1
-  end
-  return num_length
-end
+
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
-#compare first digit and last digit
-# modulo = 10
+#splits the numbers in half
+#compares the first and last digit of each half
+# Time Complexity: O(n), the number is looped through twice.  I loop through it once to check its length and then again when I loop through its halves.  However, these two loops are not nested within one another.
+# Space Complexity: I believe that it is constant because the only variables I create are integers.
 num_length = 1
 divisor = 10
 while number / divisor > 0
@@ -64,6 +59,8 @@ end
 
 
 # Computes factorial of the input number and returns it
+# Time Complexity: O(n), I loop through the number once to multiply and change its value.
+# Space Complexity: Constant, The only variable I create is a counter.
 def factorial(number)
   if number == 0
     number += 1
@@ -85,6 +82,12 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
+#Time Complexity: O(n), The number is only looped through once.
+#Space Complexity: Constant.  Because I only create integer variables.
+  if n == 2
+    n = 1
+    return n
+  end
   if n >= 3
     first = 1
     second = 1
@@ -102,22 +105,24 @@ end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
+# Time Complexity: O(n^3).  I loop through three nested arrays...
+# Space Complexity: O(n), the length of the intersection array is dependent upon the number of values in common between the two arrays.
   intersection_array = []
   i = 0
-  while array_1[i] != nil
+  while array_1[i] != nil # goes through each value in an array
     z = 0
-    while array_2[z] != nil
+    while array_2[z] != nil # and compares it to every value in the other array
       if array_2[z] == array_1[i]
         q = 0
         counter = 0
-        while intersection_array[q] != nil
-          if intersection_array[q] == array_2[z]
+        while intersection_array[q] != nil # if they match, it check the intersection array for that value
+          if intersection_array[q] == array_2[z] # if it exists, then it breaks
             counter += 1
             return
           end
           q += 1
         end
-        intersection_array << array_2[z]
+        intersection_array << array_2[z] # if doesn't exist, then it shovels it in
       end
       z += 1
     end
@@ -133,18 +138,20 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
+# Time Complexity = O(n^3), my method contains three nested loops.
+# Space Complexity = Constant.  The only variables created are integers.
   i = 0
-  while matrix[i] != nil
+  while matrix[i] != nil # goes through each row in a matrix
     j = 0
-    while matrix[i][j] != nil && matrix[i] != nil
+    while matrix[i][j] != nil && matrix[i] != nil # goes through each value and checks for zero
       if matrix[i][j] == 0
         q = 0
-        while matrix[i][q] != nil && matrix[i][j] != nil && matrix[i] != nil
+        while matrix[i][q] != nil && matrix[i][j] != nil && matrix[i] != nil #if it finds a zero, it changes every value in that row to zero
           matrix[i][q] = 0
           q += 1
         end
         q = 0
-        while matrix[q] != nil && matrix[i][j] != nil && matrix[i] != nil
+        while matrix[q] != nil && matrix[i][j] != nil && matrix[i] != nil # and it changes every value in its corresponding column to zero
           matrix[q][j] = 0
           q += 1
         end
@@ -159,25 +166,27 @@ end
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
 def matrix_check_sum(matrix)
+#Time Complexity = O(n^2), my method includes a loop with 2 loops nested within it.
+#Space Complexity = Constant, the only variables created are integers.
   i = 0
-  while matrix[i] != nil
+  while matrix[i] != nil # goes through each row of matrix
     j = 0
     row_sum = 0
-    while matrix[i][j] != nil && matrix[i] != nil
+    while matrix[i][j] != nil && matrix[i] != nil # sums up ever value in a row
       row_sum += matrix[i][j]
       j +=1
     end
     q = 0
     column_sum = 0
     # binding.pry
-    while matrix[q] != nil && matrix[q][i] != nil && matrix[i] != nil
+    while matrix[q] != nil && matrix[q][i] != nil && matrix[i] != nil # sums up every value in a corresponding column
       column_sum += matrix[q][i]
       q += 1
     end
-    return false if row_sum != column_sum
+    return false if row_sum != column_sum # returns false if the row and column do not have equal sums
     i+=1
   end
-  return true
+  return true # returns true if their rows and columns have equal sums.
 end
 
 ### END OF METHODS
