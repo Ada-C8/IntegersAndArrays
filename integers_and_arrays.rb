@@ -26,6 +26,7 @@ def is_palindrome(number)
 end
 
 # Computes factorial of the input number and returns it
+# https://codereview.stackexchange.com/questions/82394/different-factorial-algorithms
 def factorial(number)
   total = 1
   while number > 1
@@ -88,7 +89,45 @@ end
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  coordinates = [] # martrix to store coordinates of zeros [row,column]
+
+  i = 0
+  # accesses the rows, outer array
+  while i < matrix.length # less than the number of rows in matrix, length = 4 and with array we will get 0..3 rows and end at 4
+    j = 0
+    #accesses the columns, inner array
+    while j < matrix[i].length # less than the columns in array, length = 3 and we just need 0..2 columns
+      if matrix[i][j] == 0
+        coordinates << [i,j] #[row,column] of 0 location
+      end
+      j += 1 # increment columns counter
+    end
+    i += 1 #increment rows counter
+  end
+  # at this point we have gone through whole matrix and have coordinates of zeros now we need to change stuff!
+
+  if coordinates == []
+    return matrix # return if no zeros
+  else
+    zero = 0 # coordinates counter
+    while zero < coordinates.length # rows length
+      j = 0 # columns counter
+      k = 0 # rows counter
+      # change all rows to zero
+      while j < matrix[k].length # column length 3, ends after 2
+        matrix[coordinates[zero][0]][j] = 0 # for each coordinate will look at row (holding 0 constant), and for each column (j) will change to zero
+        j += 1 # increment column counter
+      end
+
+      #change all of the columns to zero
+      while k < matrix.length # row length 4, ends after 3
+        matrix[k][coordinates[zero][1]] = 0 # for each coordinate it will focus on the column (why we hold 1 constant), and for each row will change the column to zero
+        k += 1 # increment row counter
+      end
+      zero += 1 #increments coordinates counter
+    end
+  end
+  return matrix
 end
 
 # Checks that for the given matrix, where number of rows are equal to number of columns
