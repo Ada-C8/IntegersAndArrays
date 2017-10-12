@@ -94,7 +94,6 @@ def fibonacci(n)
       second = first
       first = sum
       i += 1
-      # binding.pry
     end
     n = sum
   end
@@ -103,8 +102,31 @@ end
 
 # Creates a new array to return the intersection of the two input arrays
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  intersection_array = []
+  i = 0
+
+  # j = 0
+
+  while array_1[i] != nil
+    z = 0
+    while array_2[z] != nil
+      if array_2[z] == array_1[i]
+        q = 0
+        counter = 0
+        while intersection_array[q] != nil
+          if intersection_array[q] == array_2[z]
+            counter += 1
+            return
+          end
+          q += 1
+        end
+        intersection_array << array_2[z]
+      end
+      z += 1
+    end
+    i += 1
+  end
+  return intersection_array
 end
 
 # Questions on 2D array or matrix
@@ -212,81 +234,81 @@ if fib != 8
 end
 puts "End of Fibonacci tests.\n\n"
 
-# puts "Tests for intersection of two arrays."
-# # Test 1
-# array_1 = [70, 90, 34, 21, 78, 42]
-# array_2 = []
-# expected_intersection = []
-# common_elements = intersection(array_1, array_2)
-# if common_elements != expected_intersection
-#   puts "BUG!! Intersection elements unexpected."
-#   print "Array 1: "
-#   print array_1
-#   print " Array 2: "
-#   print array_2
-#   puts
-#   print "Expected intersection: "
-#   print expected_intersection
-#   print "Intersection method returned: "
-#   print common_elements
-#   puts
-# end
-# # Test 2
-# array_1 = [70, 90, 34, 21, 78, 42]
-# array_2 = [21, 67, 54, 29, 42, 30]
-# expected_intersection = [21, 42]
-# common_elements = intersection(array_1, array_2).sort
-# if common_elements != expected_intersection
-#   puts "BUG!! Intersection elements unexpected."
-#   print "Array 1: "
-#   print array_1
-#   print " Array 2: "
-#   print array_2
-#   puts
-#   print "Expected intersection: "
-#   print expected_intersection
-#   print "Intersection method returned: "
-#   print common_elements
-#   puts
-# end
-# # Test 3
-# array_1 = [2, 5, 4, 1, 89]
-# array_2 = [89, 5, 4, 1, 2]
-# expected_intersection = [1, 2, 4, 5, 89]
-# common_elements = intersection(array_1, array_2).sort
-# if common_elements != expected_intersection
-#   puts "BUG!! Intersection elements unexpected."
-#   print "Array 1: "
-#   print array_1
-#   print " Array 2: "
-#   print array_2
-#   puts
-#   print "Expected intersection: "
-#   print expected_intersection
-#   print "Intersection method returned: "
-#   print common_elements
-#   puts
-# end
-# # Test 4
-# array_1 = [92, 2, 5, 4, 1, 89, 90]
-# array_2 = [89, 5, 76, 4, 1, 2]
-# expected_intersection = [1, 2, 4, 5, 89]
-# common_elements = intersection(array_1, array_2).sort
-# if common_elements != expected_intersection
-#   puts "BUG!! Intersection elements unexpected."
-#   print "Array 1: "
-#   print array_1
-#   print " Array 2: "
-#   print array_2
-#   puts
-#   print "Expected intersection: "
-#   print expected_intersection
-#   print "Intersection method returned: "
-#   print common_elements
-#   puts
-# end
-# puts "End of intersection of two arrays tests.\n\n"
-#
+puts "Tests for intersection of two arrays."
+# Test 1
+array_1 = [70, 90, 34, 21, 78, 42]
+array_2 = []
+expected_intersection = []
+common_elements = intersection(array_1, array_2)
+if common_elements != expected_intersection
+  puts "BUG!! Intersection elements unexpected."
+  print "Array 1: "
+  print array_1
+  print " Array 2: "
+  print array_2
+  puts
+  print "Expected intersection: "
+  print expected_intersection
+  print "Intersection method returned: "
+  print common_elements
+  puts
+end
+# Test 2
+array_1 = [70, 90, 34, 21, 78, 42]
+array_2 = [21, 67, 54, 29, 42, 30]
+expected_intersection = [21, 42]
+common_elements = intersection(array_1, array_2).sort
+if common_elements != expected_intersection
+  puts "BUG!! Intersection elements unexpected."
+  print "Array 1: "
+  print array_1
+  print " Array 2: "
+  print array_2
+  puts
+  print "Expected intersection: "
+  print expected_intersection
+  print "Intersection method returned: "
+  print common_elements
+  puts
+end
+# Test 3
+array_1 = [2, 5, 4, 1, 89]
+array_2 = [89, 5, 4, 1, 2]
+expected_intersection = [1, 2, 4, 5, 89]
+common_elements = intersection(array_1, array_2).sort
+if common_elements != expected_intersection
+  puts "BUG!! Intersection elements unexpected."
+  print "Array 1: "
+  print array_1
+  print " Array 2: "
+  print array_2
+  puts
+  print "Expected intersection: "
+  print expected_intersection
+  print "Intersection method returned: "
+  print common_elements
+  puts
+end
+# Test 4
+array_1 = [92, 2, 5, 4, 1, 89, 90]
+array_2 = [89, 5, 76, 4, 1, 2]
+expected_intersection = [1, 2, 4, 5, 89]
+common_elements = intersection(array_1, array_2).sort
+if common_elements != expected_intersection
+  puts "BUG!! Intersection elements unexpected."
+  print "Array 1: "
+  print array_1
+  print " Array 2: "
+  print array_2
+  puts
+  print "Expected intersection: "
+  print expected_intersection
+  print "Intersection method returned: "
+  print common_elements
+  puts
+end
+puts "End of intersection of two arrays tests.\n\n"
+
 # puts "Tests for Matrix convert to zero"
 # ## helper method for creating and initializing a matrix with 1s
 # def initialize_matrix(rows, columns)
