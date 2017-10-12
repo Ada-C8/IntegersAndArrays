@@ -23,7 +23,7 @@ def is_palindrome(number)
   end
   least_sig = 1
   mod = 10
-  while 10 ** number_of_comparisons < number
+  while 10 ** number_of_comparisons < (number / least_sig)
     if number / most_sig % 10 == number % mod / least_sig
       number_of_comparisons += 1
       most_sig /= 10
