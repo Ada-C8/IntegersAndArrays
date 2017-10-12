@@ -85,7 +85,19 @@ end
 # ....
 # e.g. 6th fibonacci number is 8
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
+  if n >= 3
+    first = 1
+    second = 1
+    i = 3
+    while i < n + 1
+      sum = first + second
+      second = first
+      first = sum
+      i += 1
+      # binding.pry
+    end
+    n = sum
+  end
   return n
 end
 
@@ -172,34 +184,34 @@ if fact != 5040
 end
 puts "End of Factorial tests.\n\n"
 
-# puts "Tests for nth fibonacci number."
-# # 0 1 1 2 3 5 8 13 21 34 55 89 144
-# fib = fibonacci(1)
-# if fib != 1
-#   puts "BUG!! the 1st fibonacci number is 1 and not #{fib}."
-# end
-# fib = fibonacci(3)
-# if fib != 2
-#   puts "BUG!! the 3rd fibonacci number is 2 and not #{fib}."
-# end
-# fib = fibonacci(8)
-# if fib != 21
-#   puts "BUG!! the 8th fibonacci number is 21 and not #{fib}."
-# end
-# fib = fibonacci(11)
-# if fib != 89
-#   puts "BUG!! the 11th fibonacci number is 89 and not #{fib}."
-# end
-# fib = fibonacci(12)
-# if fib != 144
-#   puts "BUG!! the 12th fibonacci number is 144 and not #{fib}."
-# end
-# fib = fibonacci(6)
-# if fib != 8
-#   puts "BUG!! the 6th fibonacci number is 8 and not #{fib}."
-# end
-# puts "End of Fibonacci tests.\n\n"
-#
+puts "Tests for nth fibonacci number."
+# 0 1 1 2 3 5 8 13 21 34 55 89 144
+fib = fibonacci(1)
+if fib != 1
+  puts "BUG!! the 1st fibonacci number is 1 and not #{fib}."
+end
+fib = fibonacci(3)
+if fib != 2
+  puts "BUG!! the 3rd fibonacci number is 2 and not #{fib}."
+end
+fib = fibonacci(8)
+if fib != 21
+  puts "BUG!! the 8th fibonacci number is 21 and not #{fib}."
+end
+fib = fibonacci(11)
+if fib != 89
+  puts "BUG!! the 11th fibonacci number is 89 and not #{fib}."
+end
+fib = fibonacci(12)
+if fib != 144
+  puts "BUG!! the 12th fibonacci number is 144 and not #{fib}."
+end
+fib = fibonacci(6)
+if fib != 8
+  puts "BUG!! the 6th fibonacci number is 8 and not #{fib}."
+end
+puts "End of Fibonacci tests.\n\n"
+
 # puts "Tests for intersection of two arrays."
 # # Test 1
 # array_1 = [70, 90, 34, 21, 78, 42]
