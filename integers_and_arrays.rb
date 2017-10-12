@@ -1,19 +1,53 @@
+require 'pry'
 # Returns count of digits matching in the two input non-negative integers
+# TC - O(n) - the method looks through each digit in the string and terminate when the shortest string = 0 or runs out of digits. Worst case the string would be the same size so O(n) is dependent on the lenght of n.
+# SC - O(1) - the number of variables is constant no matter the size of the strings passed into the method.
 def digit_match(number_1, number_2)
-  puts "NOT IMPLEMENTED"
-  return 0
+  match_counter = 0
+  #until we run out of digits
+  until number_1 == 0 || number_2 == 0
+    # if last digits are equal add one to match_counter
+    if number_1 % 10 == number_2 % 10
+      match_counter += 1
+    end
+    # remove last digit from number
+    number_1 /= 10
+    number_2 /= 10
+  end
+  return counter
 end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
+# http://www.sanfoundry.com/python-program-check-number-palindrome/
+# TC - O(n) - the while loop run once for each digit in the number meaning time complexity is linear
+# SC - O(1) - the number of variables is constant, regardless of the size of the number passed into the method.
 def is_palindrome(number)
-  puts "NOT IMPLEMENTED"
-  return true
+  # temp store number in a variable
+  n = number
+  reversed_number = 0
+
+  while n > 0
+    #pulls off last digit of the number and store in last_digit varaible
+    last_digit = n % 10
+    # add a zero (digit / sigfig) to reversed_number with * 10 then adds last_digit (ex rev = 10 * 10 => 100 + last_digit)
+    reversed_number = reversed_number * 10 + last_digit
+    # removes last digit from number
+    n /= 10
+  end
+  number == reversed_number ? (return true) : (return false)
 end
 
 # Computes factorial of the input number and returns it
+# https://codereview.stackexchange.com/questions/82394/different-factorial-algorithms
+# TC - O(n) - each count of the while loop will decrement the number by 1 and will terminate when n = 0, meaning the last run will be n = 1. Meaning it runs n-1 times making O(n-1), the constant drops making it O(n).
+# SC - O(1) - the number of variables is constant regardless of the size of the number passed into the method.
 def factorial(number)
-  puts "NOT IMPLEMENTED"
-  return number
+  total = 1
+  while number > 1
+    total *= number
+    number -= 1 # decrement number
+  end
+  return total
 end
 
 # Computes the nth fibonacci number in the series starting with 0.
@@ -22,15 +56,48 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
+# https://stackoverflow.com/questions/24438655/ruby-fibonacci-algorithm
+#
+# TC - O(n) - The method has a loop that runs n times where n is the number passed into the method, which would be a linear time complexity.
+# SC - O(1) - space complexity is constant, it doesn't change as the size of the n passed into the method changes.
 def fibonacci(n)
-  puts "NOT IMPLEMENTED"
-  return n
+  if n == 0
+    return n
+  else
+    new_num = 1
+    old_num = 0
+    n.times do
+      temp = old_num
+      old_num = new_num
+      new_num = new_num + temp
+    end
+    return old_num
+  end
 end
 
 # Creates a new array to return the intersection of the two input arrays
+# TC - O(n^2) quadratic - This method has two loops that are nested, each looping through the lenght of the arrays which would be a quadratic time complexity.
+# SC - O(n) - This method has a holder array which increases in size based on the number of matches. Worst case scenario the two arrays passed into the method are identical and every element at each index is a match meaning the the size of the holder array is identical to the lenght of the arrays.
 def intersection(array_1, array_2)
-  puts "NOT IMPLEMENTED"
-  return []
+  holder = []
+  if array_1.length == 0 || array_2.length == 0
+    return holder
+  end
+  # index for array 1
+  i = 0
+  while i < array_1.length
+    # index for array 2
+    j = 0
+    while j < array_2.length
+      if array_1[i] == array_2[j]
+        temp = array_1[i]
+        holder << temp
+      end
+      j += 1
+    end
+    i += 1
+  end
+  return holder
 end
 
 # Questions on 2D array or matrix
@@ -39,15 +106,77 @@ end
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
+# TC - To search each point in the matrix means going through nested loops based on the number of rows and columns in the matrix which would take O(n^2) time. After going through this you have to loop back through the matrix again and change stuff from ones to zeros based on the number of zeros (lenght of coordinates), worst case everything is a zero, and then we have to loop through it all again which would be O(n^2) agains. O(n^2 + n^2). I'm not confident on this. Does the second n^2 drop?
+# SC - O(n) - worst case everything is a zero meaning your coordinates array variable is the same as the martix passed into the method.
 def matrix_convert_to_0(matrix)
-  puts "NOT IMPLEMENTED"
+  coordinates = [] # martrix to store coordinates of zeros [row,column]
+
+  i = 0
+  # accesses the rows, outer array
+  while i < matrix.length # less than the number of rows in matrix, length = 4 and with array we will get 0..3 rows and end at 4
+    j = 0
+    #accesses the columns, inner array
+    while j < matrix[i].length # less than the columns in array, length = 3 and we just need 0..2 columns
+      if matrix[i][j] == 0
+        coordinates << [i,j] #[row,column] of 0 location
+      end
+      j += 1 # increment columns counter
+    end
+    i += 1 #increment rows counter
+  end
+  # at this point we have gone through whole matrix and have coordinates of zeros now we need to change stuff!
+
+  if coordinates == []
+    return matrix # return if no zeros
+  else
+    zero = 0 # coordinates counter
+    while zero < coordinates.length # rows length
+      j = 0 # columns counter
+      k = 0 # rows counter
+      # change all rows to zero
+      while j < matrix[k].length # column length 3, ends after 2
+        matrix[coordinates[zero][0]][j] = 0 # for each coordinate will look at row (holding 0 constant), and for each column (j) will change to zero
+        j += 1 # increment column counter
+      end
+
+      #change all of the columns to zero
+      while k < matrix.length # row length 4, ends after 3
+        matrix[k][coordinates[zero][1]] = 0 # for each coordinate it will focus on the column (why we hold 1 constant), and for each row will change the column to zero
+        k += 1 # increment row counter
+      end
+      zero += 1 #increments coordinates counter
+    end
+  end
+  return matrix
 end
 
 # Checks that for the given matrix. If the sum of each row matches the sum of corresponding 
 # column i.e. sum of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
+# TC - O(n^2) - loop through nested while loops that are determined by the size of the matrix passed into the method.
+# SC - O(1) - the number of variables and memory used is constant regardless of the size of the martix passed through the method. 
 def matrix_check_sum(matrix)
-  puts "NOT IMPLEMENTED"
+  row_sum = 0
+  column_sum = 0
+
+  i = 0 # counter outer loop, rows
+
+  while i < matrix.length # n rows
+    j = 0 # innter loop counter, columns
+    while j < matrix[i].length # columns
+      # switch i and j, rows and columns so that we get both values and add to sum variable
+      row_sum += matrix[i][j]
+      column_sum += matrix[j][i]
+      j += 1 # increment inner loop counter, columns
+    end
+    return false if row_sum != column_sum
+
+    i += 1 # increment inner loop counter, rows
+    # clear sum variables
+    row_sum = 0
+    column_sum = 0
+  end
+  return true
 end
 
 ### END OF METHODS
