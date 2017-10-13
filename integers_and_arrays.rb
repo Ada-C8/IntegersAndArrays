@@ -1,5 +1,7 @@
 # Returns count of digits matching in the two input non-negative integers
 # Time complexity: O(k) where k is the number of digits in the number containing less digits
+# Aside: The number of digits (i.e. k) in a decimal number n is roughly "log (base 10) of (n * 10)"
+#        So the time complexity could be said to be O(lg (n*10)) with lg being log to the base 10.
 # Space complexity: O(1) - auxiliary storage does not change based on input
 def digit_match(number_1, number_2)
   return 0 if number_1 < 0 || number_2 < 0 # ensure non-negative integers
@@ -21,11 +23,12 @@ end
 
 # Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 # The approach below compares one digit at a time.
-# Time complexity: O(k) where k is the number of digits in the number
+# Time complexity: O(k) where k is the number of digits in the number,
+#                  or O(lg (number*10)), where lg is log to the base 10
 # Space complexity: O(1) since the auxiliary storage used does not change based on input
 # An alternative approach, is to reverse the number and save it separately and
 # compare it with the input. If they are equal, then the number is a palindrome.
-# The alternative approach creates O(k) space.
+# The alternative approach uses O(k) space.
 def is_palindrome(number)
   return false if number < 0
 
@@ -50,8 +53,8 @@ def is_palindrome(number)
 end
 
 # Computes factorial of the input number and returns it
-# Time complexity: O(number)
-# Space complexity: O(1)
+# Time complexity: O(number) becomes the loop will get executed 'number' number of times
+# Space complexity: O(1) - fact auxiliary variable used
 def factorial(number)
   fact = 1
   while number > 1
@@ -67,8 +70,8 @@ end
 # e.g. 1st fibonacci number is 1
 # ....
 # e.g. 6th fibonacci number is 8
-# Time complexity: O(n)
-# Space complexity: O(1)
+# Time complexity: O(n) - that's the number of times the loop will get executed
+# Space complexity: O(1) - first, second and current use constant space as input value changes
 def fibonacci(n)
   if n == 0 || n == 1
     return n
@@ -86,8 +89,9 @@ def fibonacci(n)
 end
 
 # Creates a new array to return the intersection of the two input arrays
+# Brute force approach
 # Time complexity: O(m*n) where array_1 has m elements and array_2 has n elements
-# Space complexity: O(m) if m < n since common_elements array gets created and
+# Space complexity: O(n) if n < m since common_elements array gets created and
 #                   returned and at the most all elements will match.
 def intersection(array_1, array_2)
   common_elements = []
@@ -102,14 +106,81 @@ def intersection(array_1, array_2)
   return common_elements
 end
 
+# needed for the sorting approach below to find intersection
+# def binary_search(array, value_to_find)
+#   return false if array.length == 0
+#   low = 0
+#   high = array.length-1
+#   while low < high
+#     mid = (high+low)/2
+#     if array[mid] == value_to_find
+#       return true
+#     elsif array[mid] > value_to_find
+#       high = mid-1
+#     elsif array[mid] < value_to_find
+#       low = mid+1
+#     end
+#   end
+#
+#   return true if array[low] == value_to_find
+# end
+#
+# # Leveraging sorting approach
+# def intersection(array_1, array_2)
+#   if array_1.length < array_2.length
+#     array_2.sort! # O(m log m) time
+#     larger = array_2
+#     smaller = array_1
+#   else
+#     array_1.sort! # O(m log m) time
+#     larger = array_1
+#     smaller = array_2
+#   end
+#   common_elements = []
+#   smaller.each do |number_1|
+#     # runs n times
+#     if binary_search(larger, number_1)
+#       # takes log m time
+#       common_elements << number_1
+#     end
+#   end # overall: O(n log m)
+# end
+
+# # Leveraging sorting approach
+# def intersection(array_1, array_2)
+#   if array_1.length < array_2.length
+#     larger = array_2
+#     smaller = array_1
+#   else
+#     larger = array_1
+#     smaller = array_2
+#   end
+#   my_hash = Hash.new()
+#   smaller.each do |num|
+#     my_hash[num] = 1
+#   end # O(n) space and O(n) time
+#   common_elements = []
+#   larger.each do |num_1|
+#     # runs m times
+#     if my_hash.include? num_1
+#       # takes O(1) time
+#       common_elements << num_1
+#     end
+#   end
+#   # overall: O(n+m) time
+#   # overall: O(n) space
+#   return common_elements
+# end
+
+
 # Questions on 2D array or matrix
 
 # Updates the input matrix based on the following rules:
 # Assumption/ Given: All numbers in the matrix are 0s or 1s
 # If any number is found to be 0, the method updates all the numbers in the
 # corresponding row as well as the corresponding column to be 0.
-# Time complexity: O(rows * columns)
-# Space complexity: O(1)
+# Time complexity: O(rows * columns) - the number of times the nested loop statements get executed
+# Space complexity: O(1) - rows and columns are auxiliary variables that won't change as matrix size changes
 def matrix_convert_to_0(matrix)
   rows = matrix.length
   columns = matrix[0].length
@@ -139,8 +210,8 @@ end
 # whether the sum of each row matches the sum of corresponding column i.e. sum
 # of numbers in row i is the same as the sum of numbers in column i for i = 0 to row.length-1
 # If this is the case, return true. Otherwise, return false.
-# Time complexity: O(rows * columns)
-# Space complexity: O(1)
+# Time complexity: O(rows * columns) - the number of times the nested loop statements get executed
+# Space complexity: O(1) rows and columns are auxiliary variables that won't change as matrix size changes
 def matrix_check_sum(matrix)
   rows = matrix.length
   columns = matrix[0].length
@@ -340,6 +411,7 @@ def initialize_matrix(rows, columns)
 end
 # helper method for verifying updated matrix
 def verify_matrix(matrix, rows_array, columns_array)
+  # deduce the rows and columns in the matrix
   rows = matrix.size
   columns = matrix[0].size
 
@@ -452,7 +524,6 @@ end
 # test 3
 matrix = [[1, 2, 3],
           [4, 5, 6],
-          [7, 8, 9],
           [10, 11, 12]]
 if matrix_check_sum(matrix) == true
   puts "BUG!! Sums of each row does NOT match the corresponding column in this matrix."
@@ -462,7 +533,7 @@ if matrix_check_sum(matrix) == true
     puts
   end
 end
-# test 3
+# test 4
 matrix = [[1, 10, 1],
           [2, 3, 12],
           [9, 4, 9]]
